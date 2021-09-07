@@ -14,4 +14,4 @@ if __name__ == "__main__":
     # use computer name get ip
     hostname = socket.gethostname()
     ip = socket.gethostbyname(hostname)
-    app.run(host=ip, port=8787, debug=True)
+    app.run(host="192.168.1.105", port=8787, debug=True)
