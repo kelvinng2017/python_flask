@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML SELECTION</title>
+</head>
+
+
+<body>
+    <h1>function name:{{strFunction}}</h1>
+    <!--<h1>使用字典变量：{{stk_dict["strFORNAME"]}}</h1>-->
+    <form name="form1" method="post" onsubmit="return myCheck()">
+        <label for="strCOMMANDID">strCOMMANDID:</label>
+        <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
+        <label for="USERID">USERID:</label>
+        <input type="text" id="USERID" name="USERID"><br><br>
+        <label for="strCARRIERID">strCARRIERID:</label>
+        <input type="text" id="strCARRIERID" name="strCARRIERID"><br><br>
+        <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
+        <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE"><br><br>
+        <label for="strFROMDEVICE">strFROMDEVICE:</label>
+        <input type="text" id="strFROMDEVICE" name="strFROMDEVICE"><br><br>
+        <label for="strFROMPORT">strFROMPORT:</label>
+        <input type="text" id="strFROMPORT" name="strFROMPORT"><br><br>
+        <label for="strTOPORT">strTOPORT:</label>
+        <input type="text" id="strTOPORT" name="strTOPORT"><br><br>
+        <label for="EMPTYCARRIER">EMPTYCARRIER:</label>
+        <input type="text" id="EMPTYCARRIER" name="EMPTYCARRIER"><br><br>
+        <label for="strPRIORITY">strPRIORITY:</label>
+        <input type="text" id="strPRIORITY" name="strPRIORITY"><br><br>
+        <label for="strMETHODNAME">strMETHODNAME:</label>
+        <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{strFunction}}><br><br>
+        <label for="strFORMNAME">strFORMNAME:</label>
+        <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
+        <label for="strCMD">strCMD:</label>
+        <input type="text" id="strCMD" name="strCMD" value={{strFunction}}><br><br>
+
+        <input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">
+
+
+    </form>
+    <script type="text/javascript">
+
+
+        function myCheck() {
+            for (var i = 0; i < document.form1.elements.length - 1; i++) {
+                if (document.form1.elements[i].value == "") {
+                    alert("cannot empty");
+                    document.form1.elements[i].focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+
+    </script>
+
+</body>
