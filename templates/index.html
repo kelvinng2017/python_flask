@@ -13,7 +13,8 @@
 <body>
 
     <form method="post">
-        <label for="function-name">select function:</label>
+        <!--
+            <label for="function-name">select function:</label>
         <select type="submit" name="select_function">
             <option value="{{function_list[0]}}" selected>{{function_list[0]}}</option>
             {% for function in function_list[1:] %}
@@ -21,6 +22,9 @@
             {% endfor %}
         </select>
         <input type="submit" name="send" value="send">
+        -->
+        <button type="submit" name="go_to" value="page_two">STKMOVE</button>
+        <button type="submit" name="go_to" value="page_three">EQMOVE</button>
 
     </form>
 

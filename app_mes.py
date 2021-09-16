@@ -13,9 +13,7 @@ timeNow = datetime.datetime.now()
 commandid = timeNow.strftime("%Y%m%d%H%M%S")+""+'{:0>4}'.format(rand.randint(1, 9999))
 f = open('config.json','r')
 data_json = json.load(f)
-SendQueueName = data_json.get('SendQueueName', 'ACSBridgeSendQueue')
-SendQueueIP = data_json.get('SendQueueIP', "192.168.0.85")
-SendQueue = "direct=" + SendQueueIP + "\\PRIVATE$\\" + SendQueueName
+queue_info = win32com.client.Dispatch("MSMQ.MSMQQueueInfo")
 
 
 
@@ -24,7 +22,25 @@ SendQueue = "direct=" + SendQueueIP + "\\PRIVATE$\\" + SendQueueName
 def index():
     function_list = ['STKMOVE','STKMOVE_R','']
     if request.method == 'POST' and request.values['send']=='send':
+        """
         
+        queue_info.FormatName = "direct=tcp:" + \
+            "192.168.0.91"+"\\PRIVATE$\\"+"kelvinng"
+        queue_send = None
+        try:
+            queue_send = queue_info.Open(2, 0)
+
+            msg = win32com.client.Dispatch("MSMQ.MSMQMessage")
+            msg.Label = "test_label"
+            msg.Body = "test_message"
+
+            msg.Send(queue_send)
+            print("function send")
+        except Exception as e:
+            print("wrong")
+        finally:
+            queue_send.Close()
+        """
         return redirect(url_for('stkmove',strFunction=request.form.get('select_function')))
     #if request.method == 'POST' and request.values['go_to']=='page_three':
     #   return redirect(url_for('page_three'))
@@ -40,7 +56,7 @@ def stkmove(strFunction):
         print("i am here",(request.form.get('strFORMNAME')).encode('utf-8'))
         print('function is send')
     
-    send_message_host_mes(SendQueue,"test","test1")
+    #send_message_host_mes(SendQueue,"test","test1")
 
     return render_template('stkmove.html',strFunction=strFunction,stk_dict=stk_dict)
     
