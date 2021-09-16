@@ -21,7 +21,7 @@ queue_info = win32com.client.Dispatch("MSMQ.MSMQQueueInfo")
 @app.route('/index',methods=['GET', 'POST'])
 def index():
     function_list = ['STKMOVE','STKMOVE_R','']
-    if request.method == 'POST' and request.values['send']=='send':
+    if request.method == 'POST' and request.values['go_to']=='STKMOVE_page':
         """
         
         queue_info.FormatName = "direct=tcp:" + \
