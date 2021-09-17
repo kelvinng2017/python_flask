@@ -13,20 +13,29 @@
 <body>
 
     <form method="post">
-        <!--
-            <label for="function-name">select function:</label>
+
+        <label for="function-name">select function:</label>
+
         <select type="submit" name="select_function">
             <option value="{{function_list[0]}}" selected>{{function_list[0]}}</option>
             {% for function in function_list[1:] %}
             <option value="{{function}}">{{function}}</option>
             {% endfor %}
         </select>
-        <input type="submit" name="send" value="send">
-        -->
-        <button type="submit" name="go_to" value="STKMOVE_page">STKMOVE</button>
-        <button type="submit" name="go_to" value="EQMOVE_page">EQMOVE</button>
+
+
+
+        <button type="submit" name="go_to" value="STKMOVE">STKMOVE</button>
+        <button type="submit" name="go_to" value="EQMOVE">EQMOVE</button>
 
     </form>
+    <!--
+        {% if str1=="STKMOVE" %}
+        <p>send STKMOVE Function</p>
+        {% elif str1=="EQMOVE" %}
+        <p>send EQMOVE Function</p>
+        {% endif %}
+    -->
 
 </body>
 

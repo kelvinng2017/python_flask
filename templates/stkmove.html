@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <title>HTML SELECTION</title>
 </head>
+<script src="{{url_for('static', filename='jquery-3.6.0.js')}}"></script>
+<script type=text/javascript>
+    var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
+</script>
 
 
 <body>
@@ -13,12 +17,18 @@
     <form name="form1" method="post" onsubmit="return myCheck()">
         <label for="strCOMMANDID">strCOMMANDID:</label>
         <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
-        <label for="USERID">USERID:</label>
-        <input type="text" id="USERID" name="USERID"><br><br>
+        <label for="strUSERID">strUSERID:</label>
+        <input type="text" id="USERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
         <label for="strCARRIERID">strCARRIERID:</label>
-        <input type="text" id="strCARRIERID" name="strCARRIERID"><br><br>
+        <select type="submit" name="strCARRIERRID">
+            <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
+            {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
+            <option value="{{function}}">{{strCARRIERRID}}</option>
+            {% endfor %}
+        </select><br><br>
+        <!--<input type="text" id="strCARRIERID" name="strCARRIERID"><br><br>-->
         <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
-        <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE"><br><br>
+        <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" value="MAGAZINE"><br><br>
         <label for="strFROMDEVICE">strFROMDEVICE:</label>
         <input type="text" id="strFROMDEVICE" name="strFROMDEVICE"><br><br>
         <label for="strFROMPORT">strFROMPORT:</label>

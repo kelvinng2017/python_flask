@@ -6,6 +6,7 @@ import datetime
 import win32com.client
 import os
 import pythoncom
+import random as rand
 from test_send_message import *
 app = Flask(__name__)
 app.debug = True
@@ -14,14 +15,23 @@ commandid = timeNow.strftime("%Y%m%d%H%M%S")+""+'{:0>4}'.format(rand.randint(1, 
 f = open('config.json','r')
 data_json = json.load(f)
 queue_info = win32com.client.Dispatch("MSMQ.MSMQQueueInfo")
-
+user_id = ""+'{:0>4}'.format(rand.randint(1, 9999))
 
 
 
 @app.route('/index',methods=['GET', 'POST'])
 def index():
     function_list = ['STKMOVE','STKMOVE_R','']
-    if request.method == 'POST' and request.values['go_to']=='STKMOVE_page':
+
+    if request.method == 'POST' and request.values['go_to']=='STKMOVE':
+        #str1 = 'STKMOVE'
+        #return render_template('index.html',function_list=function_list,str1=str1)
+        return redirect(url_for('stkmove',strFunction=request.form.get('go_to')))
+    if request.method == 'POST' and request.values['go_to']=='EQMOVE':
+        str1 = 'EQMOVE'
+        return render_template('index.html',function_list=function_list,str1=str1)
+
+        #return redirect(url_for('index',str1=str1))
         """
         
         queue_info.FormatName = "direct=tcp:" + \
@@ -41,15 +51,18 @@ def index():
         finally:
             queue_send.Close()
         """
-        return redirect(url_for('stkmove',strFunction=request.form.get('select_function')))
+        #return redirect(url_for('stkmove',strFunction=request.form.get('select_function')))
     #if request.method == 'POST' and request.values['go_to']=='page_three':
     #   return redirect(url_for('page_three'))
     return render_template('index.html',function_list=function_list)
 @app.route('/stkmove/<strFunction>',methods=['GET','POST'])
 def stkmove(strFunction):
+    strCARRIERRID_list =["E002_stock1","E003_stock1","E004_stock1"]
     stk_dict = {
         "strCOMAND":commandid,
         "strFORNAME":"ACS",
+        "strUSERID":user_id,
+        "strCARRIERRID":strCARRIERRID_list
     }
     
     if request.method == 'POST' and request.values['send_to_ACS_Getway']=='send_to_ACS_Getway':
@@ -57,7 +70,7 @@ def stkmove(strFunction):
         print('function is send')
     
     #send_message_host_mes(SendQueue,"test","test1")
-
+    
     return render_template('stkmove.html',strFunction=strFunction,stk_dict=stk_dict)
     
 """"
