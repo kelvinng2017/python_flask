@@ -178,23 +178,21 @@
                     processData: false,
                     dataType: "json"
                 });
+                function show() {
+                    var mydate = new Date();
 
+                    var mytime = mydate.toLocaleTimeString(); //獲取當前時間
+                    time = mydate.toLocaleString();//獲取日期與時間
+                    console.log("執行" + time);
+                }
+                setInterval(show, 3000);// 注意函式名沒有引號和括弧！
+                // 使用setInterval(“show()”,3000);會報“缺少物件”
 
 
             }
         );
 
-        $(function () {
-            function show() {
-                var mydate = new Date();
 
-                var mytime = mydate.toLocaleTimeString(); //獲取當前時間
-                time = mydate.toLocaleString();//獲取日期與時間
-                console.log("執行" + time);
-            }
-            setInterval(show, 3000);// 注意函式名沒有引號和括弧！
-            // 使用setInterval(“show()”,3000);會報“缺少物件”
-        });
 
 
         $(() => {
