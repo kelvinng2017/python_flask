@@ -196,7 +196,7 @@ def receive_function_and_process_function():
             #log.logger.debug("server has send message to client")
             msg = queue_receive.Receive()
             receive_messages_information_string =(msg.Body).encode("utf-8")
-            recv_dict["msmq_label"]= msg.Label
+            recv_dict["msmq_label"]= (msg.Label).encode("utf-8")
             recv_dict["msmq_message"] = receive_messages_information_string
             print(recv_dict["msmq_message"][0])
             queue_receive.Close()
