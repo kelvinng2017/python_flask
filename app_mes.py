@@ -183,6 +183,9 @@ def send_function():
 
 @app.route('/receive_function',methods=["GET","POST"])
 def receive_function_and_process_function():
+    need_change_to_input_list= ["OUTSTK","LEAVE","ARRIVE","VALIDINPUT","OUTEQP","INEQP","CARR_ALARM","INSTK","FOUPINFO"]
+    check_need_to_send_function_list = ["STKMOVE","EQMOVE","EMPTYCARRMOVE","CHANGECMD","MOVEREQUEST","INVDATA","MOVESTATUSREQUEST"]
+    need_change_to_send_function_replay_list= ["OUTSTK_R","LEAVE_R","ARRIVE_R","VALIDINPUT_R","OUTEQP_R","INEQP_R","CARR_ALARM_R","INSTK_R","FOUPINFO_R"]
     print("i am here recv1")
     recv_dict={}
     queue_info.FormatName = RecvQueue
@@ -198,7 +201,13 @@ def receive_function_and_process_function():
             receive_messages_information_string =(msg.Body).encode("utf-8")
             recv_dict["msmq_label"]= (msg.Label).encode("utf-8")
             recv_dict["msmq_message"] = receive_messages_information_string
-            print(recv_dict["msmq_message"][0])
+            if(recv_dict["msmq_message"][0]=="<"):#recv_dict["msmq_message"][0]string
+                root = etree.fromstring(recv_dict["msmq_message"])
+                if(len(root)>1):
+                    if(len(root[1])>1):
+                        if(len(root[1][-1])>=1):
+                            if(root[1][-1][0].text in need_change_to_input_list):
+                                if(str(root[1][-1][0].text) == "VALIDINPUT"):
             queue_receive.Close()
             return jsonify(recv_dict)
         else:
