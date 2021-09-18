@@ -183,7 +183,33 @@
 
                     var mytime = mydate.toLocaleTimeString(); //獲取當前時間
                     time = mydate.toLocaleString();//獲取日期與時間
-                    console.log("執行" + time);
+                    console.log("開始執行" + time);
+                    console.log("receive message");
+                    var recv_data = new FormData();
+                    recv_data.append('strCOMMANDID', $("#strCOMMANDID").val())
+                    $.ajax({
+                        type: "POST",
+                        url: $SCRIPT_ROOT + "/receive_function",
+                        data: recv_data,
+                        success: (data) => {
+                            //console.log("驗證:" + data.validate);
+                            //console.log("價錢:" + data.PayAmount);
+                            console.log(data.msmq_label)
+                            console.log(data.msmq_message)
+                            //var txt2 = $("").text(data.replay);
+                            //console.log(txt2)
+                            //$("body").append(txt2)
+                            //alert(data.validate)
+                            //alert(data.Rtnfood)
+                            //也可以用jquery來呈現結果
+                            //food_name = data.Rtnfood
+                            //console.log("食物1:" + food_name)
+                        },
+                        contentType: false,
+                        processData: false,
+                        dataType: "json"
+                    });
+                    console.log("結束時間" + time);
                 }
                 setInterval(show, 3000);// 注意函式名沒有引號和括弧！
                 // 使用setInterval(“show()”,3000);會報“缺少物件”
