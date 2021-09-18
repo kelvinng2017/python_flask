@@ -1,0 +1,44 @@
+<h1>function name:{{stk_dict["strFunction"]}}</h1>
+<form name="form1" method="post" onsubmit="return myCheck()" id="stkmove_form">
+    <label for="strCOMMANDID">strCOMMANDID:</label>
+    <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
+    <label for="strUSERID">strUSERID:</label>
+    <input type="text" id="USERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
+    <label for="strCARRIERID">strCARRIERID:</label>
+    <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected">
+        <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
+        {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
+        <option value="{{strCARRIERRID}}" id="hope_id">{{strCARRIERRID}}</option>
+        {% endfor %}
+    </select><br><br>
+
+
+
+    <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
+    <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" value="MAGAZINE"><br><br>
+    <label for="strFROMDEVICE">strFROMDEVICE:</label>
+    <input type="text" id="strFROMDEVICE" name="strFROMDEVICE"><br><br>
+    <label for="strFROMPORT">strFROMPORT:</label>
+    <input type="text" id="strFROMPORT" name="strFROMPORT"><br><br>
+    <label for="strTODEVICE">strTODEVICE:</label>
+    <select type="submit" name="strTODEVICE" id="strTODEVICE_selected">
+        <option value="{{stk_dict['strTODEVICE'][0]}}" selected>{{stk_dict["strTODEVICE"][0]}}</option>
+        {% for strTODEVICE in stk_dict["strTODEVICE"][1:] %}
+        <option value="{{strTODEVICE}}" id="hope_id">{{strTODEVICE}}</option>
+        {% endfor %}
+    </select><br><br>
+    <label for="strT0PORT">strTOPORT:</label>
+    <input type="text" id="strTOPORT" name="strTOPORT" value="1234"><br><br>
+    <label for="strEMPTYCARRIER">strEMPTYCARRIER:</label>
+    <input type="text" id="strEMPTYCARRIER" name="strEMPTYCARRIER" value="ON"><br><br>
+    <label for="strPRIORITY">strPRIORITY:</label>
+    <input type="text" id="strPRIORITY" name="strPRIORITY" value="1"><br><br>
+    <label for="strMETHODNAME">strMETHODNAME:</label>
+    <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{stk_dict["strFunction"]}}><br><br>
+    <label for="strFORMNAME">strFORMNAME:</label>
+    <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
+    <label for="strCMD">strCMD:</label>
+    <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
+
+    <input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">
+</form>
