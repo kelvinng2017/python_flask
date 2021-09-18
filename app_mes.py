@@ -187,23 +187,34 @@ def receive_function_and_process_function():
     queue_info.FormatName = RecvQueue
     print(RecvQueue)
     queue_receive = None
-    queue_receive = queue_info.Open(1, 0)
-    print("i am here recv2")
-    timeout_sec = 5.0
-    if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
-        #log.logger.debug("server has send message to client")
-        msg = queue_receive.Receive()
-        recv_dict["msmq_label"]= msg.Label
-        recv_dict["msmq_message"] = msg.Body
-        print(recv_dict)
+    try:
+        queue_receive = queue_info.Open(1, 0)
+        print("i am here recv2")
+        timeout_sec = 5.0
+        if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
+            #log.logger.debug("server has send message to client")
+            msg = queue_receive.Receive()
+            recv_dict["msmq_label"]= msg.Label
+            recv_dict["msmq_message"] = msg.Body
+            print(recv_dict)
+            queue_receive.Close()
+            return jsonify(recv_dict)
+        else:
+            recv_dict["msmq_label"]= "msmq no label"
+            recv_dict["msmq_message"] = "msmq no message"
+            queue_receive.Close()
+            return jsonify(recv_dict)
+    except Exception as e:
+        print("wrong message"+e)
+        recv_dict["msmq_label"]= "connect error"
+        recv_dict["msmq_message"] = "connect error"
         queue_receive.Close()
         return jsonify(recv_dict)
-    else:
-        recv_dict["msmq_label"]= "msmq no label"
-        recv_dict["msmq_message"] = "msmq no message"
+    finally:    
         queue_receive.Close()
-        return jsonify(recv_dict)
-    
+
+
+
    
 """"
 @app.route('/page_two/<username>', methods=['GET', 'POST'])
