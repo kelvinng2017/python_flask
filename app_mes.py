@@ -201,8 +201,8 @@ def receive_function_and_process_function():
             return jsonify(recv_dict)
         else:
             Time2 = timeNow.strftime("%Y/%m/%d %H:%M:%S")
-            recv_dict["msmq_label"]= "msmq no label"+Time2
-            recv_dict["msmq_message"] = "msmq no message"+Time2
+            recv_dict["msmq_label"]= "msmq no label"
+            recv_dict["msmq_message"] = "msmq no message"
             queue_receive.Close()
             return jsonify(recv_dict)
     except Exception as e:
