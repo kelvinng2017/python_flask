@@ -190,7 +190,7 @@ def receive_function_and_process_function():
     try:
         queue_receive = queue_info.Open(1, 0)
         print("i am here recv2")
-        timeout_sec = 1.0
+        timeout_sec = 10.0
         if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
             #log.logger.debug("server has send message to client")
             msg = queue_receive.Receive()
