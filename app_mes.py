@@ -8,6 +8,7 @@ import pythoncom
 import random as rand
 from test_send_message import *
 from function import *
+from lxml import etree 
 app = Flask(__name__)
 app.debug = True
 timeNow = datetime.datetime.now()
@@ -194,9 +195,10 @@ def receive_function_and_process_function():
         if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
             #log.logger.debug("server has send message to client")
             msg = queue_receive.Receive()
+            receive_messages_information_string =(msg.Body).encode("utf-8")
             recv_dict["msmq_label"]= msg.Label
-            recv_dict["msmq_message"] = msg.Body
-            print(recv_dict)
+            recv_dict["msmq_message"] = receive_messages_information_string
+            print(recv_dict["msmq_message"][0])
             queue_receive.Close()
             return jsonify(recv_dict)
         else:
