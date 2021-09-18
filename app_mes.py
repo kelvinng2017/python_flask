@@ -200,8 +200,8 @@ def receive_function_and_process_function():
             queue_receive.Close()
             return jsonify(recv_dict)
         else:
-            recv_dict["msmq_label"]= "msmq no label"
-            recv_dict["msmq_message"] = "msmq no message"
+            recv_dict["msmq_label"]= "msmq no label"+Time
+            recv_dict["msmq_message"] = "msmq no message"+Time
             queue_receive.Close()
             return jsonify(recv_dict)
     except Exception as e:
