@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,url_for,make_response,Response,jsonify
+from flask import Flask, render_template, request, redirect, url_for, make_response, Response, jsonify
 import json
 import random as rand
 import datetime
@@ -8,13 +8,14 @@ import pythoncom
 import random as rand
 from test_send_message import *
 from function import *
-from lxml import etree 
+from lxml import etree
 app = Flask(__name__)
 app.debug = True
 timeNow = datetime.datetime.now()
 Time = timeNow.strftime("%Y/%m/%d %H:%M:%S")
-commandid = timeNow.strftime("%Y%m%d%H%M%S")+""+'{:0>4}'.format(rand.randint(1, 9999))
-f = open('config.json','r')
+commandid = timeNow.strftime("%Y%m%d%H%M%S")+"" + \
+    '{:0>4}'.format(rand.randint(1, 9999))
+f = open('config.json', 'r')
 data_json = json.load(f)
 queue_info = win32com.client.Dispatch("MSMQ.MSMQQueueInfo")
 user_id = ""+'{:0>4}'.format(rand.randint(1, 9999))
@@ -25,7 +26,7 @@ RecvQueueName = data.get('RecvQueueName', 'ACSBridgeQueue')
 ErrQueueName = data.get('ErrQueueName', 'MESQueue')
 SendQueueIP = data.get('SendQueueIP', "tcp:192.168.0.90")
 RecvQueueIP = data.get('RecvQueueIP', "tcp:192.168.0.85")
-ErrQueueIP = data.get('ErrQueueIP',"tcp:192.168.0.91")
+ErrQueueIP = data.get('ErrQueueIP', "tcp:192.168.0.91")
 SendQueue = "direct=" + SendQueueIP + "\\PRIVATE$\\" + SendQueueName
 RecvQueue = "direct=" + RecvQueueIP + "\\PRIVATE$\\" + RecvQueueName
 ErrQueue = "direct=" + ErrQueueIP + "\\PRIVATE$\\" + ErrQueueName
@@ -33,24 +34,46 @@ HostName = os.getenv('COMPUTERNAME')
 Version = '1.6'
 PID = '00000000'
 f.close()
-def Response_headers(content):  
-    resp = Response(content)  
-    resp.headers['Access-Control-Allow-Origin'] = '*'  
-    return resp  
 
-@app.route('/index',methods=['GET', 'POST'])
+
+def Response_headers(content):
+    resp = Response(content)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
+def send_msmaq(label, message):
+    queue_info.FormatName = SendQueue
+    queue_send = None
+    try:
+        queue_send = queue_info.Open(2, 0)
+
+        msg = win32com.client.Dispatch("MSMQ.MSMQMessage")
+        msg.Label = label
+        msg.Body = message
+
+        msg.Send(queue_send)
+        print("function send")
+    except Exception as e:
+        print("wrong")
+    finally:
+        queue_send.Close()
+    print(SendQueue)
+
+
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    function_list = ['STKMOVE','STKMOVE_R','']
+    function_list = ['STKMOVE', 'STKMOVE_R', '']
 
-    if request.method == 'POST' and request.values['go_to']=='STKMOVE':
-        #str1 = 'STKMOVE'
-        #return render_template('index.html',function_list=function_list,str1=str1)
-        return redirect(url_for('stkmove',strFunction=request.form.get('go_to')))
-    if request.method == 'POST' and request.values['go_to']=='EQMOVE':
+    if request.method == 'POST' and request.values['go_to'] == 'STKMOVE':
+        # str1 = 'STKMOVE'
+        # return render_template('index.html',function_list=function_list,str1=str1)
+        return redirect(url_for('stkmove', strFunction=request.form.get('go_to')))
+    if request.method == 'POST' and request.values['go_to'] == 'EQMOVE':
         str1 = 'EQMOVE'
-        return render_template('index.html',function_list=function_list,str1=str1)
+        return render_template('index.html', function_list=function_list, str1=str1)
 
-        #return redirect(url_for('index',str1=str1))
+        # return redirect(url_for('index',str1=str1))
         """
         
         queue_info.FormatName = "direct=tcp:" + \
@@ -70,26 +93,29 @@ def index():
         finally:
             queue_send.Close()
         """
-        #return redirect(url_for('stkmove',strFunction=request.form.get('select_function')))
-    #if request.method == 'POST' and request.values['go_to']=='page_three':
+        # return redirect(url_for('stkmove',strFunction=request.form.get('select_function')))
+    # if request.method == 'POST' and request.values['go_to']=='page_three':
     #   return redirect(url_for('page_three'))
-    return render_template('index.html',function_list=function_list)
-    #return render_template('test_page.html')
-testInfo= {}
-@app.route('/stkmove/<strFunction>',methods=['GET','POST'])
+    return render_template('index.html', function_list=function_list)
+
+    # return render_template('test_page.html')
+testInfo = {}
+
+
+@app.route('/stkmove/<strFunction>', methods=['GET', 'POST'])
 def stkmove(strFunction):
-    strCARRIERRID_list =["E002_stock1","E003_stock1","E004_stock1"]
-    strTODEVICE_list = ["LSD002","LSD003","LSD004","LSD005","LSD022","LSD023",
-                    "LSD024","LSD025","LSD029","LSD030","LSD033",
-                    "OCR01","OCR02","OCR03","OCR04","OCR05",
-                    "WSD119","WSD137","WSD156","WSD157","WSD158","WSD162","WSD163","WSD645"]
+    strCARRIERRID_list = ["E002_stock1", "E003_stock1", "E004_stock1"]
+    strTODEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
+                        "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
+                        "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
+                        "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
     stk_dict = {
-        "strFunction":strFunction,
-        "strCOMAND":commandid,
-        "strFORNAME":"ACS",
-        "strUSERID":user_id,
-        "strCARRIERRID":strCARRIERRID_list,
-        "strTODEVICE":strTODEVICE_list,
+        "strFunction": strFunction,
+        "strCOMAND": commandid,
+        "strFORNAME": "ACS",
+        "strUSERID": user_id,
+        "strCARRIERRID": strCARRIERRID_list,
+        "strTODEVICE": strTODEVICE_list,
     }
     """
     if request.method == 'POST' and request.values['send_to_ACS_Getway']=='send_to_ACS_Getway':
@@ -128,19 +154,21 @@ def stkmove(strFunction):
         print(stkmove_xml_data)
         testInfo['stkmove'] = stkmove_xml_data
         return json.dumps(testInfo)
-        #return render_template('stkmove.html',xml_data=xml_data)
+        # return render_template('stkmove.html',xml_data=xml_data)
     """
-    
-    #send_message_host_mes(SendQueue,"test","test1")
-    
-    return render_template('stkmove.html',stk_dict=stk_dict)
-@app.route('/send_function',methods=["GET","POST"])
+
+    # send_message_host_mes(SendQueue,"test","test1")
+
+    return render_template('stkmove.html', stk_dict=stk_dict)
+
+
+@app.route('/send_function', methods=["GET", "POST"])
 def send_function():
     print("i am here send")
     send_to_html_dict = {}
     send_method = (request.form.get('strMETHODNAME')).encode('utf-8')
     print(send_method)
-    if(send_method=="STKMOVE"):
+    if(send_method == "STKMOVE"):
         print('stkmove function is send')
         stkmove_xml_data = STKMOVE.format(
             IP=SendQueueIP,
@@ -154,40 +182,30 @@ def send_function():
             CARRIERID=((request.form.get('strCARRIERRID')).encode('utf-8')),
             FROMDEVICE=((request.form.get('strFROMDEVICE')).encode('utf-8')),
             FROMPORT=((request.form.get('strFROMPORT')).encode('utf-8')),
-            TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),  
+            TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),
             TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
-            EMPTYCARRIER=((request.form.get('strEMPTYCARRIER')).encode('utf-8')),
+            EMPTYCARRIER=(
+                (request.form.get('strEMPTYCARRIER')).encode('utf-8')),
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
         print(stkmove_xml_data)
-        queue_info.FormatName = SendQueue
-        queue_send = None
-        try:
-            queue_send = queue_info.Open(2, 0)
-
-            msg = win32com.client.Dispatch("MSMQ.MSMQMessage")
-            msg.Label = send_method
-            msg.Body = stkmove_xml_data
-
-            msg.Send(queue_send)
-            print("function send")
-        except Exception as e:
-            print("wrong")
-        finally:
-            queue_send.Close()
-        print(SendQueue)
+        send_msmaq(send_method, stkmove_xml_data)
         print("stkmove is send")
-        send_to_html_dict["replay"]=stkmove_xml_data
+        send_to_html_dict["replay"] = stkmove_xml_data
     else:
-        send_to_html_dict["replay"]="message wrong"
+        send_to_html_dict["replay"] = "message wrong"
     return jsonify(send_to_html_dict)
 
-@app.route('/receive_function',methods=["GET","POST"])
+
+@app.route('/receive_function', methods=["GET", "POST"])
 def receive_function_and_process_function():
-    need_change_to_input_list= ["OUTSTK","LEAVE","ARRIVE","VALIDINPUT","OUTEQP","INEQP","CARR_ALARM","INSTK","FOUPINFO"]
-    check_need_to_send_function_list = ["STKMOVE","EQMOVE","EMPTYCARRMOVE","CHANGECMD","MOVEREQUEST","INVDATA","MOVESTATUSREQUEST"]
-    need_change_to_send_function_replay_list= ["OUTSTK_R","LEAVE_R","ARRIVE_R","VALIDINPUT_R","OUTEQP_R","INEQP_R","CARR_ALARM_R","INSTK_R","FOUPINFO_R"]
+    need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
+                                 "VALIDINPUT", "OUTEQP", "INEQP", "CARR_ALARM", "INSTK", "FOUPINFO"]
+    check_need_to_send_function_list = [
+        "STKMOVE", "EQMOVE", "EMPTYCARRMOVE", "CHANGECMD", "MOVEREQUEST", "INVDATA", "MOVESTATUSREQUEST"]
+    need_change_to_send_function_replay_list = [
+        "OUTSTK_R", "LEAVE_R", "ARRIVE_R", "VALIDINPUT_R", "OUTEQP_R", "INEQP_R", "CARR_ALARM_R", "INSTK_R", "FOUPINFO_R"]
     print("i am here recv1")
-    recv_dict={}
+    recv_dict = {}
     queue_info.FormatName = RecvQueue
     print(RecvQueue)
     queue_receive = None
@@ -196,38 +214,48 @@ def receive_function_and_process_function():
         print("i am here recv2")
         timeout_sec = 5.0
         if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
-            #log.logger.debug("server has send message to client")
+            # log.logger.debug("server has send message to client")
             msg = queue_receive.Receive()
-            receive_messages_information_string =(msg.Body).encode("utf-8")
-            recv_dict["msmq_label"]= (msg.Label).encode("utf-8")
+            receive_messages_information_string = (msg.Body).encode("utf-8")
+            recv_dict["msmq_label"] = (msg.Label).encode("utf-8")
             recv_dict["msmq_message"] = receive_messages_information_string
-            if(recv_dict["msmq_message"][0]=="<"):#recv_dict["msmq_message"][0]string
+            if(recv_dict["msmq_message"][0] == "<"):  # recv_dict["msmq_message"][0]string
                 root = etree.fromstring(recv_dict["msmq_message"])
-                if(len(root)>1):
-                    if(len(root[1])>1):
-                        if(len(root[1][-1])>=1):
+                if(len(root) > 1):
+                    if(len(root[1]) > 1):
+                        if(len(root[1][-1]) >= 1):
                             if(root[1][-1][0].text in need_change_to_input_list):
                                 if(str(root[1][-1][0].text) == "VALIDINPUT"):
+                                    VALIDINPUT_xml_data = VALIDINPUT_R.format(
+                                        IP=SendQueueIP,
+                                        QUEUE_NAME=SendQueueName,
+                                        CLIENT_HOSTNAME=HostName,
+                                        FUNCTION_VERSION=Version,
+                                        PROCESS_ID=PID,
+                                        TIMESTAMP=Time,
+                                        COMMANDID=root[1][0].text,
+                                        RESULT="OK",
+                                        ERRORMESSAGE=""
+                                    )
+
             queue_receive.Close()
             return jsonify(recv_dict)
         else:
             Time2 = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-            recv_dict["msmq_label"]= "msmq no label"+Time2
+            recv_dict["msmq_label"] = "msmq no label"+Time2
             recv_dict["msmq_message"] = "msmq no message"+Time2
             queue_receive.Close()
             return jsonify(recv_dict)
     except Exception as e:
         print("wrong message"+e)
-        recv_dict["msmq_label"]= "connect error"
+        recv_dict["msmq_label"] = "connect error"
         recv_dict["msmq_message"] = "connect error"
         queue_receive.Close()
         return jsonify(recv_dict)
-    finally:    
+    finally:
         queue_receive.Close()
 
 
-
-   
 """"
 @app.route('/page_two/<username>', methods=['GET', 'POST'])
 def page_two(username):
@@ -259,4 +287,3 @@ def page_three():
 """
 if __name__ == "__main__":
     app.run(host="192.168.0.90", port=8887, debug=True)
-

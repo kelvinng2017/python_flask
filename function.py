@@ -1,7 +1,7 @@
 STKMOVE = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="STKMOVE">
-  <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
+  <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="stVALIDINPUT_Rruct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
     <FUNCTION dt="String">STKMOVE</FUNCTION>
     <SERVER_NAME dt="String">{CLIENT_HOSTNAME}</SERVER_NAME>
@@ -34,7 +34,7 @@ STKMOVE = \
 </CMD>'''
 
 STKMOVE_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="STKMOVE_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -63,7 +63,7 @@ STKMOVE_R = \
 </CMD>'''
 
 EQMOVE = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="EQMOVE">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -98,7 +98,7 @@ EQMOVE = \
 </CMD>'''
 
 EQMOVE_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="EQMOVE_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -127,7 +127,7 @@ EQMOVE_R = \
 </CMD>'''
 
 EMPTYCARRMOVE = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="EMPTYCARRMOVE">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -158,7 +158,7 @@ EMPTYCARRMOVE = \
 </CMD>'''
 
 EMPTYCARRMOVE_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="EMPTYCARRMOVE_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -193,7 +193,7 @@ EMPTYCARRMOVE_R = \
 </CMD>'''
 
 CHANGECMD = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="CHANGECMD">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -227,7 +227,7 @@ CHANGECMD = \
 </CMD>'''
 
 CHANGECMD_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="CHANGECMD_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -256,7 +256,7 @@ CHANGECMD_R = \
 </CMD>'''
 
 MOVEREQUEST = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="MOVEREQUEST">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -290,7 +290,7 @@ MOVEREQUEST = \
 </CMD>'''
 
 MOVEREQUEST_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="MOVEREQUEST_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -319,7 +319,7 @@ MOVEREQUEST_R = \
 </CMD>'''
 
 INVDATA = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="INVDATA">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -347,7 +347,7 @@ INVDATA = \
 </CMD>'''
 
 INVDATA_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="INVDATA_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -380,7 +380,7 @@ INVDATA_R = \
 </CMD>'''
 
 MOVESTATUSREQUEST = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="MOVESTATUSREQUEST">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -408,7 +408,7 @@ MOVESTATUSREQUEST = \
 </CMD>'''
 
 MOVESTATUSREQUEST_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="MOVESTATUSREQUEST_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -442,7 +442,7 @@ MOVESTATUSREQUEST_R = \
 </CMD>'''
 
 OUTSTK = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="OUTSTK">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -470,7 +470,7 @@ OUTSTK = \
 </CMD>'''
 
 OUTSTK_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="OUTSTK_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -499,7 +499,7 @@ OUTSTK_R = \
 </CMD>'''
 
 LEAVE = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="LEAVE">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -529,7 +529,7 @@ LEAVE = \
 </CMD>'''
 
 LEAVE_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="LEAVE_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -558,7 +558,7 @@ LEAVE_R = \
 </CMD>'''
 
 ARRIVE = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="ARRIVE">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -588,7 +588,7 @@ ARRIVE = \
 </CMD>'''
 
 ARRIVE_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="ARRIVE_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -617,7 +617,7 @@ ARRIVE_R = \
 </CMD>'''
 
 VALIDINPUT = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="VALIDINPUT">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -650,7 +650,7 @@ VALIDINPUT = \
 </CMD>'''
 
 VALIDINPUT_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="VALIDINPUT_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -679,7 +679,7 @@ VALIDINPUT_R = \
 </CMD>'''
 
 OUTEQP = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="OUTEQP">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -709,7 +709,7 @@ OUTEQP = \
 </CMD>'''
 
 OUTEQP_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="OUTEQP_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -738,7 +738,7 @@ OUTEQP_R = \
 </CMD>'''
 
 INEQP = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="INEQP">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -768,7 +768,7 @@ INEQP = \
 </CMD>'''
 
 INEQP_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="INEQP_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -797,7 +797,7 @@ INEQP_R = \
 </CMD>'''
 
 CARR_ALARM = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="CARR_ALARM">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -827,7 +827,7 @@ CARR_ALARM = \
 </CMD>'''
 
 CARR_ALARM_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="CARR_ALARM_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -856,7 +856,7 @@ CARR_ALARM_R = \
 </CMD>'''
 
 INSTK = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="INSTK">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -884,7 +884,7 @@ INSTK = \
 </CMD>'''
 
 INSTK_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="INSTK_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -913,7 +913,7 @@ INSTK_R = \
 </CMD>'''
 
 FOUPINFO = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="ACS" CMD="FOUPINFO">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -940,7 +940,7 @@ FOUPINFO = \
 </CMD>'''
 
 FOUPINFO_R = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:DOC="urn:Document" dt="struct" Sys="ACS" CMD="FOUPINFO_R">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
@@ -972,7 +972,7 @@ FOUPINFO_R = \
 </CMD>'''
 
 ALARMREPORT = \
-'''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
+    '''<?xml version="1.0" encoding="BIG5" standalone="yes"?>
 <CMD dt="struct" Sys="MCS_UTIL" CMD="ALARMREPORT">
   <HEADER IP="{IP}" PATH="{QUEUE_NAME}" dt="struct">
     <CLIENT_HOSTNAME dt="String">{CLIENT_HOSTNAME}</CLIENT_HOSTNAME>
