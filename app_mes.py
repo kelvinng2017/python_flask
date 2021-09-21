@@ -283,7 +283,7 @@ def receive_function_and_process_function():
 
     recv_dict_2["message_label"] = recv_msmq_dict["message_label"]
     recv_dict_2["message_body"] = recv_msmq_dict["message_body"]
-    if(recv_dict["message_body"][0] == "<"):
+    if(recv_dict_2["message_body"][0] == "<"):
         root_recv = etree.fromstring(recv_dict_2["message_body"])
         if(len(root_recv) > 1):
             if(len(root_recv[1][-1]) >= 1):
