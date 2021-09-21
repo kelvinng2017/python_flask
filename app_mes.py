@@ -556,7 +556,7 @@ def receive_function_and_process_function():
                                             send_dict["strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["strCMD"] = root_send[1][-1][2].text
                                             print("LEAVE_R:"+str(send_dict))
-                                            return(recv_dict, send_dict)
+                                            return(recv_dict)
                     if(str(root_recv[1][-1][0].text) == "ARRIVE"):
                         recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["FUNCTION"] = root_recv[0][1].text
