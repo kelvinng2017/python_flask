@@ -127,7 +127,6 @@ def index():
     #   return redirect(url_for('page_three'))
     return render_template('index.html', function_list=function_list)
 
-
     # return render_template('test_page.html')
 testInfo = {}
 need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
@@ -312,7 +311,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
                         print("STKOMVE_R="+str(recv_dict))
-                        return jsonify(recv_dict)
+                        return jsonify(recv_dict, hope_dict)
                     if(str(root_recv[1][-1][0].text) == "EQMOVE_R"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -333,7 +332,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
 
-                        return jsonify(recv_dict)
+                        return jsonify(recv_dict, hope_dict)
                     if(str(root_recv[1][-1][0].text) == "EMPTYCARRMOVE_R"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -359,7 +358,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
-                        return jsonify(recv_dict)
+                        return jsonify(recv_dict, hope_dict)
                     if(str(root_recv[1][-1][0].text) == "CHANGECMD_R"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -379,7 +378,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
-                        return jsonify(recv_dict)
+                        return jsonify(recv_dict, hope_dict)
                     if(str(root_recv[1][-1][0].text) == "INVDATA_R"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -403,7 +402,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
-                        return jsonify(recv_dict)
+                        return jsonify(recv_dict, hope_dict)
                     if(str(root_recv[1][-1][0].text) == "MOVESTATUSREQUEST_R"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -428,7 +427,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
-                        return jsonify(recv_dict)
+                        return jsonify(recv_dict, hope_dict)
                 if(root_recv[1][-1][0].text in need_change_to_input_list):
                     if(str(root_recv[1][-1][0].text) == "OUTSTK"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
@@ -559,7 +558,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
                                             print("LEAVE_R:"+str(send_dict))
-                                            return(send_dict, hope_dict)
+                                            return(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "ARRIVE"):
                         recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["FUNCTION"] = root_recv[0][1].text
