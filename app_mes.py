@@ -127,6 +127,7 @@ def index():
     #   return redirect(url_for('page_three'))
     return render_template('index.html', function_list=function_list)
 
+
     # return render_template('test_page.html')
 testInfo = {}
 need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
@@ -201,6 +202,9 @@ def stkmove(strFunction):
 def send_function():
     print("i am here send")
     send_to_html_dict = {}
+    hope_dict = {
+        "lunch": "burger",
+    }
     send_method = (request.form.get('strMETHODNAME')).encode('utf-8')
     print(send_method)
     if(send_method == "STKMOVE"):
@@ -260,7 +264,7 @@ def send_function():
 
     else:
         send_to_html_dict["send_xml"] = "no this function"
-    return jsonify(send_to_html_dict)
+    return jsonify(send_to_html_dict, hope_dict)
 
 
 @app.route('/receive_function', methods=["GET", "POST"])
