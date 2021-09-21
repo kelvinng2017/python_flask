@@ -210,7 +210,7 @@
                         data: recv_data,
                         success: (data) => {
 
-                            var json_recv = [data[0], data[1]];
+                            var json_recv = [data];
                             for (var i = 0, l = json_recv.length; i < l; i++) {
                                 for (var key in json_recv[i]) {
                                     console.log(key + ':' + json_recv[i][key]);
