@@ -1007,7 +1007,7 @@ def receive_function_and_process_function():
                                             send_dict["strCMD"] = root_send[1][-1][2].text
                                             return(recv_dict, send_dict)
                 if(len(root_recv[1]) > 1):
-                    print(root_send[1][1].tag)
+                    print(root_recv[1][1].tag)
                     if(str(root_recv[1][1].tag) == "strALARMID"):
                         recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["FUNCTION"] = root_recv[0][1].text
