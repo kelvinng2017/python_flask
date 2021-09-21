@@ -127,7 +127,6 @@ def index():
     #   return redirect(url_for('page_three'))
     return render_template('index.html', function_list=function_list)
 
-
     # return render_template('test_page.html')
 testInfo = {}
 need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
@@ -1007,6 +1006,33 @@ def receive_function_and_process_function():
                                             send_dict["strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["strCMD"] = root_send[1][-1][2].text
                                             return(recv_dict, send_dict)
+                if(len(root_recv[1]) > 1):
+                    print(root_send[1][1].tag)
+                    if(str(root_recv[1][1].tag) == "strALARMID"):
+                        recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["FUNCTION"] = root_recv[0][1].text
+                        recv_dict["SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["IP"] = root_recv[0][3].text
+                        recv_dict["DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["PROCESS_ID"] = root_recv[0][7].text
+                        recv_dict["QUEUE_NAME"] = root_recv[0][8].text
+                        recv_dict["LANG"] = root_recv[0][9].text
+                        recv_dict["TIMESTAMP"] = root_recv[0][10].text
+                        recv_dict["strEQCHAR"] = root_recv[1][0].text
+                        recv_dict["strALARMID"] = root_recv[1][1].text
+                        recv_dict["strEQPID"] = root_recv[1][2].text
+                        recv_dict["strALARMLEVEL"] = root_recv[1][3].text
+                        recv_dict["strALARMTYPE"] = root_recv[1][4].text
+                        recv_dict["strALARMCODE"] = root_recv[1][5].text
+                        recv_dict["strALARMMSG"] = root_recv[1][6].text
+                        recv_dict["strALARMSYS"] = root_recv[1][7].text
+                        recv_dict["strALARMSYS"] = root_recv[1][7].text
+                        recv_dict["strALARMTIME"] = root_recv[1][8].text
+                        recv_dict["strDEPT"] = root_recv[1][9].text
+                        recv_dict["strSTAGE"] = root_recv[1][10].text
+                        return(recv_dict)
 
 
 """"
