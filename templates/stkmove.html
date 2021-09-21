@@ -107,6 +107,12 @@
     </script>
 
     <script language="javascript" type="text/javascript">
+        var json = [{ dd: 'SB', AA: '東東', re1: 123 }, { cccc: 'dd', lk: '1qw' }];
+        for (var i = 0, l = json.length; i < l; i) {
+            for (var key in json[i]) {
+                alert(key + ':' + json[i][key]);
+            }
+        }
         $('#receive_from_MES').click(
             function () {
                 console.log("receive message");
