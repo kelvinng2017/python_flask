@@ -326,6 +326,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        print("STKOMVE_R="+recv_dict)
                         return jsonify(recv_dict)
                     if(str(root_recv[1][-1][0].text) == "EMPTYCARRMOVE_R"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
@@ -502,7 +503,7 @@ def receive_function_and_process_function():
                         recv_dict["strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["strCMD"] = root_recv[1][-1][2].text
-                        print(recv_dict)
+                        print("LEAVE:"+recv_dict)
                         # print(recv_dict_whit_xml)
                         LEAVE_R_xml_data = LEAVE_R.format(
                             IP=recv_dict["IP"],
@@ -551,7 +552,8 @@ def receive_function_and_process_function():
                                             send_dict["strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["strCMD"] = root_send[1][-1][2].text
-                                            return(recv_dict, send_dict)
+                                            print("LEAVE_R:"+recv_dict)
+                                            return(send_dict)
                     if(str(root_recv[1][-1][0].text) == "ARRIVE"):
                         recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["FUNCTION"] = root_recv[0][1].text
