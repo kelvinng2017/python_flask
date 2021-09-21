@@ -306,6 +306,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        print("STKOMVE_R="+recv_dict)
                         return jsonify(recv_dict)
                     if(str(root_recv[1][-1][0].text) == "EQMOVE_R"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
@@ -326,7 +327,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
-                        print("STKOMVE_R="+recv_dict)
+
                         return jsonify(recv_dict)
                     if(str(root_recv[1][-1][0].text) == "EMPTYCARRMOVE_R"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
