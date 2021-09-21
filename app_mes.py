@@ -72,20 +72,20 @@ def recv_msmq():
         if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
             # log.logger.debug("server has send message to client")
             msg = queue_receive.Receive()
-            return_message["message label"] = (msg.Label).encode("utf-8")
-            return_message["message body"] = (msg.Body).encode("utf-8")
+            return_message["message_label"] = (msg.Label).encode("utf-8")
+            return_message["message_body"] = (msg.Body).encode("utf-8")
             queue_receive.Close()
             return return_message
         else:
             Time2 = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-            return_message["message label"] = "msmq no label"
-            return_message["message body"] = "msmq no message"
+            return_message["message_label"] = "msmq no label"
+            return_message["message_body"] = "msmq no message"
             queue_receive.Close()
             return return_message
     except Exception as e:
         print("connect error")
-        return_message["message label"] = "connect wrong"
-        return_message["message body"] = "connect wrong"
+        return_message["message_label"] = "connect wrong"
+        return_message["message_Sbody"] = "connect wrong"
     finally:
         queue_receive.Close()
 
@@ -238,8 +238,8 @@ def receive_function_and_process_function():
     recv_dict = {}
 
     recv_msmq_dict = recv_msmq()
-    recv_dict["message label"] = recv_msmq_dict["message label"]
-    recv_dict["message body"] = recv_msmq_dict["message body"]
+    recv_dict["message_label"] = recv_msmq_dict["message_label"]
+    recv_dict["message_body"] = recv_msmq_dict["message_body"]
     return jsonify(recv_dict)
 
 
