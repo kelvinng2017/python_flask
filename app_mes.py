@@ -264,7 +264,7 @@ def send_function():
 
     else:
         send_to_html_dict["send_xml"] = "no this function"
-    return jsonify(send_to_html_dict, hope_dict)
+    return jsonify(send_to_html_dict)
 
 
 @app.route('/receive_function', methods=["GET", "POST"])
