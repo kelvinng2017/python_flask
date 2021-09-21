@@ -163,7 +163,7 @@
                     url: $SCRIPT_ROOT + "/send_function",
                     data: form_data,
                     success: (data) => {
-                        var json_send = [data];
+                        var json_send = [data[0], data[1]];
                         for (var i = 0, l = json_send.length; i < l; i++) {
                             for (var key in json_send[i]) {
                                 console.log(key + ':' + json_send[i][key]);
