@@ -104,7 +104,7 @@ def index():
 
         # return redirect(url_for('index',str1=str1))
         """
-        
+
         queue_info.FormatName = "direct=tcp:" + \
             "192.168.0.91"+"\\PRIVATE$\\"+"kelvinng"
         queue_send = None
@@ -155,7 +155,7 @@ def stkmove(strFunction):
     }
     """
     if request.method == 'POST' and request.values['send_to_ACS_Getway']=='send_to_ACS_Getway':
-        
+
         print("strCOMMANDID_value:"+(request.form.get('strCOMMANDID')).encode('utf-8'))
         print("strUSERID_value:"+(request.form.get('strUSERID')).encode('utf-8'))
         print("strCARRIERRID_value:"+(request.form.get('strCARRIERRID')).encode('utf-8'))
@@ -169,7 +169,7 @@ def stkmove(strFunction):
         print("strMETHODNAME_value:"+(request.form.get('strMETHODNAME')).encode('utf-8'))
         print("strFORMNAME_value:"+(request.form.get('strFORMNAME')).encode('utf-8'))
         print("strCMD_value:"+(request.form.get('strCMD')).encode('utf-8'))
-        
+
         print('function is send')
         stkmove_xml_data = STKMOVE.format(
             IP=SendQueueIP,
@@ -183,7 +183,7 @@ def stkmove(strFunction):
             CARRIERID=((request.form.get('strCARRIERRID')).encode('utf-8')),
             FROMDEVICE=((request.form.get('strFROMDEVICE')).encode('utf-8')),
             FROMPORT=((request.form.get('strFROMPORT')).encode('utf-8')),
-            TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),  
+            TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),
             TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
             EMPTYCARRIER=((request.form.get('strEMPTYCARRIER')).encode('utf-8')),
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
@@ -227,7 +227,7 @@ def send_function():
                 (request.form.get('strEMPTYCARRIER')).encode('utf-8')),
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
         print(STKMOVE_xml_data)
-        status_of_send = send_msmaq(send_method, STKMOVE_xml_data)
+        status_of_send = send_msmaq(send_method, STKMOVE_xml_data)  # here
         send_to_html_dict["status_of_send"] = status_of_send
         send_to_html_dict["send_xml"] = STKMOVE_xml_data
         if(send_to_html_dict["send_xml"][0] == "<"):
@@ -236,30 +236,30 @@ def send_function():
                 if(len(root_send[1][-1]) >= 1):
                     if(root_send[1][-1][0].text in check_need_to_send_function_list):
                         if(str(root_send[1][-1][0].text) == "STKMOVE"):
-                            send_to_html_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
-                            send_to_html_dict["FUNCTION"] = root_send[0][1].text
-                            send_to_html_dict["SERVERNAME"] = root_send[0][2].text
-                            send_to_html_dict["IP"] = root_send[0][3].text
-                            send_to_html_dict["DLL_NAME"] = root_send[0][4].text
-                            send_to_html_dict["FUNCTION_VERSION"] = root_send[0][5].text
-                            send_to_html_dict["CLASSNAME"] = root_send[0][6].text
-                            send_to_html_dict["PROCESS_ID"] = root_send[0][7].text
-                            send_to_html_dict["QUEUE_NAME"] = root_send[0][8].text
-                            send_to_html_dict["LANG"] = root_send[0][9].text
-                            send_to_html_dict["TIMESTAMP"] = root_send[0][10].text
-                            send_to_html_dict["strCOMMANDID"] = root_send[1][0].text
-                            send_to_html_dict["strUSERID"] = root_send[1][1].text
-                            send_to_html_dict["strCARRIERID"] = root_send[1][2].text
-                            send_to_html_dict["strCARRIERIDTYPE"] = root_send[1][3].text
-                            send_to_html_dict["strFROMDEVICE"] = root_send[1][4].text
-                            send_to_html_dict["strFROMPORT"] = root_send[1][5].text
-                            send_to_html_dict["strTODEVICE"] = root_send[1][6].text
-                            send_to_html_dict["strTOPORT"] = root_send[1][7].text
-                            send_to_html_dict["strEMPTYCARRIER"] = root_send[1][8].text
-                            send_to_html_dict["strPRIORITY"] = root_send[1][9].text
-                            send_to_html_dict["strMETHODNAME"] = root_send[1][-1][0].text
-                            send_to_html_dict["strFORNAME"] = root_send[1][-1][1].text
-                            send_to_html_dict["strCMD"] = root_send[1][-1][2].text
+                            send_to_html_dict["sned_CLIENT_HOSTNAME"] = root_send[0][0].text
+                            send_to_html_dict["sned_FUNCTION"] = root_send[0][1].text
+                            send_to_html_dict["sned_SERVERNAME"] = root_send[0][2].text
+                            send_to_html_dict["sned_IP"] = root_send[0][3].text
+                            send_to_html_dict["sned_DLL_NAME"] = root_send[0][4].text
+                            send_to_html_dict["sned_FUNCTION_VERSION"] = root_send[0][5].text
+                            send_to_html_dict["sned_CLASSNAME"] = root_send[0][6].text
+                            send_to_html_dict["sned_PROCESS_ID"] = root_send[0][7].text
+                            send_to_html_dict["sned_QUEUE_NAME"] = root_send[0][8].text
+                            send_to_html_dict["sned_LANG"] = root_send[0][9].text
+                            send_to_html_dict["sned_TIMESTAMP"] = root_send[0][10].text
+                            send_to_html_dict["sned_strCOMMANDID"] = root_send[1][0].text
+                            send_to_html_dict["sned_strUSERID"] = root_send[1][1].text
+                            send_to_html_dict["sned_strCARRIERID"] = root_send[1][2].text
+                            send_to_html_dict["sned_strCARRIERIDTYPE"] = root_send[1][3].text
+                            send_to_html_dict["sned_strFROMDEVICE"] = root_send[1][4].text
+                            send_to_html_dict["sned_strFROMPORT"] = root_send[1][5].text
+                            send_to_html_dict["sned_strTODEVICE"] = root_send[1][6].text
+                            send_to_html_dict["sned_strTOPORT"] = root_send[1][7].text
+                            send_to_html_dict["sned_strEMPTYCARRIER"] = root_send[1][8].text
+                            send_to_html_dict["sned_strPRIORITY"] = root_send[1][9].text
+                            send_to_html_dict["sned_strMETHODNAME"] = root_send[1][-1][0].text
+                            send_to_html_dict["sned_strFORNAME"] = root_send[1][-1][1].text
+                            send_to_html_dict["sned_strCMD"] = root_send[1][-1][2].text
                             print(send_to_html_dict)
 
     else:
@@ -277,6 +277,7 @@ def receive_function_and_process_function():
         "OUTSTK_R", "LEAVE_R", "ARRIVE_R", "VALIDINPUT_R", "OUTEQP_R", "INEQP_R", "CARR_ALARM_R", "INSTK_R", "FOUPINFO_R"]
     print("i am here recv1")
     recv_dict = {}
+    send_dict = {}
 
     recv_msmq_dict = recv_msmq()
 
@@ -288,6 +289,201 @@ def receive_function_and_process_function():
             if(len(root_recv[1][-1]) >= 1):
                 if(root_recv[1][-1][0].text not in need_change_to_input_list):
                     if(str(root_recv[1][-1][0].text) == "STKMOVE_R"):
+                        recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["recv_FUNCTION"] = root_recv[0][1].text
+                        recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["recv_IP"] = root_recv[0][3].text
+                        recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["recv_PID"] = root_recv[0][7].text
+                        recv_dict["recv_PROCESS_ID"] = root_recv[0][8].text
+                        recv_dict["recv_QUEUE_NAME"] = root_recv[0][9].text
+                        recv_dict["recv_LANG"] = root_recv[0][10].text
+                        recv_dict["recv_TIMESTAMP"] = root_recv[0][11].text
+                        recv_dict["recv_strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["recv_strRESULT"] = root_recv[1][1].text
+                        recv_dict["recv_strERRORMESSAGE"] = root_recv[1][2].text
+                        recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        return jsonify(recv_dict)
+                    if(str(root_recv[1][-1][0].text) == "EQMOVE_R"):
+                        recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["recv_FUNCTION"] = root_recv[0][1].text
+                        recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["recv_IP"] = root_recv[0][3].text
+                        recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["recv_PID"] = root_recv[0][7].text
+                        recv_dict["recv_PROCESS_ID"] = root_recv[0][8].text
+                        recv_dict["recv_QUEUE_NAME"] = root_recv[0][9].text
+                        recv_dict["recv_LANG"] = root_recv[0][10].text
+                        recv_dict["recv_TIMESTAMP"] = root_recv[0][11].text
+                        recv_dict["recv_strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["recv_strRESULT"] = root_recv[1][1].text
+                        recv_dict["recv_strERRORMESSAGE"] = root_recv[1][2].text
+                        recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        return jsonify(recv_dict)
+                    if(str(root_recv[1][-1][0].text) == "EMPTYCARRMOVE_R"):
+                        recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["recv_FUNCTION"] = root_recv[0][1].text
+                        recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["recv_IP"] = root_recv[0][3].text
+                        recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["recv_PID"] = root_recv[0][7].text
+                        recv_dict["recv_PROCESS_ID"] = root_recv[0][8].text
+                        recv_dict["recv_QUEUE_NAME"] = root_recv[0][9].text
+                        recv_dict["recv_LANG"] = root_recv[0][10].text
+                        recv_dict["recv_TIMESTAMP"] = root_recv[0][11].text
+                        recv_dict["recv_strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["recv_strRESULT"] = root_recv[1][1].text
+                        recv_dict["recv_strERRORMESSAGE"] = root_recv[1][2].text
+                        recv_dict["recv_strCARRIERID"] = root_recv[1][3].text
+                        recv_dict["recv_strCARRIERTYPE"] = root_recv[1][4].text
+                        recv_dict["recv_strFROMDEVICE"] = root_recv[1][5].text
+                        recv_dict["recv_strFROMPORT"] = root_recv[1][6].text
+                        recv_dict["recv_strTODEVICE"] = root_recv[1][7].text
+                        recv_dict["recv_strTOPORT"] = root_recv[1][8].text
+                        recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        return jsonify(recv_dict)
+                    if(str(root_recv[1][-1][0].text) == "CHANGECMD_R"):
+                        recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["recv_FUNCTION"] = root_recv[0][1].text
+                        recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["recv_IP"] = root_recv[0][3].text
+                        recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["recv_PID"] = root_recv[0][7].text
+                        recv_dict["recv_PROCESS_ID"] = root_recv[0][8].text
+                        recv_dict["recv_QUEUE_NAME"] = root_recv[0][9].text
+                        recv_dict["recv_LANG"] = root_recv[0][10].text
+                        recv_dict["recv_TIMESTAMP"] = root_recv[0][11].text
+                        recv_dict["recv_strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["recv_strRESULT"] = root_recv[1][1].text
+                        recv_dict["recv_strERRORMESSAGE"] = root_recv[1][2].text
+                        recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        return jsonify(recv_dict)
+                    if(str(root_recv[1][-1][0].text) == "INVDATA_R"):
+                        recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["recv_FUNCTION"] = root_recv[0][1].text
+                        recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["recv_IP"] = root_recv[0][3].text
+                        recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["recv_PID"] = root_recv[0][7].text
+                        recv_dict["recv_PROCESS_ID"] = root_recv[0][8].text
+                        recv_dict["recv_QUEUE_NAME"] = root_recv[0][9].text
+                        recv_dict["recv_LANG"] = root_recv[0][10].text
+                        recv_dict["recv_TIMESTAMP"] = root_recv[0][11].text
+                        recv_dict["recv_strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["recv_strSTKID"] = root_recv[1][1].text
+                        recv_dict["recv_strCOUNT"] = root_recv[1][2].text
+                        recv_dict["recv_strCARRIERIDList"] = root_recv[1][3].text
+                        recv_dict["recv_strSTKSTATUS"] = root_recv[1][4].text
+                        recv_dict["recv_strRESULT"] = root_recv[1][5].text
+                        recv_dict["recv_strERRORMESSAGE"] = root_recv[1][6].text
+                        recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        return jsonify(recv_dict)
+                    if(str(root_recv[1][-1][0].text) == "MOVESTATUSREQUEST_R"):
+                        recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["recv_FUNCTION"] = root_recv[0][1].text
+                        recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["recv_IP"] = root_recv[0][3].text
+                        recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["recv_PID"] = root_recv[0][7].text
+                        recv_dict["recv_PROCESS_ID"] = root_recv[0][8].text
+                        recv_dict["recv_QUEUE_NAME"] = root_recv[0][9].text
+                        recv_dict["recv_LANG"] = root_recv[0][10].text
+                        recv_dict["recv_TIMESTAMP"] = root_recv[0][11].text
+                        recv_dict["recv_strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["recv_strCARRIERID"] = root_recv[1][1].text
+                        recv_dict["recv_strMOVESTATUS"] = root_recv[1][2].text
+                        recv_dict["recv_strTODEVICE"] = root_recv[1][3].text
+                        recv_dict["recv_strTOPORT"] = root_recv[1][4].text
+                        recv_dict["recv_strPRIORITY"] = root_recv[1][5].text
+                        recv_dict["recv_strRESULT"] = root_recv[1][6].text
+                        recv_dict["recv_strERRORMESSAGE"] = root_recv[1][7].text
+                        recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        return jsonify(recv_dict)
+                if(root_recv[1][-1][0].text in need_change_to_input_list):
+                    if(str(root_recv[1][-1][0].text) == "OUTSTK"):
+                        recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["recv_FUNCTION"] = root_recv[0][1].text
+                        recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["recv_IP"] = root_recv[0][3].text
+                        recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["recv_PROCESS_ID"] = root_recv[0][7].text
+                        recv_dict["recv_QUEUE_NAME"] = root_recv[0][8].text
+                        recv_dict["recv_LANG"] = root_recv[0][9].text
+                        recv_dict["recv_TIMESTAMP"] = root_recv[0][10].text
+                        recv_dict["recv_strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["recv_strCARRIERID"] = root_recv[1][1].text
+                        recv_dict["recv_strSTKID"] = root_recv[1][2].text
+                        recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
+                        OUTSTK_R_xml_data = OUTSTK_R.format(
+                            IP=recv_dict["recv_IP"],
+                            QUEUE_NAME=recv_dict["recv_QUEUE_NAME"],
+                            CLIENT_HOSTNAME=recv_dict["recv_CLIENT_HOSTNAME"],
+                            FUNCTION_VERSION=recv_dict["recv_FUNCTION_VERSION"],
+                            PROCESS_ID=recv_dict["recv_PROCESS_ID"],
+                            TIMESTAMP=recv_dict["recv_TIMESTAMP"],
+                            COMMANDID=recv_dict["recv_strCOMMANDID"],
+                            RESULT="OK",
+                            ERRORMESSAGE="")
+                        print(OUTSTK_R_xml_data)
+                        send_dict["message_body"] = OUTSTK_R_xml_data
+                        send_dict["message_label"] = "OUTSTK_R"
+                        send_msmaq(send_dict["message_label"],
+                                   send_dict["message_body"])
+                        if(send_dict["message_body"][0] == "<"):
+                            root_send = etree.fromstring(
+                                send_dict["message_body"])
+                            if(len(root_send) > 1):
+                                if(len(root_send[1][-1]) >= 1):
+                                    if(root_send[1][-1][0].text in need_change_to_send_function_replay_list):
+                                        if(str(root_send[1][-1][0].text) == "OUTSTK_R"):
+                                            send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
+                                            send_dict["FUNCTION"] = root_send[0][1].text
+                                            send_dict["SERVERNAME"] = root_send[0][2].text
+                                            send_dict["IP"] = root_send[0][3].text
+                                            send_dict["DLL_NAME"] = root_send[0][4].text
+                                            send_dict["FUNCTION_VERSION"] = root_send[0][5].text
+                                            send_dict["CLASSNAME"] = root_send[0][6].text
+                                            send_dict["PID"] = root_send[0][7].text
+                                            send_dict["PROCESS_ID"] = root_send[0][8].text
+                                            send_dict["QUEUE_NAME"] = root_send[0][9].text
+                                            send_dict["LANG"] = root_send[0][10].text
+                                            send_dict["TIMESTAMP"] = root_send[0][11].text
+                                            send_dict["strCOMMANDID"] = root_send[1][0].text
+                                            send_dict["strRESULT"] = root_send[1][1].text
+                                            send_dict["strERRORMESSAGE"] = root_send[1][2].text
+                                            send_dict["strMETHODNAME"] = root_send[1][-1][0].text
+                                            send_dict["strFORNAME"] = root_send[1][-1][1].text
+                                            send_dict["strCMD"] = root_send[1][-1][2].text
+                        return(recv_dict, send_dict)
+                    if(str(root_recv[1][-1][0].text) == "LEAVE"):
                         recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["FUNCTION"] = root_recv[0][1].text
                         recv_dict["SERVERNAME"] = root_recv[0][2].text
@@ -295,18 +491,166 @@ def receive_function_and_process_function():
                         recv_dict["DLL_NAME"] = root_recv[0][4].text
                         recv_dict["FUNCTION_VERSION"] = root_recv[0][5].text
                         recv_dict["CLASSNAME"] = root_recv[0][6].text
-                        recv_dict["PID"] = root_recv[0][7].text
-                        recv_dict["PROCESS_ID"] = root_recv[0][8].text
-                        recv_dict["QUEUE_NAME"] = root_recv[0][9].text
-                        recv_dict["LANG"] = root_recv[0][10].text
-                        recv_dict["TIMESTAMP"] = root_recv[0][11].text
+                        recv_dict["PROCESS_ID"] = root_recv[0][7].text
+                        recv_dict["QUEUE_NAME"] = root_recv[0][8].text
+                        recv_dict["LANG"] = root_recv[0][9].text
+                        recv_dict["TIMESTAMP"] = root_recv[0][10].text
                         recv_dict["strCOMMANDID"] = root_recv[1][0].text
-                        recv_dict["strRESULT"] = root_recv[1][1].text
-                        recv_dict["strERRORMESSAGE"] = root_recv[1][2].text
+                        recv_dict["strCARRIERID"] = root_recv[1][1].text
+                        recv_dict["strVEHICLEID"] = root_recv[1][2].text
+                        recv_dict["strFROMDEVICE"] = root_recv[1][3].text
+                        recv_dict["strFROMPORT"] = root_recv[1][4].text
                         recv_dict["strMETHODNAME"] = root_recv[1][-1][0].text
                         recv_dict["strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["strCMD"] = root_recv[1][-1][2].text
-    return jsonify(recv_dict)
+                        print(recv_dict)
+                        # print(recv_dict_whit_xml)
+                        LEAVE_R_xml_data = LEAVE_R.format(
+                            IP=recv_dict["IP"],
+                            QUEUE_NAME=recv_dict["QUEUE_NAME"],
+                            CLIENT_HOSTNAME=recv_dict["CLIENT_HOSTNAME"],
+                            FUNCTION_VERSION=recv_dict["FUNCTION_VERSION"],
+                            PROCESS_ID=recv_dict["PROCESS_ID"],
+                            TIMESTAMP=recv_dict["TIMESTAMP"],
+                            COMMANDID=recv_dict["strCOMMANDID"],
+                            RESULT="OK",
+                            ERRORMESSAGE="",
+
+                        )
+                        print(LEAVE_R_xml_data)
+                        send_dict["message_body"] = LEAVE_R_xml_data
+                        send_dict["message_label"] = "LEAVE_R"
+                        send_msmaq(send_dict["message_label"],
+                                   send_dict["message_body"])
+                        if(send_dict["message_body"][0] == "<"):
+                            root_send = etree.fromstring(
+                                send_dict["message_body"])
+                            if(len(root_send) > 1):
+                                if(len(root_send[1][-1]) >= 1):
+                                    if(root_send[1][-1][0].text in need_change_to_send_function_replay_list):
+                                        if(str(root_send[1][-1][0].text) == "LEAVE_R"):
+                                            send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
+                                            send_dict["FUNCTION"] = root_send[0][1].text
+                                            send_dict["SERVERNAME"] = root_send[0][2].text
+                                            send_dict["IP"] = root_send[0][3].text
+                                            send_dict["DLL_NAME"] = root_send[0][4].text
+                                            send_dict["FUNCTION_VERSION"] = root_send[0][5].text
+                                            send_dict["CLASSNAME"] = root_send[0][6].text
+                                            send_dict["PID"] = root_send[0][7].text
+                                            send_dict["PROCESS_ID"] = root_send[0][8].text
+                                            send_dict["QUEUE_NAME"] = root_send[0][9].text
+                                            send_dict["LANG"] = root_send[0][10].text
+                                            send_dict["TIMESTAMP"] = root_send[0][11].text
+                                            send_dict["strCOMMANDID"] = root_send[1][0].text
+                                            send_dict["strRESULT"] = root_send[1][1].text
+                                            send_dict["strERRORMESSAGE"] = root_send[1][2].text
+                                            send_dict["strMETHODNAME"] = root_send[1][-1][0].text
+                                            send_dict["strFORNAME"] = root_send[1][-1][1].text
+                                            send_dict["strCMD"] = root_send[1][-1][2].text
+                                            return(recv_dict, send_dict)
+                    if(str(root_recv[1][-1][0].text) == "ARRIVE"):
+                        recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["FUNCTION"] = root_recv[0][1].text
+                        recv_dict["SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["IP"] = root_recv[0][3].text
+                        recv_dict["DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["PROCESS_ID"] = root_recv[0][7].text
+                        recv_dict["QUEUE_NAME"] = root_recv[0][8].text
+                        recv_dict["LANG"] = root_recv[0][9].text
+                        recv_dict["TIMESTAMP"] = root_recv[0][10].text
+                        recv_dict["strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["strCARRIERID"] = root_recv[1][1].text
+                        recv_dict["strVEHICLEID"] = root_recv[1][2].text
+                        recv_dict["strTODEVICE"] = root_recv[1][3].text
+                        recv_dict["strTOPORT"] = root_recv[1][4].text
+                        recv_dict["strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["strCMD"] = root_recv[1][-1][2].text
+                        print(recv_dict)
+                        # print(recv_dict_whit_xml)
+                        ARRIVE_R_xml_data = ARRIVE_R.format(
+                            IP=recv_dict["IP"],
+                            QUEUE_NAME=recv_dict["QUEUE_NAME"],
+                            CLIENT_HOSTNAME=recv_dict["CLIENT_HOSTNAME"],
+                            FUNCTION_VERSION=recv_dict["FUNCTION_VERSION"],
+                            PROCESS_ID=recv_dict["PROCESS_ID"],
+                            TIMESTAMP=recv_dict["TIMESTAMP"],
+                            COMMANDID=recv_dict["strCOMMANDID"],
+                            RESULT="OK",
+                            ERRORMESSAGE="",
+
+                        )
+                        print(ARRIVE_R_xml_data)
+                        send_dict["message_body"] = ARRIVE_R_xml_data
+                        send_dict["message_label"] = "ARRIVE_R"
+                        send_msmaq(send_dict["message_label"],
+                                   send_dict["message_body"])
+                        if(send_dict["message_body"][0] == "<"):
+                            root_send = etree.fromstring(
+                                send_dict["message_body"])
+                            if(len(root_send) > 1):
+                                if(len(root_send[1][-1]) >= 1):
+                                    if(root_send[1][-1][0].text in need_change_to_send_function_replay_list):
+                                        if(str(root_send[1][-1][0].text) == "ARRIVE_R"):
+                                            send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
+                                            send_dict["FUNCTION"] = root_send[0][1].text
+                                            send_dict["SERVERNAME"] = root_send[0][2].text
+                                            send_dict["IP"] = root_send[0][3].text
+                                            send_dict["DLL_NAME"] = root_send[0][4].text
+                                            send_dict["FUNCTION_VERSION"] = root_send[0][5].text
+                                            send_dict["CLASSNAME"] = root_send[0][6].text
+                                            send_dict["PID"] = root_send[0][7].text
+                                            send_dict["PROCESS_ID"] = root_send[0][8].text
+                                            send_dict["QUEUE_NAME"] = root_send[0][9].text
+                                            send_dict["LANG"] = root_send[0][10].text
+                                            send_dict["TIMESTAMP"] = root_send[0][11].text
+                                            send_dict["strCOMMANDID"] = root_send[1][0].text
+                                            send_dict["strRESULT"] = root_send[1][1].text
+                                            send_dict["strERRORMESSAGE"] = root_send[1][2].text
+                                            send_dict["strMETHODNAME"] = root_send[1][-1][0].text
+                                            send_dict["strFORNAME"] = root_send[1][-1][1].text
+                                            send_dict["strCMD"] = root_send[1][-1][2].text
+                                            return(recv_dict, send_dict)
+                    if(str(root_recv[1][-1][0].text) == "VALIDINPUT"):
+                        recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["FUNCTION"] = root_recv[0][1].text
+                        recv_dict["SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["IP"] = root_recv[0][3].text
+                        recv_dict["DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["PROCESS_ID"] = root_recv[0][7].text
+                        recv_dict["QUEUE_NAME"] = root_recv[0][8].text
+                        recv_dict["LANG"] = root_recv[0][9].text
+                        recv_dict["TIMESTAMP"] = root_recv[0][10].text
+                        recv_dict["strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["strCARRIERID"] = root_recv[1][1].text
+                        recv_dict["strVEHICLEID"] = root_recv[1][2].text
+                        recv_dict["strACTIONTYPE"] = root_recv[1][3].text
+                        recv_dict["strFROMDEVICE"] = root_recv[1][4].text
+                        recv_dict["strFROMPORT"] = root_recv[1][5].text
+                        recv_dict["strTODEVICE"] = root_recv[1][6].text
+                        recv_dict["strTOPORT"] = root_recv[1][7].text
+                        recv_dict["strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["strCMD"] = root_recv[1][-1][2].text
+                        print(recv_dict)
+                        # print(recv_dict_whit_xml)
+                        VALIDINPUT_R_xml_data = VALIDINPUT_R.format(
+                            IP=recv_dict["IP"],
+                            QUEUE_NAME=recv_dict["QUEUE_NAME"],
+                            CLIENT_HOSTNAME=recv_dict["CLIENT_HOSTNAME"],
+                            FUNCTION_VERSION=recv_dict["FUNCTION_VERSION"],
+                            PROCESS_ID=recv_dict["PROCESS_ID"],
+                            TIMESTAMP=recv_dict["TIMESTAMP"],
+                            COMMANDID=recv_dict["strCOMMANDID"],
+                            RESULT="OK",
+                            ERRORMESSAGE="",
+
+                        )
+                        print(VALIDINPUT_R_xml_data)
 
 
 """"
@@ -317,7 +661,7 @@ def page_two(username):
 
         # redirect to end the POST handling
         # the redirect can be to the same route or somewhere else
-        
+
         return redirect(url_for('index'))
     if request.method == 'POST' and request.values['go_to']=='page_three':
         return redirect(url_for('page_three'))

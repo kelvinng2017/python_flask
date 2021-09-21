@@ -209,7 +209,15 @@
                         url: $SCRIPT_ROOT + "/receive_function",
                         data: recv_data,
                         success: (data) => {
-                            var json_recv = [data];
+                            if (data.length > 0) {
+                                console.log("大於0")
+                                var json_recv = [data[0], data[1]];
+                            }
+                            else {
+                                console.log("小於0")
+                                var json_recv = [data];
+                            }
+
                             for (var i = 0, l = json_recv.length; i < l; i++) {
                                 for (var key in json_recv[i]) {
                                     console.log(key + ':' + json_recv[i][key]);
