@@ -97,7 +97,7 @@
     <label for="strCMD">strCMD:</label>
     <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
     <button id="send_to_ACS_Getway" type="button">send_to_ACS_Getway</button>
-    <button id="receive_from_MES" type="button">receive_from_MES</button>
+    <!--<button id="receive_from_MES" type="button">receive_from_MES</button>-->
 
     <!--<input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">-->
 
@@ -163,10 +163,10 @@
                     url: $SCRIPT_ROOT + "/send_function",
                     data: form_data,
                     success: (data) => {
-                        var json = [data];
-                        for (var i = 0, l = json.length; i < l; i++) {
-                            for (var key in json[i]) {
-                                console.log(key + ':' + json[i][key]);
+                        var json_send = [data];
+                        for (var i = 0, l = json_send.length; i < l; i++) {
+                            for (var key in json_send[i]) {
+                                console.log(key + ':' + json_send[i][key]);
                             }
                         }
                         //console.log("驗證:" + data.validate);
@@ -195,16 +195,22 @@
                     console.log("開始時間" + time);
                     console.log("receive message");
                     var recv_data = new FormData();
-                    recv_data.append('strCOMMANDID', $("#strCOMMANDID").val())
+                    //recv_data.append('strCOMMANDID', $("#strCOMMANDID").val())
                     $.ajax({
                         type: "POST",
                         url: $SCRIPT_ROOT + "/receive_function",
                         data: recv_data,
                         success: (data) => {
+                            var json_recv = [data];
+                            for (var i = 0, l = json_recv.length; i < l; i++) {
+                                for (var key in json_recv[i]) {
+                                    console.log(key + ':' + json_recv[i][key]);
+                                }
+                            }
                             //console.log("驗證:" + data.validate);
                             //console.log("價錢:" + data.PayAmount);
-                            console.log(data.message_label)
-                            console.log(data.message_body)
+                            //console.log(data.message_label)
+                            //console.log(data.message_body)
                             //var txt2 = $("").text(data.replay);
                             //console.log(txt2)
                             //$("body").append(txt2)
