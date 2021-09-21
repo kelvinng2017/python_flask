@@ -127,6 +127,7 @@ def index():
     #   return redirect(url_for('page_three'))
     return render_template('index.html', function_list=function_list)
 
+
     # return render_template('test_page.html')
 testInfo = {}
 need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
@@ -1038,6 +1039,8 @@ def receive_function_and_process_function():
                         recv_dict["strDEPT"] = root_recv[1][9].text
                         recv_dict["strSTAGE"] = root_recv[1][10].text
                         return(recv_dict)
+    else:
+        return(recv_dict)
 
 
 """"
