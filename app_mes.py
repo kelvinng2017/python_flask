@@ -67,7 +67,7 @@ def recv_msmq():
     try:
         queue_receive = queue_info.Open(1, 0)
         print("i am here recv2")
-        timeout_sec = 5.0
+        timeout_sec = 1.0
         return_message = {}
         if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
             # log.logger.debug("server has send message to client")
