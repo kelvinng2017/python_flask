@@ -1052,7 +1052,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strSTAGE"] = root_recv[1][10].text
                         return jsonify(send_dict, recv_dict)
     else:
-        return jsonify(recv_dict)
+        print (jsonify(recv_dict))
 
 
 """"
