@@ -127,9 +127,14 @@ def index():
     #   return redirect(url_for('page_three'))
     return render_template('index.html', function_list=function_list)
 
-
     # return render_template('test_page.html')
 testInfo = {}
+need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
+                             "VALIDINPUT", "OUTEQP", "INEQP", "CARR_ALARM", "INSTK", "FOUPINFO"]
+check_need_to_send_function_list = [
+    "STKMOVE", "EQMOVE", "EMPTYCARRMOVE", "CHANGECMD", "MOVEREQUEST", "INVDATA", "MOVESTATUSREQUEST"]
+need_change_to_send_function_replay_list = [
+    "OUTSTK_R", "LEAVE_R", "ARRIVE_R", "VALIDINPUT_R", "OUTEQP_R", "INEQP_R", "CARR_ALARM_R", "INSTK_R", "FOUPINFO_R"]
 
 
 @app.route('/stkmove/<strFunction>', methods=['GET', 'POST'])
@@ -200,7 +205,7 @@ def send_function():
     print(send_method)
     if(send_method == "STKMOVE"):
         print('stkmove function is send')
-        stkmove_xml_data = STKMOVE.format(
+        STKMOVE_xml_data = STKMOVE.format(
             IP=SendQueueIP,
             QUEUE_NAME=SendQueueName,
             CLIENT_HOSTNAME=HostName,
@@ -217,10 +222,43 @@ def send_function():
             EMPTYCARRIER=(
                 (request.form.get('strEMPTYCARRIER')).encode('utf-8')),
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
-        print(stkmove_xml_data)
-        status_of_send = send_msmaq(send_method, stkmove_xml_data)
+        print(STKMOVE_xml_data)
+        status_of_send = send_msmaq(send_method, STKMOVE_xml_data)
         send_to_html_dict["status_of_send"] = status_of_send
-        send_to_html_dict["send_xml"] = stkmove_xml_data
+        send_to_html_dict["send_xml"] = STKMOVE_xml_data
+        if(send_to_html_dict["send_xml"][0] == "<"):
+            root_send = etree.fromstring(send_to_html_dict["send_xml"])
+
+            if(len(root_send[1]) > 1):
+                if(len(root_send[1][-1]) >= 1):
+                    if(root_send[1][-1][0].text in check_need_to_send_function_list):
+                        if(str(root_send[1][-1][0].text) == "STKMOVE"):
+                            send_to_html_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
+                            send_to_html_dict["FUNCTION"] = root_send[0][1].text
+                            send_to_html_dict["SERVERNAME"] = root_send[0][2].text
+                            send_to_html_dict["IP"] = root_send[0][3].text
+                            send_to_html_dict["DLL_NAME"] = root_send[0][4].text
+                            send_to_html_dict["FUNCTION_VERSION"] = root_send[0][5].text
+                            send_to_html_dict["CLASSNAME"] = root_send[0][6].text
+                            send_to_html_dict["PROCESS_ID"] = root_send[0][7].text
+                            send_to_html_dict["QUEUE_NAME"] = root_send[0][8].text
+                            send_to_html_dict["LANG"] = root_send[0][9].text
+                            send_to_html_dict["TIMESTAMP"] = root_send[0][10].text
+                            send_to_html_dict["strCOMMANDID"] = root_send[1][0].text
+                            send_to_html_dict["strUSERID"] = root_send[1][1].text
+                            send_to_html_dict["strCARRIERID"] = root_send[1][2].text
+                            send_to_html_dict["strCARRIERIDTYPE"] = root_send[1][3].text
+                            send_to_html_dict["strFROMDEVICE"] = root_send[1][4].text
+                            send_to_html_dict["strFROMPORT"] = root_send[1][5].text
+                            send_to_html_dict["strTODEVICE"] = root_send[1][6].text
+                            send_to_html_dict["strTOPORT"] = root_send[1][7].text
+                            send_to_html_dict["strEMPTYCARRIER"] = root_send[1][8].text
+                            send_to_html_dict["strPRIORITY"] = root_send[1][9].text
+                            send_to_html_dict["strMETHODNAME"] = root_send[1][-1][0].text
+                            send_to_html_dict["strFORNAME"] = root_send[1][-1][1].text
+                            send_to_html_dict["strCMD"] = root_send[1][-1][2].text
+                            print(send_to_html_dict)
+
     else:
         send_to_html_dict["send_xml"] = "no this function"
     return jsonify(send_to_html_dict)
