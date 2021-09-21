@@ -107,12 +107,7 @@
     </script>
 
     <script language="javascript" type="text/javascript">
-        var json = [{ dd: 'SB', AA: '東東', re1: 123 }, { cccc: 'dd', lk: '1qw' }];
-        for (var i = 0, l = json.length; i < l; i) {
-            for (var key in json[i]) {
-                alert(key + ':' + json[i][key]);
-            }
-        }
+
         $('#receive_from_MES').click(
             function () {
                 console.log("receive message");
@@ -168,11 +163,17 @@
                     url: $SCRIPT_ROOT + "/send_function",
                     data: form_data,
                     success: (data) => {
+                        var json = [data];
+                        for (var i = 0, l = json.length; i < l; i++) {
+                            for (var key in json[i]) {
+                                console.log(key + ':' + json[i][key]);
+                            }
+                        }
                         //console.log("驗證:" + data.validate);
                         //console.log("價錢:" + data.PayAmount);
-                        console.log(data)
-                        console.log(data.length)
-                        console.log(data.send_xml)
+                        //console.log(data)
+                        //console.log(data.length)
+                        //console.log(data.send_xml)
                         //var txt2 = $("").text(data.replay);
                         //console.log(txt2)
                         //$("body").append(txt2)
