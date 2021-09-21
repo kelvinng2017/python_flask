@@ -228,7 +228,6 @@ def send_function():
         send_to_html_dict["send_xml"] = STKMOVE_xml_data
         if(send_to_html_dict["send_xml"][0] == "<"):
             root_send = etree.fromstring(send_to_html_dict["send_xml"])
-
             if(len(root_send[1]) > 1):
                 if(len(root_send[1][-1]) >= 1):
                     if(root_send[1][-1][0].text in check_need_to_send_function_list):
@@ -276,8 +275,33 @@ def receive_function_and_process_function():
     recv_dict = {}
 
     recv_msmq_dict = recv_msmq()
+
     recv_dict["message_label"] = recv_msmq_dict["message_label"]
     recv_dict["message_body"] = recv_msmq_dict["message_body"]
+    if(recv_dict["message_body"][0] == "<"):
+        root_recv = etree.fromstring(recv_dict["message_body"])
+        if(len(root_recv) > 1):
+            if(len(root_recv[1][-1]) >= 1):
+                if(root_recv[1][-1][0].text not in need_change_to_input_list):
+                    if(str(root_recv[1][-1][0].text) == "STKMOVE_R"):
+                        recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
+                        recv_dict["FUNCTION"] = root_recv[0][1].text
+                        recv_dict["SERVERNAME"] = root_recv[0][2].text
+                        recv_dict["IP"] = root_recv[0][3].text
+                        recv_dict["DLL_NAME"] = root_recv[0][4].text
+                        recv_dict["FUNCTION_VERSION"] = root_recv[0][5].text
+                        recv_dict["CLASSNAME"] = root_recv[0][6].text
+                        recv_dict["PID"] = root_recv[0][7].text
+                        recv_dict["PROCESS_ID"] = root_recv[0][8].text
+                        recv_dict["QUEUE_NAME"] = root_recv[0][9].text
+                        recv_dict["LANG"] = root_recv[0][10].text
+                        recv_dict["TIMESTAMP"] = root_recv[0][11].text
+                        recv_dict["strCOMMANDID"] = root_recv[1][0].text
+                        recv_dict["strRESULT"] = root_recv[1][1].text
+                        recv_dict["strERRORMESSAGE"] = root_recv[1][2].text
+                        recv_dict["strMETHODNAME"] = root_recv[1][-1][0].text
+                        recv_dict["strFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["strCMD"] = root_recv[1][-1][2].text
     return jsonify(recv_dict)
 
 
