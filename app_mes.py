@@ -284,10 +284,10 @@ def receive_function_and_process_function():
 
     recv_msmq_dict = recv_msmq()
 
-    recv_dict_2["message_label"] = recv_msmq_dict["message_label"]
-    recv_dict_2["message_body"] = recv_msmq_dict["message_body"]
-    if(recv_dict_2["message_body"][0] == "<"):
-        root_recv = etree.fromstring(recv_dict_2["message_body"])
+    recv_dict["message_label"] = recv_msmq_dict["message_label"]
+    recv_dict["message_body"] = recv_msmq_dict["message_body"]
+    if(recv_dict["message_body"][0] == "<"):
+        root_recv = etree.fromstring(recv_dict["message_body"])
         if(len(root_recv) > 1):
             if(len(root_recv[1][-1]) >= 1):
                 if(root_recv[1][-1][0].text not in need_change_to_input_list):
@@ -775,7 +775,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strTODEVICE"] = root_recv[1][3].text
                         recv_dict["recv_strTOPORT"] = root_recv[1][4].text
                         recv_dict["recv_strMETHODNAME"] = root_recv[1][-1][0].text
-                        recv_dict["recv_trFORNAME"] = root_recv[1][-1][1].text
+                        recv_dict["recv_strFORNAME"] = root_recv[1][-1][1].text
                         recv_dict["recv_strCMD"] = root_recv[1][-1][2].text
                         print(recv_dict)
                         # print(recv_dict_whit_xml)
@@ -1052,7 +1052,7 @@ def receive_function_and_process_function():
                         recv_dict["recv_strSTAGE"] = root_recv[1][10].text
                         return jsonify(send_dict, recv_dict)
     else:
-        return jsonify(recv_dict_2)
+        return jsonify(recv_dict)
 
 
 """"
