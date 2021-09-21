@@ -127,7 +127,6 @@ def index():
     #   return redirect(url_for('page_three'))
     return render_template('index.html', function_list=function_list)
 
-
     # return render_template('test_page.html')
 testInfo = {}
 need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
@@ -488,7 +487,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
-                        return(recv_dict)
+                        return jsonify(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "LEAVE"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -559,7 +558,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
                                             print("LEAVE_R:"+str(send_dict))
-                                            return(recv_dict)
+                                            return jsonify(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "ARRIVE"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -624,7 +623,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
-                                            return(recv_dict)
+                                            return jsonify(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "VALIDINPUT"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -692,7 +691,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
-                                            return(recv_dict)
+                                            return jsonify(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "OUTEQP"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -757,7 +756,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
-                                            return(recv_dict)
+                                            return jsonify(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "INEQP"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -828,7 +827,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
                                             print("check823")
-                                            return(recv_dict)
+                                            return jsonify(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "CARR_ALARM"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -893,7 +892,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
-                                            return(recv_dict)
+                                            return jsonify(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "INSTK"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -956,7 +955,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
-                                            return(recv_dict)
+                                            return jsonify(send_dict, recv_dict)
                     if(str(root_recv[1][-1][0].text) == "FOUPINFO"):
                         recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["recv_FUNCTION"] = root_recv[0][1].text
@@ -1024,7 +1023,7 @@ def receive_function_and_process_function():
                                             send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
-                                            return(recv_dict)
+                                            return jsonify(send_dict, recv_dict)
                 if(len(root_recv[1]) > 1):
                     print(root_recv[1][1].tag)
                     if(str(root_recv[1][1].tag) == "strALARMID"):
@@ -1051,9 +1050,9 @@ def receive_function_and_process_function():
                         recv_dict["recv_strALARMTIME"] = root_recv[1][8].text
                         recv_dict["recv_strDEPT"] = root_recv[1][9].text
                         recv_dict["recv_strSTAGE"] = root_recv[1][10].text
-                        return(recv_dict)
+                        return jsonify(send_dict, recv_dict)
     else:
-        return(recv_dict)
+        return jsonify(recv_dict_2)
 
 
 """"
