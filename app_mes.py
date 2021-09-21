@@ -791,12 +791,17 @@ def receive_function_and_process_function():
                         send_msmaq(send_dict["message_label"],
                                    send_dict["message_body"])
                         if(send_dict["message_body"][0] == "<"):
+                            print("check794")
                             root_send = etree.fromstring(
                                 send_dict["message_body"])
                             if(len(root_send) > 1):
+                                print("check798")
                                 if(len(root_send[1][-1]) >= 1):
+                                    print("check800")
                                     if(root_send[1][-1][0].text in need_change_to_send_function_replay_list):
+                                        print("check802")
                                         if(str(root_send[1][-1][0].text) == "INEQP_R"):
+                                            print("check804")
                                             send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
                                             send_dict["FUNCTION"] = root_send[0][1].text
                                             send_dict["SERVERNAME"] = root_send[0][2].text
@@ -815,6 +820,7 @@ def receive_function_and_process_function():
                                             send_dict["strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["strCMD"] = root_send[1][-1][2].text
+                                            print("check823")
                                             return(recv_dict, send_dict)
                     if(str(root_recv[1][-1][0].text) == "CARR_ALARM"):
                         recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
