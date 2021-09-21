@@ -165,8 +165,12 @@
                     success: (data) => {
                         if (data.length > 0) {
                             console.log("大於0")
+                            var json_send = [data[0], data[1]];
                         }
-                        var json_send = [data[0], data[1]];
+                        else {
+                            var json_send = [data];
+                        }
+
                         for (var i = 0, l = json_send.length; i < l; i++) {
                             for (var key in json_send[i]) {
                                 console.log(key + ':' + json_send[i][key]);
