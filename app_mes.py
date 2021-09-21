@@ -53,12 +53,41 @@ def send_msmaq(label, message):
         msg.Body = message
 
         msg.Send(queue_send)
-        print("function send")
+        return "msmq has  send"
     except Exception as e:
-        print("wrong")
+        return "connect wrong"
     finally:
         queue_send.Close()
-    print(SendQueue)
+        print(SendQueue)
+
+
+def recv_msmq():
+    queue_info.FormatName = RecvQueue
+    queue_receive = None
+    try:
+        queue_receive = queue_info.Open(1, 0)
+        print("i am here recv2")
+        timeout_sec = 5.0
+        return_message = {}
+        if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
+            # log.logger.debug("server has send message to client")
+            msg = queue_receive.Receive()
+            return_message["message label"] = (msg.Label).encode("utf-8")
+            return_message["message body"] = (msg.Body).encode("utf-8")
+            queue_receive.Close()
+            return return_message
+        else:
+            Time2 = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+            return_message["message label"] = "msmq no label"
+            return_message["message body"] = "msmq no message"
+            queue_receive.Close()
+            return return_message
+    except Exception as e:
+        print("connect error")
+        return_message["message label"] = "connect wrong"
+        return_message["message body"] = "connect wrong"
+    finally:
+        queue_receive.Close()
 
 
 @app.route('/index', methods=['GET', 'POST'])
@@ -97,6 +126,7 @@ def index():
     # if request.method == 'POST' and request.values['go_to']=='page_three':
     #   return redirect(url_for('page_three'))
     return render_template('index.html', function_list=function_list)
+
 
     # return render_template('test_page.html')
 testInfo = {}
@@ -188,11 +218,11 @@ def send_function():
                 (request.form.get('strEMPTYCARRIER')).encode('utf-8')),
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
         print(stkmove_xml_data)
-        send_msmaq(send_method, stkmove_xml_data)
-        print("stkmove is send")
-        send_to_html_dict["replay"] = stkmove_xml_data
+        status_of_send = send_msmaq(send_method, stkmove_xml_data)
+        send_to_html_dict["status_of_send"] = status_of_send
+        send_to_html_dict["send_xml"] = stkmove_xml_data
     else:
-        send_to_html_dict["replay"] = "message wrong"
+        send_to_html_dict["send_xml"] = "no this function"
     return jsonify(send_to_html_dict)
 
 
@@ -206,54 +236,11 @@ def receive_function_and_process_function():
         "OUTSTK_R", "LEAVE_R", "ARRIVE_R", "VALIDINPUT_R", "OUTEQP_R", "INEQP_R", "CARR_ALARM_R", "INSTK_R", "FOUPINFO_R"]
     print("i am here recv1")
     recv_dict = {}
-    queue_info.FormatName = RecvQueue
-    print(RecvQueue)
-    queue_receive = None
-    try:
-        queue_receive = queue_info.Open(1, 0)
-        print("i am here recv2")
-        timeout_sec = 5.0
-        if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
-            # log.logger.debug("server has send message to client")
-            msg = queue_receive.Receive()
-            receive_messages_information_string = (msg.Body).encode("utf-8")
-            recv_dict["msmq_label"] = (msg.Label).encode("utf-8")
-            recv_dict["msmq_message"] = receive_messages_information_string
-            if(recv_dict["msmq_message"][0] == "<"):  # recv_dict["msmq_message"][0]string
-                root = etree.fromstring(recv_dict["msmq_message"])
-                if(len(root) > 1):
-                    if(len(root[1]) > 1):
-                        if(len(root[1][-1]) >= 1):
-                            if(root[1][-1][0].text in need_change_to_input_list):
-                                if(str(root[1][-1][0].text) == "VALIDINPUT"):
-                                    VALIDINPUT_xml_data = VALIDINPUT_R.format(
-                                        IP=SendQueueIP,
-                                        QUEUE_NAME=SendQueueName,
-                                        CLIENT_HOSTNAME=HostName,
-                                        FUNCTION_VERSION=Version,
-                                        PROCESS_ID=PID,
-                                        TIMESTAMP=Time,
-                                        COMMANDID=root[1][0].text,
-                                        RESULT="OK",
-                                        ERRORMESSAGE=""
-                                    )
 
-            queue_receive.Close()
-            return jsonify(recv_dict)
-        else:
-            Time2 = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-            recv_dict["msmq_label"] = "msmq no label"+Time2
-            recv_dict["msmq_message"] = "msmq no message"+Time2
-            queue_receive.Close()
-            return jsonify(recv_dict)
-    except Exception as e:
-        print("wrong message"+e)
-        recv_dict["msmq_label"] = "connect error"
-        recv_dict["msmq_message"] = "connect error"
-        queue_receive.Close()
-        return jsonify(recv_dict)
-    finally:
-        queue_receive.Close()
+    recv_msmq_dict = recv_msmq()
+    recv_dict["message label"] = recv_msmq_dict["message label"]
+    recv_dict["message body"] = recv_msmq_dict["message body"]
+    return jsonify(recv_dict)
 
 
 """"
