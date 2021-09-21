@@ -522,12 +522,17 @@ def receive_function_and_process_function():
                         send_msmaq(send_dict["message_label"],
                                    send_dict["message_body"])
                         if(send_dict["message_body"][0] == "<"):
+                            print("check523")
                             root_send = etree.fromstring(
                                 send_dict["message_body"])
                             if(len(root_send) > 1):
+                                print("check529")
                                 if(len(root_send[1][-1]) >= 1):
+                                    print("check531")
                                     if(root_send[1][-1][0].text in need_change_to_send_function_replay_list):
+                                        print("check533")
                                         if(str(root_send[1][-1][0].text) == "LEAVE_R"):
+                                            print("check535")
                                             send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
                                             send_dict["FUNCTION"] = root_send[0][1].text
                                             send_dict["SERVERNAME"] = root_send[0][2].text
