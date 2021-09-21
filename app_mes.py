@@ -276,14 +276,15 @@ def receive_function_and_process_function():
         "OUTSTK_R", "LEAVE_R", "ARRIVE_R", "VALIDINPUT_R", "OUTEQP_R", "INEQP_R", "CARR_ALARM_R", "INSTK_R", "FOUPINFO_R"]
     print("i am here recv1")
     recv_dict = {}
+    recv_dict_2 = {}
     send_dict = {}
 
     recv_msmq_dict = recv_msmq()
 
-    recv_dict["message_label"] = recv_msmq_dict["message_label"]
-    recv_dict["message_body"] = recv_msmq_dict["message_body"]
+    recv_dict_2["message_label"] = recv_msmq_dict["message_label"]
+    recv_dict_2["message_body"] = recv_msmq_dict["message_body"]
     if(recv_dict["message_body"][0] == "<"):
-        root_recv = etree.fromstring(recv_dict["message_body"])
+        root_recv = etree.fromstring(recv_dict_2["message_body"])
         if(len(root_recv) > 1):
             if(len(root_recv[1][-1]) >= 1):
                 if(root_recv[1][-1][0].text not in need_change_to_input_list):
@@ -553,8 +554,8 @@ def receive_function_and_process_function():
                                             send_dict["strMETHODNAME"] = root_send[1][-1][0].text
                                             send_dict["strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["strCMD"] = root_send[1][-1][2].text
-                                            print("LEAVE_R:"+str(recv_dict))
-                                            return(send_dict)
+                                            print("LEAVE_R:"+str(send_dict))
+                                            return(recv_dict)
                     if(str(root_recv[1][-1][0].text) == "ARRIVE"):
                         recv_dict["CLIENT_HOSTNAME"] = root_recv[0][0].text
                         recv_dict["FUNCTION"] = root_recv[0][1].text
