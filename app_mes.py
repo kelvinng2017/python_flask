@@ -340,6 +340,7 @@ def send_function():
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8'))) 
     else:
         send_dict["send_message_body"] = "no this function"
+        return jsonify(send_dict)
     #return jsonify(send_dict)
 
 
