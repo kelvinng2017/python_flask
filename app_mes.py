@@ -127,6 +127,7 @@ def index():
     #   return redirect(url_for('page_three'))
     return render_template('index.html', function_list=function_list)
 
+
     # return render_template('test_page.html')
 testInfo = {}
 need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
@@ -195,6 +196,8 @@ def stkmove(strFunction):
     # send_message_host_mes(SendQueue,"test","test1")
 
     return render_template('stkmove.html', stk_dict=stk_dict)
+
+
 @app.route('/stkmove_new/<strFunction>', methods=['GET', 'POST'])
 def stkmove_new(strFunction):
     strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
@@ -210,19 +213,19 @@ def stkmove_new(strFunction):
         "strCARRIERRID": strCARRIERRID_list,
         "strTODEVICE": strTODEVICE_list,
     }
-    
 
     # send_message_host_mes(SendQueue,"test","test1")
 
     return render_template('stkmove_new.html', stk_dict=stk_dict)
 
+
 @app.route('/eqmove/<strFunction>', methods=['GET', 'POST'])
 def eqmove(strFunction):
     strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
     strFROMDEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
-                        "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
-                        "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
-                        "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
+                          "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
+                          "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
+                          "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
     stk_dict = {
         "strFunction": strFunction,
         "strCOMAND": commandid,
@@ -275,6 +278,7 @@ def eqmove(strFunction):
 
     return render_template('eqmove.html', stk_dict=stk_dict)
 
+
 @app.route('/send_function', methods=["GET", "POST"])
 def send_function():
     print("i am here send")
@@ -306,7 +310,7 @@ def send_function():
         print(STKMOVE_xml_data)
         status_of_send = send_msmaq(send_method, STKMOVE_xml_data)  # here
         send_dict["status_of_send"] = status_of_send
-        send_dict["send_message_label"] ="STKMOVE"
+        send_dict["send_message_label"] = "STKMOVE"
         send_dict["send_message_body"] = STKMOVE_xml_data
         if(send_dict["send_message_body"][0] == "<"):
             root_send = etree.fromstring(send_dict["send_message_body"])
@@ -339,10 +343,10 @@ def send_function():
                             send_dict["sned_strFORNAME"] = root_send[1][-1][1].text
                             send_dict["sned_strCMD"] = root_send[1][-1][2].text
                             return jsonify(send_dict)
-    elif(send_method =="EQMOVE"):
+    elif(send_method == "EQMOVE"):
         print("eqmove function is send")
         EQMOVE_xml_data = EQMOVE.format(
-                        IP=SendQueueIP,
+            IP=SendQueueIP,
             QUEUE_NAME=SendQueueName,
             CLIENT_HOSTNAME=HostName,
             FUNCTION_VERSION=Version,
@@ -357,13 +361,45 @@ def send_function():
             TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
             EMPTYCARRIER=(
                 (request.form.get('strEMPTYCARRIER')).encode('utf-8')),
-            PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8'))) 
+            PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
         print(EQMOVE_xml_data)
-        status_of_send = send_msmaq(send_method,EQMOVE_xml_data)
+        status_of_send = send_msmaq(send_method, EQMOVE_xml_data)
         send_dict["status_of_send"] = status_of_send
-        send_dict["send_message_label"] ="EQMPVE"
+        send_dict["send_message_label"] = "EQMPVE"
         send_dict["send_message_body"] = EQMOVE_xml_data
-        if(send_dict["msmq_message"][0] == "<"):
+        if(send_dict["send_message_body"] == "<"):
+            root_send = etree.fromstring(send_dict["send_message_body"])
+            if(len(root_send[1]) > 1):
+                if(len(root_send[1][-1]) >= 1):
+                    if(root_send[1][-1][0].text in check_need_to_send_function_list):
+                        if(str(root_send[1][-1][0].text) == "EQMOVE"):
+                            send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
+                            send_dict["FUNCTION"] = root_send[0][1].text
+                            send_dict["SERVERNAME"] = root_send[0][2].text
+                            send_dict["IP"] = root_send[0][3].text
+                            send_dict["DLL_NAME"] = root_send[0][4].text
+                            send_dict["FUNCTION_VERSION"] = root_send[0][5].text
+                            send_dict["CLASSNAME"] = root_send[0][6].text
+                            send_dict["PROCESS_ID"] = root_send[0][7].text
+                            send_dict["QUEUE_NAME"] = root_send[0][8].text
+                            send_dict["LANG"] = root_send[0][9].text
+                            send_dict["TIMESTAMP"] = root_send[0][10].text
+                            send_dict["strCOMMANDID"] = root_send[1][0].text
+                            send_dict["strUSERID"] = root_send[1][1].text
+                            send_dict["strCARRIERID"] = root_send[1][2].text
+                            send_dict["strCARRIERIDTYPE"] = root_send[1][3].text
+                            send_dict["strFROMDEVICE"] = root_send[1][4].text
+                            send_dict["strFROMPORT"] = root_send[1][5].text
+                            send_dict["strTODEVICE"] = root_send[1][6].text
+                            send_dict["strTOPORT"] = root_send[1][7].text
+                            send_dict["strEMPTYCARRIER"] = root_send[1][8].text
+                            send_dict["strPRIORITY"] = root_send[1][9].text
+                            send_dict["strMETHODNAME"] = root_send[1][-1][0].text
+                            send_dict["strFORNAME"] = root_send[1][-1][1].text
+                            send_dict["strCMD"] = root_send[1][-1][2].text
+                            print(send_dict)
+                            return jsonify(send_dict)
+
     # print(send_dict["msmq_message"])
     root_send = etree.fromstring(send_dict["msmq_message"])
     if(len(root_send) > 1):
@@ -413,7 +449,7 @@ def send_function():
     else:
         send_dict["send_message_body"] = "no this function"
         return jsonify(send_dict)
-    #return jsonify(send_dict)
+    # return jsonify(send_dict)
 
 
 @app.route('/receive_function', methods=["GET", "POST"])
