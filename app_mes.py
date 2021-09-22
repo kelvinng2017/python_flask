@@ -369,9 +369,13 @@ def send_function():
         send_dict["send_message_body"] = EQMOVE_xml_data
         if(send_dict["send_message_body"] == "<"):
             root_send = etree.fromstring(send_dict["send_message_body"])
+            print("i am here11111111")
             if(len(root_send[1]) > 1):
+                print("i am here2222222222222")
                 if(len(root_send[1][-1]) >= 1):
+                    print("i am here3333333333")
                     if(root_send[1][-1][0].text in check_need_to_send_function_list):
+                        print("i am here44444444")
                         if(str(root_send[1][-1][0].text) == "EQMOVE"):
                             print("i am here")
                             send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
