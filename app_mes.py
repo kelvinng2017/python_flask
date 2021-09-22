@@ -97,7 +97,7 @@ def index():
     if request.method == 'POST' and request.values['go_to'] == 'STKMOVE':
         # str1 = 'STKMOVE'
         # return render_template('index.html',function_list=function_list,str1=str1)
-        return redirect(url_for('stkmove', strFunction=request.form.get('go_to')))
+        return redirect(url_for('stkmove_new', strFunction=request.form.get('go_to')))
     if request.method == 'POST' and request.values['go_to'] == 'EQMOVE':
         str1 = 'EQMOVE'
         return redirect(url_for('eqmove', strFunction=request.form.get('go_to')))
@@ -191,6 +191,26 @@ def stkmove(strFunction):
         return json.dumps(testInfo)
         # return render_template('stkmove.html',xml_data=xml_data)
     """
+
+    # send_message_host_mes(SendQueue,"test","test1")
+
+    return render_template('stkmove.html', stk_dict=stk_dict)
+@app.route('/stkmove_new/<strFunction>', methods=['GET', 'POST'])
+def stkmove_new(strFunction):
+    strCARRIERRID_list = ["E002_stock1", "E003_stock1", "E004_stock1"]
+    strTODEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
+                        "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
+                        "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
+                        "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
+    stk_dict = {
+        "strFunction": strFunction,
+        "strCOMAND": commandid,
+        "strFORNAME": "ACS",
+        "strUSERID": user_id,
+        "strCARRIERRID": strCARRIERRID_list,
+        "strTODEVICE": strTODEVICE_list,
+    }
+    
 
     # send_message_host_mes(SendQueue,"test","test1")
 
