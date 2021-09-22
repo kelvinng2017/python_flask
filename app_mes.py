@@ -218,7 +218,7 @@ def stkmove_new(strFunction):
 
 @app.route('/eqmove/<strFunction>', methods=['GET', 'POST'])
 def eqmove(strFunction):
-    strCARRIERRID_list = ["E002_stock1", "E003_stock1", "E004_stock1"]
+    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
     strFROMDEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
                         "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
                         "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
@@ -358,6 +358,12 @@ def send_function():
             EMPTYCARRIER=(
                 (request.form.get('strEMPTYCARRIER')).encode('utf-8')),
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8'))) 
+        print(EQMOVE_xml_data)
+        status_of_send = send_msmaq(send_method,EQMOVE_xml_data)
+        send_dict["status_of_send"] = status_of_send
+        send_dict["send_message_label"] ="EQMPVE"
+        send_dict["send_message_body"] = EQMOVE_xml_data
+
     else:
         send_dict["send_message_body"] = "no this function"
         return jsonify(send_dict)
