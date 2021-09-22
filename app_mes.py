@@ -318,7 +318,27 @@ def send_function():
                             send_to_html_dict["sned_strFORNAME"] = root_send[1][-1][1].text
                             send_to_html_dict["sned_strCMD"] = root_send[1][-1][2].text
                             print(send_to_html_dict)
+    if(send_method =="EQMOVE"):
+        print("eqmove function is send")
+        EQMOVE_xml_data = EQMOVE.format(
+                        IP=SendQueueIP,
+            QUEUE_NAME=SendQueueName,
+            CLIENT_HOSTNAME=HostName,
+            FUNCTION_VERSION=Version,
+            PROCESS_ID=PID,
+            TIMESTAMP=Time,
+            COMMANDID=((request.form.get('strCOMMANDID')).encode('utf-8')),
+            USERID=((request.form.get('strUSERID')).encode('utf-8')),
+            CARRIERID=((request.form.get('strCARRIERRID')).encode('utf-8')),
+            FROMDEVICE=((request.form.get('strFROMDEVICE')).encode('utf-8')),
+            FROMPORT=((request.form.get('strFROMPORT')).encode('utf-8')),
+            TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),
+            TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
+            EMPTYCARRIER=(
+                (request.form.get('strEMPTYCARRIER')).encode('utf-8')),
+            PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
 
+        
     else:
         send_to_html_dict["send_xml"] = "no this function"
     return jsonify(send_to_html_dict)
