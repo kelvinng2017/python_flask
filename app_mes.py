@@ -258,7 +258,7 @@ def eqmove(strFunction):
 @app.route('/send_function', methods=["GET", "POST"])
 def send_function():
     print("i am here send")
-    send_to_html_dict = {}
+    send_dict = {}
     hope_dict = {
         "lunch": "burger",
     }
@@ -285,39 +285,40 @@ def send_function():
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
         print(STKMOVE_xml_data)
         status_of_send = send_msmaq(send_method, STKMOVE_xml_data)  # here
-        send_to_html_dict["status_of_send"] = status_of_send
-        send_to_html_dict["send_xml"] = STKMOVE_xml_data
-        if(send_to_html_dict["send_xml"][0] == "<"):
-            root_send = etree.fromstring(send_to_html_dict["send_xml"])
+        send_dict["status_of_send"] = status_of_send
+        send_dict["send_message_label"] ="STKMOVE"
+        send_dict["send_message_body"] = STKMOVE_xml_data
+        if(send_dict["send_message_body"][0] == "<"):
+            root_send = etree.fromstring(send_dict["send_message_body"])
             if(len(root_send[1]) > 1):
                 if(len(root_send[1][-1]) >= 1):
                     if(root_send[1][-1][0].text in check_need_to_send_function_list):
                         if(str(root_send[1][-1][0].text) == "STKMOVE"):
-                            send_to_html_dict["sned_CLIENT_HOSTNAME"] = root_send[0][0].text
-                            send_to_html_dict["sned_FUNCTION"] = root_send[0][1].text
-                            send_to_html_dict["sned_SERVERNAME"] = root_send[0][2].text
-                            send_to_html_dict["sned_IP"] = root_send[0][3].text
-                            send_to_html_dict["sned_DLL_NAME"] = root_send[0][4].text
-                            send_to_html_dict["sned_FUNCTION_VERSION"] = root_send[0][5].text
-                            send_to_html_dict["sned_CLASSNAME"] = root_send[0][6].text
-                            send_to_html_dict["sned_PROCESS_ID"] = root_send[0][7].text
-                            send_to_html_dict["sned_QUEUE_NAME"] = root_send[0][8].text
-                            send_to_html_dict["sned_LANG"] = root_send[0][9].text
-                            send_to_html_dict["sned_TIMESTAMP"] = root_send[0][10].text
-                            send_to_html_dict["sned_strCOMMANDID"] = root_send[1][0].text
-                            send_to_html_dict["sned_strUSERID"] = root_send[1][1].text
-                            send_to_html_dict["sned_strCARRIERID"] = root_send[1][2].text
-                            send_to_html_dict["sned_strCARRIERIDTYPE"] = root_send[1][3].text
-                            send_to_html_dict["sned_strFROMDEVICE"] = root_send[1][4].text
-                            send_to_html_dict["sned_strFROMPORT"] = root_send[1][5].text
-                            send_to_html_dict["sned_strTODEVICE"] = root_send[1][6].text
-                            send_to_html_dict["sned_strTOPORT"] = root_send[1][7].text
-                            send_to_html_dict["sned_strEMPTYCARRIER"] = root_send[1][8].text
-                            send_to_html_dict["sned_strPRIORITY"] = root_send[1][9].text
-                            send_to_html_dict["sned_strMETHODNAME"] = root_send[1][-1][0].text
-                            send_to_html_dict["sned_strFORNAME"] = root_send[1][-1][1].text
-                            send_to_html_dict["sned_strCMD"] = root_send[1][-1][2].text
-                            print(send_to_html_dict)
+                            send_dict["sned_CLIENT_HOSTNAME"] = root_send[0][0].text
+                            send_dict["sned_FUNCTION"] = root_send[0][1].text
+                            send_dict["sned_SERVERNAME"] = root_send[0][2].text
+                            send_dict["sned_IP"] = root_send[0][3].text
+                            send_dict["sned_DLL_NAME"] = root_send[0][4].text
+                            send_dict["sned_FUNCTION_VERSION"] = root_send[0][5].text
+                            send_dict["sned_CLASSNAME"] = root_send[0][6].text
+                            send_dict["sned_PROCESS_ID"] = root_send[0][7].text
+                            send_dict["sned_QUEUE_NAME"] = root_send[0][8].text
+                            send_dict["sned_LANG"] = root_send[0][9].text
+                            send_dict["sned_TIMESTAMP"] = root_send[0][10].text
+                            send_dict["sned_strCOMMANDID"] = root_send[1][0].text
+                            send_dict["sned_strUSERID"] = root_send[1][1].text
+                            send_dict["sned_strCARRIERID"] = root_send[1][2].text
+                            send_dict["sned_strCARRIERIDTYPE"] = root_send[1][3].text
+                            send_dict["sned_strFROMDEVICE"] = root_send[1][4].text
+                            send_dict["sned_strFROMPORT"] = root_send[1][5].text
+                            send_dict["sned_strTODEVICE"] = root_send[1][6].text
+                            send_dict["sned_strTOPORT"] = root_send[1][7].text
+                            send_dict["sned_strEMPTYCARRIER"] = root_send[1][8].text
+                            send_dict["sned_strPRIORITY"] = root_send[1][9].text
+                            send_dict["sned_strMETHODNAME"] = root_send[1][-1][0].text
+                            send_dict["sned_strFORNAME"] = root_send[1][-1][1].text
+                            send_dict["sned_strCMD"] = root_send[1][-1][2].text
+                            print(send_dict)
     if(send_method =="EQMOVE"):
         print("eqmove function is send")
         EQMOVE_xml_data = EQMOVE.format(
@@ -340,8 +341,8 @@ def send_function():
 
         
     else:
-        send_to_html_dict["send_xml"] = "no this function"
-    return jsonify(send_to_html_dict)
+        send_dict["send_message_body"] = "no this function"
+    return jsonify(send_dict)
 
 
 @app.route('/receive_function', methods=["GET", "POST"])
@@ -362,10 +363,10 @@ def receive_function_and_process_function():
 
     recv_msmq_dict = recv_msmq()
 
-    recv_dict["message_label"] = recv_msmq_dict["message_label"]
-    recv_dict["message_body"] = recv_msmq_dict["message_body"]
-    if(recv_dict["message_body"][0] == "<"):
-        root_recv = etree.fromstring(recv_dict["message_body"])
+    recv_dict["recv_message_label"] = recv_msmq_dict["message_label"]
+    recv_dict["recv_message_body"] = recv_msmq_dict["message_body"]
+    if(recv_dict["recv_message_body"][0] == "<"):
+        root_recv = etree.fromstring(recv_dict["recv_message_body"])
         if(len(root_recv) > 1):
             if(len(root_recv[1][-1]) >= 1):
                 if(root_recv[1][-1][0].text not in need_change_to_input_list):
