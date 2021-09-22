@@ -220,7 +220,10 @@
 
                             for (var i = 0, l = json_recv.length; i < l; i++) {
                                 for (var key in json_recv[i]) {
-                                    console.log(key + ':' + json_recv[i][key]);
+                                    if (json_recv[i][key] !== "msmq no message") {
+                                        console.log(key + ':' + json_recv[i][key]);
+                                    }
+
                                 }
                             }
                             //console.log("驗證:" + data.validate);
