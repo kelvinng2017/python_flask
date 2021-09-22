@@ -365,9 +365,9 @@ def send_function():
         print(EQMOVE_xml_data)
         status_of_send = send_msmaq(send_method, EQMOVE_xml_data)
         send_dict["status_of_send"] = status_of_send
-        send_dict["send_message_label"] = "EQMPVE"
+        send_dict["send_message_label"] = "EQMOVE"
         send_dict["send_message_body"] = EQMOVE_xml_data
-        if(send_dict["send_message_body"] == "<"):
+        if(send_dict["send_message_body"][0] == "<"):
             root_send = etree.fromstring(send_dict["send_message_body"])
             print("i am here11111111")
             if(len(root_send[1]) > 1):
