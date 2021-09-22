@@ -318,8 +318,8 @@ def send_function():
                             send_dict["sned_strMETHODNAME"] = root_send[1][-1][0].text
                             send_dict["sned_strFORNAME"] = root_send[1][-1][1].text
                             send_dict["sned_strCMD"] = root_send[1][-1][2].text
-                            print(send_dict)
-    if(send_method =="EQMOVE"):
+                            jsonify(send_dict)
+    elif(send_method =="EQMOVE"):
         print("eqmove function is send")
         EQMOVE_xml_data = EQMOVE.format(
                         IP=SendQueueIP,
@@ -337,12 +337,10 @@ def send_function():
             TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
             EMPTYCARRIER=(
                 (request.form.get('strEMPTYCARRIER')).encode('utf-8')),
-            PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
-
-        
+            PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8'))) 
     else:
         send_dict["send_message_body"] = "no this function"
-    return jsonify(send_dict)
+    #return jsonify(send_dict)
 
 
 @app.route('/receive_function', methods=["GET", "POST"])
