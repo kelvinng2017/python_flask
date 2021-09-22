@@ -214,7 +214,7 @@ def stkmove_new(strFunction):
 
     # send_message_host_mes(SendQueue,"test","test1")
 
-    return render_template('stkmove.html', stk_dict=stk_dict)
+    return render_template('stkmove_new.html', stk_dict=stk_dict)
 
 @app.route('/eqmove/<strFunction>', methods=['GET', 'POST'])
 def eqmove(strFunction):
