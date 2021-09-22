@@ -373,6 +373,7 @@ def send_function():
                 if(len(root_send[1][-1]) >= 1):
                     if(root_send[1][-1][0].text in check_need_to_send_function_list):
                         if(str(root_send[1][-1][0].text) == "EQMOVE"):
+                            print("i am here")
                             send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
                             send_dict["FUNCTION"] = root_send[0][1].text
                             send_dict["SERVERNAME"] = root_send[0][2].text
