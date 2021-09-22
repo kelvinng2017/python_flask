@@ -363,6 +363,52 @@ def send_function():
         send_dict["status_of_send"] = status_of_send
         send_dict["send_message_label"] ="EQMPVE"
         send_dict["send_message_body"] = EQMOVE_xml_data
+        if(send_dict["msmq_message"][0] == "<"):
+    # print(send_dict["msmq_message"])
+    root_send = etree.fromstring(send_dict["msmq_message"])
+    if(len(root_send) > 1):
+        if(len(root_send[1]) > 1):
+            if(len(root_send[1][-1]) >= 1):
+                if(root_send[1][-1][0].text in check_need_to_send_function_list):
+                    if(str(root_send[1][-1][0].text) == "EQMOVE"):
+                        send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
+                        send_dict["FUNCTION"] = root_send[0][1].text
+                        send_dict["SERVERNAME"] = root_send[0][2].text
+                        send_dict["IP"] = root_send[0][3].text
+                        send_dict["DLL_NAME"] = root_send[0][4].text
+                        send_dict["FUNCTION_VERSION"] = root_send[0][5].text
+                        send_dict["CLASSNAME"] = root_send[0][6].text
+                        send_dict["PROCESS_ID"] = root_send[0][7].text
+                        send_dict["QUEUE_NAME"] = root_send[0][8].text
+                        send_dict["LANG"] = root_send[0][9].text
+                        send_dict["TIMESTAMP"] = root_send[0][10].text
+                        send_dict["strCOMMANDID"] = root_send[1][0].text
+                        send_dict["strUSERID"] = root_send[1][1].text
+                        send_dict["strCARRIERID"] = root_send[1][2].text
+                        send_dict["strCARRIERIDTYPE"] = root_send[1][3].text
+                        send_dict["strFROMDEVICE"] = root_send[1][4].text
+                        send_dict["strFROMPORT"] = root_send[1][5].text
+                        send_dict["strTODEVICE"] = root_send[1][6].text
+                        send_dict["strTOPORT"] = root_send[1][7].text
+                        send_dict["strEMPTYCARRIER"] = root_send[1][8].text
+                        send_dict["strPRIORITY"] = root_send[1][9].text
+                        send_dict["strMETHODNAME"] = root_send[1][-1][0].text
+                        send_dict["strFORNAME"] = root_send[1][-1][1].text
+                        send_dict["strCMD"] = root_send[1][-1][2].text
+                        print(send_dict)
+                        # print(send_dict)
+                        EQMOVE_R_xml_data = EQMOVE_R.format(
+                            IP=send_dict["IP"],
+                            QUEUE_NAME=send_dict["QUEUE_NAME"],
+                            CLIENT_HOSTNAME=send_dict["CLIENT_HOSTNAME"],
+                            FUNCTION_VERSION=send_dict["FUNCTION_VERSION"],
+                            PROCESS_ID=send_dict["PROCESS_ID"],
+                            TIMESTAMP=send_dict["TIMESTAMP"],
+                            COMMANDID=send_dict["strCOMMANDID"],
+                            RESULT="OK",
+                            ERRORMESSAGE=""
+                        )
+                        print(EQMOVE_R_xml_data)
 
     else:
         send_dict["send_message_body"] = "no this function"
