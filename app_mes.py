@@ -92,7 +92,7 @@ def recv_msmq():
 
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    function_list = ['STKMOVE', 'STKMOVE_R', '']
+    function_list = ['STKMOVE', 'EQMOVE']
 
     if request.method == 'POST' and request.values['go_to'] == 'STKMOVE':
         # str1 = 'STKMOVE'
@@ -100,7 +100,7 @@ def index():
         return redirect(url_for('stkmove', strFunction=request.form.get('go_to')))
     if request.method == 'POST' and request.values['go_to'] == 'EQMOVE':
         str1 = 'EQMOVE'
-        return render_template('index.html', function_list=function_list, str1=str1)
+        return redirect(url_for('eqmove', strFunction=request.form.get('go_to')))
 
         # return redirect(url_for('index',str1=str1))
         """
@@ -196,6 +196,64 @@ def stkmove(strFunction):
 
     return render_template('stkmove.html', stk_dict=stk_dict)
 
+@app.route('/eqmove/<strFunction>', methods=['GET', 'POST'])
+def eqmove(strFunction):
+    strCARRIERRID_list = ["E002_stock1", "E003_stock1", "E004_stock1"]
+    strFROMDEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
+                        "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
+                        "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
+                        "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
+    stk_dict = {
+        "strFunction": strFunction,
+        "strCOMAND": commandid,
+        "strFORNAME": "ACS",
+        "strUSERID": user_id,
+        "strCARRIERRID": strCARRIERRID_list,
+        "strFROMDEVICE": strFROMDEVICE_list,
+    }
+    """
+    if request.method == 'POST' and request.values['send_to_ACS_Getway']=='send_to_ACS_Getway':
+
+        print("strCOMMANDID_value:"+(request.form.get('strCOMMANDID')).encode('utf-8'))
+        print("strUSERID_value:"+(request.form.get('strUSERID')).encode('utf-8'))
+        print("strCARRIERRID_value:"+(request.form.get('strCARRIERRID')).encode('utf-8'))
+        print("strCARRIERTYPE_value:"+(request.form.get('strCARRIERTYPE')).encode('utf-8'))
+        print("strFROMDEVICE_value:"+(request.form.get('strFROMDEVICE')).encode('utf-8'))
+        print("strFROMPORT_value:"+(request.form.get('strFROMPORT')).encode('utf-8'))
+        print("strTODEVICE_value:"+(request.form.get('strTODEVICE')).encode('utf-8'))
+        print("strTOPORT_value:"+(request.form.get('strTOPORT')).encode('utf-8'))
+        print("strEMPTYCARRIER_value:"+(request.form.get('strEMPTYCARRIER')).encode('utf-8'))
+        print("strPRIORITY_value:"+(request.form.get('strPRIORITY')).encode('utf-8'))
+        print("strMETHODNAME_value:"+(request.form.get('strMETHODNAME')).encode('utf-8'))
+        print("strFORMNAME_value:"+(request.form.get('strFORMNAME')).encode('utf-8'))
+        print("strCMD_value:"+(request.form.get('strCMD')).encode('utf-8'))
+
+        print('function is send')
+        stkmove_xml_data = STKMOVE.format(
+            IP=SendQueueIP,
+            QUEUE_NAME=SendQueueName,
+            CLIENT_HOSTNAME=HostName,
+            FUNCTION_VERSION=Version,
+            PROCESS_ID=PID,
+            TIMESTAMP=Time,
+            COMMANDID=((request.form.get('strCOMMANDID')).encode('utf-8')),
+            USERID=((request.form.get('strUSERID')).encode('utf-8')),
+            CARRIERID=((request.form.get('strCARRIERRID')).encode('utf-8')),
+            FROMDEVICE=((request.form.get('strFROMDEVICE')).encode('utf-8')),
+            FROMPORT=((request.form.get('strFROMPORT')).encode('utf-8')),
+            TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),
+            TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
+            EMPTYCARRIER=((request.form.get('strEMPTYCARRIER')).encode('utf-8')),
+            PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
+        print(stkmove_xml_data)
+        testInfo['stkmove'] = stkmove_xml_data
+        return json.dumps(testInfo)
+        # return render_template('stkmove.html',xml_data=xml_data)
+    """
+
+    # send_message_host_mes(SendQueue,"test","test1")
+
+    return render_template('eqmove.html', stk_dict=stk_dict)
 
 @app.route('/send_function', methods=["GET", "POST"])
 def send_function():
