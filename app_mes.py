@@ -318,7 +318,7 @@ def send_function():
                             send_dict["sned_strMETHODNAME"] = root_send[1][-1][0].text
                             send_dict["sned_strFORNAME"] = root_send[1][-1][1].text
                             send_dict["sned_strCMD"] = root_send[1][-1][2].text
-                            jsonify(send_dict)
+                            return jsonify(send_dict)
     elif(send_method =="EQMOVE"):
         print("eqmove function is send")
         EQMOVE_xml_data = EQMOVE.format(
