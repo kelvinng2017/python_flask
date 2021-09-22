@@ -272,7 +272,7 @@
         var selected_first_iten_arr1_split_stock = selected_first_item_arr[1].split("stock")
         console.log(selected_first_item_arr[0])
         console.log(selected_first_iten_arr1_split_stock[1])
-        port_with_need = PrefixInteger(selected_first_iten_arr1_split_stock[1], 3)
+        port_with_need =selected_first_iten_arr1_split_stock[1]
         console.log(port_with_need)
         $("#strFROMDEVICE").val(selected_first_item_arr[0]);
         $("#strFROMPORT").val(port_with_need);
