@@ -565,6 +565,7 @@ def send_function():
                                 send_dict["strFORNAME"] = root_send[1][-1][1].text
                                 send_dict["strCMD"] = root_send[1][-1][2].text
                                 print(send_dict)
+                                return jsonify(send_dict)
     else:
         send_dict["send_message_body"] = "no this function"
         return jsonify(send_dict)
