@@ -13,6 +13,7 @@
     <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
     <label for="strUSERID">strUSERID:</label>
     <input type="text" id="strUSERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
+    <label for="strCARRIERID">strCARRIERID:</label>
     <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected">
         <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
         {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
