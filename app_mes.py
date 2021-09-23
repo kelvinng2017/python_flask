@@ -93,7 +93,7 @@ def recv_msmq():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     function_list = ['STKMOVE', 'EQMOVE']
-
+    
     if request.method == 'POST' and request.values['go_to'] == 'STKMOVE':
         # str1 = 'STKMOVE'
         # return render_template('index.html',function_list=function_list,str1=str1)

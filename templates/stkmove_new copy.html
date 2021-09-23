@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML SELECTION</title>
+</head>
+<script src="{{url_for('static', filename='jquery-3.6.0.js')}}"></script>
+
+
+
+<body>
+    <!--
+        <h1>function name:{{stk_dict["strFunction"]}}</h1>
+    <form name="form1" method="post" onsubmit="return myCheck()" id="stkmove_form">
+        <label for="strCOMMANDID">strCOMMANDID:</label>
+        <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
+        <label for="strUSERID">strUSERID:</label>
+        <input type="text" id="USERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
+        <label for="strCARRIERID">strCARRIERID:</label>
+        <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected">
+            <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
+            {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
+            <option value="{{strCARRIERRID}}" id="hope_id">{{strCARRIERRID}}</option>
+            {% endfor %}
+        </select><br><br>
+
+
+      
+        <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
+        <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" value="MAGAZINE"><br><br>
+        <label for="strFROMDEVICE">strFROMDEVICE:</label>
+        <input type="text" id="strFROMDEVICE" name="strFROMDEVICE"><br><br>
+        <label for="strFROMPORT">strFROMPORT:</label>
+        <input type="text" id="strFROMPORT" name="strFROMPORT"><br><br>
+        <label for="strTODEVICE">strTODEVICE:</label>
+        <select type="submit" name="strTODEVICE" id="strTODEVICE_selected">
+            <option value="{{stk_dict['strTODEVICE'][0]}}" selected>{{stk_dict["strTODEVICE"][0]}}</option>
+            {% for strTODEVICE in stk_dict["strTODEVICE"][1:] %}
+            <option value="{{strTODEVICE}}" id="hope_id">{{strTODEVICE}}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="strT0PORT">strTOPORT:</label>
+        <input type="text" id="strTOPORT" name="strTOPORT" value="1234"><br><br>
+        <label for="strEMPTYCARRIER">strEMPTYCARRIER:</label>
+        <input type="text" id="strEMPTYCARRIER" name="strEMPTYCARRIER" value="ON"><br><br>
+        <label for="strPRIORITY">strPRIORITY:</label>
+        <input type="text" id="strPRIORITY" name="strPRIORITY" value="1"><br><br>
+        <label for="strMETHODNAME">strMETHODNAME:</label>
+        <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{stk_dict["strFunction"]}}><br><br>
+        <label for="strFORMNAME">strFORMNAME:</label>
+        <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
+        <label for="strCMD">strCMD:</label>
+        <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
+
+        <input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">  
+    </from>  
+    -->
+    <h1>function name:{{stk_dict["strFunction"]}}</h1>
+    <label for="strCOMMANDID">strCOMMANDID:</label>
+    <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
+    <label for="strUSERID">strUSERID:</label>
+    <input type="text" id="strUSERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
+    <label for="strCARRIERID">strCARRIERID:</label>
+    <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected">
+        <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
+        {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
+        <option value="{{strCARRIERRID}}" id="hope_id">{{strCARRIERRID}}</option>
+        {% endfor %}
+    </select><br><br>
+
+
+
+    <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
+    <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" value="MAGAZINE"><br><br>
+    <label for="strFROMDEVICE">strFROMDEVICE:</label>
+    <input type="text" id="strFROMDEVICE" name="strFROMDEVICE" value="ER-A01"><br><br>
+    <label for="strFROMPORT">strFROMPORT:</label>
+    <input type="text" id="strFROMPORT" name="strFROMPORT" value="01"><br><br>
+    <label for="strTODEVICE">strTODEVICE:</label>
+    <select type="submit" name="strTODEVICE" id="strTODEVICE_selected">
+        <option value="{{stk_dict['strTODEVICE'][0]}}" selected>{{stk_dict["strTODEVICE"][0]}}</option>
+        {% for strTODEVICE in stk_dict["strTODEVICE"][1:] %}
+        <option value="{{strTODEVICE}}" id="hope_id">{{strTODEVICE}}</option>
+        {% endfor %}
+    </select><br><br>
+    <label for="strT0PORT">strTOPORT:</label>
+    <input type="text" id="strTOPORT" name="strTOPORT" value="1234"><br><br>
+    <label for="strEMPTYCARRIER">strEMPTYCARRIER:</label>
+    <input type="text" id="strEMPTYCARRIER" name="strEMPTYCARRIER" value="ON"><br><br>
+    <label for="strPRIORITY">strPRIORITY:</label>
+    <input type="text" id="strPRIORITY" name="strPRIORITY" value="1"><br><br>
+    <label for="strMETHODNAME">strMETHODNAME:</label>
+    <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{stk_dict["strFunction"]}}><br><br>
+    <label for="strFORMNAME">strFORMNAME:</label>
+    <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
+    <label for="strCMD">strCMD:</label>
+    <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
+    <button id="send_to_ACS_Getway" type="button">send_to_ACS_Getway</button>
+    <!--<button id="receive_from_MES" type="button">receive_from_MES</button>-->
+
+    <!--<input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">-->
+
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script language="javascript" type="text/javascript">
+
+        $('#receive_from_MES').click(
+            function () {
+                console.log("receive message");
+                var recv_data = new FormData();
+                recv_data.append('strCOMMANDID', $("#strCOMMANDID").val())
+                $.ajax({
+                    type: "POST",
+                    url: $SCRIPT_ROOT + "/receive_function",
+                    data: recv_data,
+                    success: (data) => {
+                        //console.log("驗證:" + data.validate);
+                        //console.log("價錢:" + data.PayAmount);
+                        console.log(data.msmq_label)
+                        console.log(data.msmq_message)
+                        //var txt2 = $("").text(data.replay);
+                        //console.log(txt2)
+                        //$("body").append(txt2)
+                        //alert(data.validate)
+                        //alert(data.Rtnfood)
+                        //也可以用jquery來呈現結果
+                        //food_name = data.Rtnfood
+                        //console.log("食物1:" + food_name)
+                    },
+                    contentType: false,
+                    processData: false,
+                    dataType: "json"
+                });
+            }
+        );
+        $('#send_to_ACS_Getway').click(
+            function () {
+                console.log("function is send");
+                var form_data = new FormData();
+                form_data.append('strCOMMANDID', $("#strCOMMANDID").val());
+                form_data.append('strUSERID', $("#strUSERID").val());
+                form_data.append('strCARRIERRID', $("#strCARRIERRID_selected").val());
+                form_data.append('strCARRIERTYPE', $("#strCARRIERTYPE").val());
+                form_data.append('strFROMDEVICE', $("#strFROMDEVICE").val());
+                form_data.append('strFROMPORT', $("#strFROMPORT").val());
+                form_data.append('strTODEVICE', $("#strTODEVICE_selected").val());
+                form_data.append('strTOPORT', $("#strTOPORT").val());
+                form_data.append('strEMPTYCARRIER', $("#strEMPTYCARRIER").val());
+                form_data.append('strPRIORITY', $("#strPRIORITY").val());
+                form_data.append('strMETHODNAME', $("#strMETHODNAME").val());
+                form_data.append('strFORMNAME', $("#strFORMNAME").val());
+                form_data.append('strCMD', $("#strCMD").val());
+                // form_data.append('xxx', $("#xxx").text());
+                //附帶text也是可以的
+                //var food_name = "";
+                //var food_price = "";
+                $.ajax({
+                    type: "POST",
+                    url: $SCRIPT_ROOT + "/send_function",
+                    data: form_data,
+                    success: (data) => {
+                        if (data.length > 0) {
+                            console.log("大於0")
+                            var json_send = [data[0], data[1]];
+                        }
+                        else {
+                            console.log("小於0")
+                            var json_send = [data];
+                        }
+
+                        for (var i = 0, l = json_send.length; i < l; i++) {
+                            for (var key in json_send[i]) {
+                                console.log(key + ':' + json_send[i][key]);
+                            }
+                        }
+                        //console.log("驗證:" + data.validate);
+                        //console.log("價錢:" + data.PayAmount);
+                        //console.log(data)
+                        //console.log(data.length)
+                        //console.log(data.send_xml)
+                        //var txt2 = $("").text(data.replay);
+                        //console.log(txt2)
+                        //$("body").append(txt2)
+                        //alert(data.validate)
+                        //alert(data.Rtnfood)
+                        //也可以用jquery來呈現結果
+                        //food_name = data.Rtnfood
+                        //console.log("食物1:" + food_name)
+                    },
+                    contentType: false,
+                    processData: false,
+                    dataType: "json"
+                });
+                function show() {
+                    var mydate = new Date();
+
+                    var mytime = mydate.toLocaleTimeString(); //獲取當前時間
+                    time = mydate.toLocaleString();//獲取日期與時間
+                    //console.log("開始時間" + time);
+                    //console.log("receive message");
+                    var recv_data = new FormData();
+                    //recv_data.append('strCOMMANDID', $("#strCOMMANDID").val())
+                    $.ajax({
+                        type: "POST",
+                        url: $SCRIPT_ROOT + "/receive_function",
+                        data: recv_data,
+                        success: (data) => {
+                            if (data.length > 0) {
+                                //console.log("大於0")
+                                var json_recv = [data[0], data[1]];
+                            }
+                            else {
+                                //console.log("小於0")
+                                var json_recv = [data];
+                            }
+
+                            for (var i = 0, l = json_recv.length; i < l; i++) {
+                                for (var key in json_recv[i]) {
+                                    if (json_recv[i][key] !== "msmq no message") {
+                                        if (json_recv[i][key] !== "msmq no label") {
+                                            console.log(key + ':' + json_recv[i][key]);
+                                        }
+
+                                    }
+
+                                }
+                            }
+                            //console.log("驗證:" + data.validate);
+                            //console.log("價錢:" + data.PayAmount);
+                            //console.log(data.message_label)
+                            //console.log(data.message_body)
+                            //var txt2 = $("").text(data.replay);
+                            //console.log(txt2)
+                            //$("body").append(txt2)
+                            //alert(data.validate)
+                            //alert(data.Rtnfood)
+                            //也可以用jquery來呈現結果
+                            //food_name = data.Rtnfood
+                            //console.log("食物1:" + food_name)
+                        },
+                        contentType: false,
+                        processData: false,
+                        dataType: "json"
+                    });
+                    //console.log("結束時間" + time);
+                }
+                setInterval(show, 3000);// 注意函式名沒有引號和括弧！
+                // 使用setInterval(“show()”,3000);會報“缺少物件”
+
+
+            }
+        );
+
+
+
+
+        $(() => {
+            $('#strTOPORT_selected').change(() => {
+                // console.log('change');
+                // console.log($('#cont select option:selected').text());
+                console.log($('#strTOPORT_selected').val());
+            });
+        });
+        console.log("hpe");
+
+
+        function PrefixInteger(num, length) {
+            return (Array(length).join('0') + num).slice(-length);
+        }
+
+        //console.log($("select").val());
+        //});
+
+        //});
+        //$("#strFROMDEVICE").val("hope");
+        $(function () {
+            $('form').bind('submit', function () { //给form标签绑定submit事件
+
+                var i = 0;
+
+                $("input").each(function () { //遍历input标签，判断是否有内容未填写
+
+                    var vl = $(this).val();
+
+                    if (vl == "") {
+                        i = 1;
+
+                    }
+
+                });
+
+                if (i == 1) { //如果有未填写的，则return false阻止提交
+
+                    alert('請填寫');
+
+                    return false;
+
+                }
+
+            });
+
+        });
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
