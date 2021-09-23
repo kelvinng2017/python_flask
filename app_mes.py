@@ -242,7 +242,7 @@ def eqmove(strFunction):
     return render_template('eqmove.html', stk_dict=stk_dict)
 
 @app.route('/emptycarrmove/<strFunction>', methods=['GET', 'POST'])
-def eqmove(strFunction):
+def emptycarrmove(strFunction):
     strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
     
     stk_dict = {
