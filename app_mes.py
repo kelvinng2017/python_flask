@@ -448,6 +448,7 @@ def send_function():
             FROMPORT=((request.form.get('strFROMPORT')).encode('utf-8')),
             TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),
             TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
+            PRIORITY=((request.form.get('strTOPORT')).encode('utf-8')),
         )
         print(CHANGECMD_xml_data)
         #status_of_send = send_msmaq(send_method,CHANGECMD_xml_data)
