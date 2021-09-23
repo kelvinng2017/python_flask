@@ -104,30 +104,10 @@ def index():
     if request.method == 'POST' and request.values['go_to'] == 'EMPTYCARRMOVE':
         str1 = 'EMPTYCARRMOVE'
         return redirect(url_for('emptycarrmove', strFunction=request.form.get('go_to')))
-
-        # return redirect(url_for('index',str1=str1))
-        """
-
-        queue_info.FormatName = "direct=tcp:" + \
-            "192.168.0.91"+"\\PRIVATE$\\"+"kelvinng"
-        queue_send = None
-        try:
-            queue_send = queue_info.Open(2, 0)
-
-            msg = win32com.client.Dispatch("MSMQ.MSMQMessage")
-            msg.Label = "test_label"
-            msg.Body = "test_message"
-
-            msg.Send(queue_send)
-            print("function send")
-        except Exception as e:
-            print("wrong")
-        finally:
-            queue_send.Close()
-        """
-        # return redirect(url_for('stkmove',strFunction=request.form.get('select_function')))
-    # if request.method == 'POST' and request.values['go_to']=='page_three':
-    #   return redirect(url_for('page_three'))
+    if request.method == 'POST' and request.values['go_to'] == 'CHANGECMD':
+        str1 = 'CHANGECMD'
+        return redirect(url_for('changecmd', strFunction=request.form.get('go_to')))
+    
     return render_template('index.html', function_list=function_list)
 
 
@@ -256,6 +236,25 @@ def emptycarrmove(strFunction):
     
 
     return render_template('emptycarrmove.html', stk_dict=stk_dict)
+
+@app.route('/changecmd/<strFunction>', methods=['GET', 'POST'])
+def eqmove(strFunction):
+    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
+    strFROMDEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
+                          "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
+                          "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
+                          "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
+    stk_dict = {
+        "strFunction": strFunction,
+        "strCOMAND": commandid,
+        "strFORNAME": "ACS",
+        "strUSERID": user_id,
+        "strCARRIERRID": strCARRIERRID_list,
+        "strFROMDEVICE": strFROMDEVICE_list,
+    }
+    
+
+    return render_template('changecmd.html', stk_dict=stk_dict)
 
 
 @app.route('/send_function', methods=["GET", "POST"])
@@ -433,7 +432,61 @@ def send_function():
                                 send_dict["strCMD"] = root_send[1][-1][2].text
                                 print(send_dict)
                                 return jsonify(send_dict)
-
+    elif(send_method == "CHANGECMD"):
+        print("changecmd function is send")
+        CHANGECMD_xml_data = CHANGECMD.format(
+            IP=SendQueueIP,
+            QUEUE_NAME=SendQueueName,
+            CLIENT_HOSTNAME=HostName,
+            FUNCTION_VERSION=Version,
+            PROCESS_ID=PID,
+            TIMESTAMP=Time,
+            COMMANDID=((request.form.get('strCOMMANDID')).encode('utf-8')),
+            USERID=((request.form.get('strUSERID')).encode('utf-8')),
+            CARRIERID=((request.form.get('strCARRIERRID')).encode('utf-8')),
+            FROMDEVICE=((request.form.get('strFROMDEVICE')).encode('utf-8')),
+            FROMPORT=((request.form.get('strFROMPORT')).encode('utf-8')),
+            TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),
+            TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
+        )
+        print(CHANGECMD_xml_data)
+        #status_of_send = send_msmaq(send_method,CHANGECMD_xml_data)
+        #send_dict["status_of_send"] = status_of_send
+        send_dict["send_message_label"] = "CHANGECMD"
+        send_dict["send_message_body"] = CHANGECMD_xml_data
+        if(send_dict["msmq_message"][0] == "<"):
+            # print(send_dict["msmq_message"])
+            root_send = etree.fromstring(send_dict["msmq_message"])
+            if(len(root_send) > 1):
+                if(len(root_send[1]) > 1):
+                    if(len(root_send[1][-1]) >= 1):
+                        if(root_send[1][-1][0].text in check_need_to_send_function_list):
+                            if(str(root_send[1][-1][0].text) == "CHANGECMD"):
+                                send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
+                                send_dict["FUNCTION"] = root_send[0][1].text
+                                send_dict["SERVERNAME"] = root_send[0][2].text
+                                send_dict["IP"] = root_send[0][3].text
+                                send_dict["DLL_NAME"] = root_send[0][4].text
+                                send_dict["FUNCTION_VERSION"] = root_send[0][5].text
+                                send_dict["CLASSNAME"] = root_send[0][6].text
+                                send_dict["PROCESS_ID"] = root_send[0][7].text
+                                send_dict["QUEUE_NAME"] = root_send[0][8].text
+                                send_dict["LANG"] = root_send[0][9].text
+                                send_dict["TIMESTAMP"] = root_send[0][10].text
+                                send_dict["strCOMMANDID"] = root_send[1][0].text
+                                send_dict["strUSERID"] = root_send[1][1].text
+                                send_dict["strCARRIERID"] = root_send[1][2].text
+                                send_dict["strCARRIERIDTYPE"] = root_send[1][3].text
+                                send_dict["strFROMDEVICE"] = root_send[1][4].text
+                                send_dict["strFROMPORT"] = root_send[1][5].text
+                                send_dict["strTODEVICE"] = root_send[1][6].text
+                                send_dict["strTOPORT"] = root_send[1][7].text
+                                send_dict["strPRIORITY"] = root_send[1][8].text
+                                send_dict["strMETHODNAME"] = root_send[1][-1][0].text
+                                send_dict["strFORNAME"] = root_send[1][-1][1].text
+                                send_dict["strCMD"] = root_send[1][-1][2].text
+                                print(send_dict)
+                                return jsonify(send_dict)
     else:
         send_dict["send_message_body"] = "no this function"
         return jsonify(send_dict)

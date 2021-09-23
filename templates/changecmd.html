@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>EMPTYCARMOVE</title>
+head>
+<meta charset="UTF-8">
+<title>CHANGECMD</title>
 </head>
 <script src="{{url_for('static', filename='jquery-3.6.0.js')}}"></script>
 
@@ -13,8 +10,23 @@
     <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
     <label for="strUSERID">strUSERID:</label>
     <input type="text" id="strUSERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
+    <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected">
+        <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
+        {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
+        <option value="{{strCARRIERRID}}" id="hope_id">{{strCARRIERRID}}</option>
+        {% endfor %}
+    </select><br><br>
     <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
     <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" value="MAGAZINE"><br><br>
+    <label for="strFROMDEVICE">strFROMDEVICE:</label>
+    <select type="submit" name="strFROMDEVICE" id="strFROMDEVICE_selected">
+        <option value="{{stk_dict['strFROMDEVICE'][0]}}" selected>{{stk_dict["strFROMDEVICE"][0]}}</option>
+        {% for strTODEVICE in stk_dict["strFROMDEVICE"][1:] %}
+        <option value="{{strFROMDEVICE}}" id="hope_id">{{strFROMDEVICE}}</option>
+        {% endfor %}
+    </select><br><br>
+    <label for="strFROMPORT">strFROMPORT:</label>
+    <input type="text" id="strFROMPORT" name="strFROMPORT" value="1234"><br><br>
     <label for="strTODEVICE">strTODEVICE:</label>
     <input type="text" id="strTODEVICE" name="strTODEVICE" value="ER-A01"><br><br>
     <label for="strT0PORT">strTOPORT:</label>
@@ -37,7 +49,10 @@
                 var form_data = new FormData();
                 form_data.append('strCOMMANDID', $("#strCOMMANDID").val());
                 form_data.append('strUSERID', $("#strUSERID").val());
+                form_data.append('strCARRIERRID', $("#strCARRIERRID_selected").val());
                 form_data.append('strCARRIERTYPE', $("#strCARRIERTYPE").val());
+                form_data.append('strFROMDEVICE', $("#strFROMDEVICE_selected").val());
+                form_data.append('strFROMPORT', $("#strFROMPORT").val());
                 form_data.append('strTODEVICE', $("#strTODEVICE").val());
                 form_data.append('strTOPORT', $("#strTOPORT").val());
                 form_data.append('strPRIORITY', $("#strPRIORITY").val());
