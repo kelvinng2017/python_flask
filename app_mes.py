@@ -81,196 +81,119 @@ def recv_msmq():#接收acs傳到mes 的 msmq的資料
             return_message["message_body"] = "msmq no message"#儅mes的 msmq為空的時候設定空body給對應的字典
             queue_receive.Close()#關閉讀取mes的msmq
             return return_message#回傳對應的字典
-    except Exception as e:
+    except Exception as e:#儅mes的msmq連線錯誤時回傳這個else裡面的東西
         print("connect error")
-        return_message["message_label"] = "connect wrong"
-        return_message["message_Sbody"] = "connect wrong"
+        return_message["message_label"] = "connect wrong"#儅mes的 msmq連線錯誤的時候設定空label給對應的字典
+        return_message["message_Sbody"] = "connect wrong"#儅mes的 msmq連線錯誤的時候設定空label給對應的字典
+        return return_message#回傳對應的字典
     finally:
-        queue_receive.Close()
+        queue_receive.Close()#關閉讀取mes的msmq
 
 
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])#index的路由
 def index():
-    function_list = ['STKMOVE', 'EQMOVE']
-
-    if request.method == 'POST' and request.values['go_to'] == 'STKMOVE':
-        # str1 = 'STKMOVE'
-        # return render_template('index.html',function_list=function_list,str1=str1)
+    if request.method == 'POST' and request.values['go_to'] == 'STKMOVE':#如果點擊STKMOVE按鈕就跳轉到stkmove_new頁面和路由
         return redirect(url_for('stkmove_new', strFunction=request.form.get('go_to')))
-    if request.method == 'POST' and request.values['go_to'] == 'EQMOVE':
-        str1 = 'EQMOVE'
+    if request.method == 'POST' and request.values['go_to'] == 'EQMOVE':#如果點擊EQMOVE按鈕就跳轉到eqmove頁面和路由
         return redirect(url_for('eqmove', strFunction=request.form.get('go_to')))
-    if request.method == 'POST' and request.values['go_to'] == 'EMPTYCARRMOVE':
-        str1 = 'EMPTYCARRMOVE'
+    if request.method == 'POST' and request.values['go_to'] == 'EMPTYCARRMOVE':#如果點擊emptycarrmove按鈕就跳轉到emptycarrmove頁面和路由
         return redirect(url_for('emptycarrmove', strFunction=request.form.get('go_to')))
-    if request.method == 'POST' and request.values['go_to'] == 'CHANGECMD':
-        str1 = 'CHANGECMD'
+    if request.method == 'POST' and request.values['go_to'] == 'CHANGECMD':#如果點擊CHANGECMD按鈕就跳轉到changecmd頁面和路由
         return redirect(url_for('changecmd', strFunction=request.form.get('go_to')))
-    if request.method == 'POST' and request.values['go_to'] == 'MOVEREQUEST':
-        str1 = 'MOVEREQUEST'
+    if request.method == 'POST' and request.values['go_to'] == 'MOVEREQUEST':#如果點擊MOVEREQUEST按鈕就跳轉到moverequest頁面和路由
         return redirect(url_for('moverequest', strFunction=request.form.get('go_to')))
-    if request.method == 'POST' and request.values['go_to'] == 'INVDATA':
-        str1 = 'INVDATA'
+    if request.method == 'POST' and request.values['go_to'] == 'INVDATA':#如果點擊INVDATA按鈕就跳轉到invdata頁面和路由
         return redirect(url_for('invdata', strFunction=request.form.get('go_to')))
-    if request.method == 'POST' and request.values['go_to'] == 'MOVESTATUSREQUEST':
-        str1 = 'MOVESTATUSREQUEST'
+    if request.method == 'POST' and request.values['go_to'] == 'MOVESTATUSREQUEST':#如果點擊MOVEREQUEST按鈕就跳轉到movestatusrequest頁面和路由
         return redirect(url_for('movestatusrequest', strFunction=request.form.get('go_to')))
     
-    return render_template('index.html', function_list=function_list)
+    return render_template('index.html')
 
 
-    # return render_template('test_page.html')
-testInfo = {}
 need_change_to_input_list = ["OUTSTK", "LEAVE", "ARRIVE",
-                             "VALIDINPUT", "OUTEQP", "INEQP", "CARR_ALARM", "INSTK", "FOUPINFO"]
+                             "VALIDINPUT", "OUTEQP", "INEQP", "CARR_ALARM", "INSTK", "FOUPINFO"]#ACS會傳到MES的function,如果是傳這些function，MES需要回應相關的function給ACS
 check_need_to_send_function_list = [
-    "STKMOVE", "EQMOVE", "EMPTYCARRMOVE", "CHANGECMD", "MOVEREQUEST", "INVDATA", "MOVESTATUSREQUEST"]
+    "STKMOVE", "EQMOVE", "EMPTYCARRMOVE", "CHANGECMD", "MOVEREQUEST", "INVDATA", "MOVESTATUSREQUEST"]#MES會傳到ACS的function
 need_change_to_send_function_replay_list = [
-    "OUTSTK_R", "LEAVE_R", "ARRIVE_R", "VALIDINPUT_R", "OUTEQP_R", "INEQP_R", "CARR_ALARM_R", "INSTK_R", "FOUPINFO_R"]
+    "OUTSTK_R", "LEAVE_R", "ARRIVE_R", "VALIDINPUT_R", "OUTEQP_R", "INEQP_R", "CARR_ALARM_R", "INSTK_R", "FOUPINFO_R"]#儅ACS傳特定的function時mes需要回傳的function基本就是加底線_R
 
 
-@app.route('/stkmove/<strFunction>', methods=['GET', 'POST'])
-def stkmove(strFunction):
-    strCARRIERRID_list = ["E002_stock1", "E003_stock1", "E004_stock1"]
-    strTODEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
-                        "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
-                        "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
-                        "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
-    stk_dict = {
-        "strFunction": strFunction,
-        "strCOMAND": commandid,
-        "strFORNAME": "ACS",
-        "strUSERID": user_id,
-        "strCARRIERRID": strCARRIERRID_list,
-        "strTODEVICE": strTODEVICE_list,
-    }
-    """
-    if request.method == 'POST' and request.values['send_to_ACS_Getway']=='send_to_ACS_Getway':
 
-        print("strCOMMANDID_value:"+(request.form.get('strCOMMANDID')).encode('utf-8'))
-        print("strUSERID_value:"+(request.form.get('strUSERID')).encode('utf-8'))
-        print("strCARRIERRID_value:"+(request.form.get('strCARRIERRID')).encode('utf-8'))
-        print("strCARRIERTYPE_value:"+(request.form.get('strCARRIERTYPE')).encode('utf-8'))
-        print("strFROMDEVICE_value:"+(request.form.get('strFROMDEVICE')).encode('utf-8'))
-        print("strFROMPORT_value:"+(request.form.get('strFROMPORT')).encode('utf-8'))
-        print("strTODEVICE_value:"+(request.form.get('strTODEVICE')).encode('utf-8'))
-        print("strTOPORT_value:"+(request.form.get('strTOPORT')).encode('utf-8'))
-        print("strEMPTYCARRIER_value:"+(request.form.get('strEMPTYCARRIER')).encode('utf-8'))
-        print("strPRIORITY_value:"+(request.form.get('strPRIORITY')).encode('utf-8'))
-        print("strMETHODNAME_value:"+(request.form.get('strMETHODNAME')).encode('utf-8'))
-        print("strFORMNAME_value:"+(request.form.get('strFORMNAME')).encode('utf-8'))
-        print("strCMD_value:"+(request.form.get('strCMD')).encode('utf-8'))
-
-        print('function is send')
-        stkmove_xml_data = STKMOVE.format(
-            IP=SendQueueIP,
-            QUEUE_NAME=SendQueueName,
-            CLIENT_HOSTNAME=HostName,
-            FUNCTION_VERSION=Version,
-            PROCESS_ID=PID,
-            TIMESTAMP=Time,
-            COMMANDID=((request.form.get('strCOMMANDID')).encode('utf-8')),
-            USERID=((request.form.get('strUSERID')).encode('utf-8')),
-            CARRIERID=((request.form.get('strCARRIERRID')).encode('utf-8')),
-            FROMDEVICE=((request.form.get('strFROMDEVICE')).encode('utf-8')),
-            FROMPORT=((request.form.get('strFROMPORT')).encode('utf-8')),
-            TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),
-            TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
-            EMPTYCARRIER=((request.form.get('strEMPTYCARRIER')).encode('utf-8')),
-            PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')))
-        print(stkmove_xml_data)
-        testInfo['stkmove'] = stkmove_xml_data
-        return json.dumps(testInfo)
-        # return render_template('stkmove.html',xml_data=xml_data)
-    """
-
-    # send_message_host_mes(SendQueue,"test","test1")
-
-    return render_template('stkmove.html', stk_dict=stk_dict)
-
-
-@app.route('/stkmove_new/<strFunction>', methods=['GET', 'POST'])
+@app.route('/stkmove_new/<strFunction>', methods=['GET', 'POST'])#stkmove_new路由
 def stkmove_new(strFunction):
-    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
+    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]#物品名稱
     strTODEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
                         "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
                         "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
-                        "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
+                        "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]#機台名稱
     stk_dict = {
-        "strFunction": strFunction,
-        "strCOMAND": commandid,
-        "strFORNAME": "ACS",
-        "strUSERID": user_id,
-        "strCARRIERRID": strCARRIERRID_list,
-        "strTODEVICE": strTODEVICE_list,
+        "strFunction": strFunction,#function
+        "strCOMAND": commandid,#流水號
+        "strFORNAME": "ACS",#不知道是什麽，文件就這樣設定
+        "strUSERID": user_id,#使用者id
+        "strCARRIERRID": strCARRIERRID_list,#將物品號存放在stk_dict的字典，key值是strCARRIERRID
+        "strTODEVICE": strTODEVICE_list,#將機台存放在stk_dict的字典,key值是strTODEVICE
     }
-
-    # send_message_host_mes(SendQueue,"test","test1")
-
-    return render_template('stkmove_new.html', stk_dict=stk_dict)
+    return render_template('stkmove_new.html', stk_dict=stk_dict)#以字典的形式傳給html的jinja
 
 
-@app.route('/eqmove/<strFunction>', methods=['GET', 'POST'])
+@app.route('/eqmove/<strFunction>', methods=['GET', 'POST'])#eqmove路由
 def eqmove(strFunction):
-    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
+    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]#物品名稱
     strFROMDEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
                           "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
                           "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
-                          "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
+                          "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]#機台名稱
     stk_dict = {
-        "strFunction": strFunction,
-        "strCOMAND": commandid,
-        "strFORNAME": "ACS",
-        "strUSERID": user_id,
-        "strCARRIERRID": strCARRIERRID_list,
-        "strFROMDEVICE": strFROMDEVICE_list,
+        "strFunction": strFunction,#function
+        "strCOMAND": commandid,#流水號
+        "strFORNAME": "ACS",#不知道是什麽，文件就是這樣設定
+        "strUSERID": user_id,#使用者id
+        "strCARRIERRID": strCARRIERRID_list,#將物品號存放在stk_dict的字典,key值是strCARRIERID
+        "strFROMDEVICE": strFROMDEVICE_list,#將機台存放在stk_dict的字典,key值是strFROMDEVICE
     }
-    
+    return render_template('eqmove.html', stk_dict=stk_dict)#以字典的形式傳給html的jinja
 
-    return render_template('eqmove.html', stk_dict=stk_dict)
-
-@app.route('/emptycarrmove/<strFunction>', methods=['GET', 'POST'])
+@app.route('/emptycarrmove/<strFunction>', methods=['GET', 'POST'])#emptycarrmove路由
 def emptycarrmove(strFunction):
-    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
+    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]#物品名稱
     
     stk_dict = {
-        "strFunction": strFunction,
-        "strCOMAND": commandid,
-        "strFORNAME": "ACS",
-        "strUSERID": user_id,
-        "strCARRIERRID": strCARRIERRID_list,
-        
+        "strFunction": strFunction,#function
+        "strCOMAND": commandid,#流水號
+        "strFORNAME": "ACS",#不知道是什麽，文件就這樣設定
+        "strUSERID": user_id,#使用者id
+        "strCARRIERRID": strCARRIERRID_list,#將物品號存放在stk_dict的字典,key值是 strCARRIERID
     }
     
+    return render_template('emptycarrmove.html', stk_dict=stk_dict)#以字典的形式傳給html的jinjia
 
-    return render_template('emptycarrmove.html', stk_dict=stk_dict)
-
-@app.route('/changecmd/<strFunction>', methods=['GET', 'POST'])
+@app.route('/changecmd/<strFunction>', methods=['GET', 'POST'])#changecmd路由
 def changecmd(strFunction):
-    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
+    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]#物品名稱
     strFROMDEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
                           "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
                           "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
-                          "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
+                          "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]#貨架名稱
     stk_dict = {
-        "strFunction": strFunction,
-        "strCOMAND": commandid,
-        "strFORNAME": "ACS",
-        "strUSERID": user_id,
-        "strCARRIERRID": strCARRIERRID_list,
-        "strFROMDEVICE": strFROMDEVICE_list,
+        "strFunction": strFunction,#function
+        "strCOMAND": commandid,#流水號
+        "strFORNAME": "ACS",#不知道是什麽，文件就這樣設定
+        "strUSERID": user_id,#使用者id
+        "strCARRIERRID": strCARRIERRID_list,#將物品號存放在stk_dict的字典key值是strCARRIERID
+        "strFROMDEVICE": strFROMDEVICE_list,#將機台存放在stk_dict的字典,key值是strFROMDEVICE
     }
     
 
-    return render_template('changecmd.html', stk_dict=stk_dict)
+    return render_template('changecmd.html', stk_dict=stk_dict)#以字典的形式傳給html的jinjia
 
-@app.route('/moverequest/<strFunction>', methods=['GET', 'POST'])
+@app.route('/moverequest/<strFunction>', methods=['GET', 'POST'])#moverequest路由
 def moverequest(strFunction):
-    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
+    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]#物品名稱
     strFROMDEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
                           "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
                           "OCR01", "OCR02", "OCR03", "OCR04", "OCR05",
-                          "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]
+                          "WSD119", "WSD137", "WSD156", "WSD157", "WSD158", "WSD162", "WSD163", "WSD645"]#貨架名稱
     stk_dict = {
         "strFunction": strFunction,
         "strCOMAND": commandid,
