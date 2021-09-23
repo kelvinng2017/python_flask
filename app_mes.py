@@ -432,6 +432,7 @@ def receive_function_and_process_function():
     recv_dict["recv_message_body"] = recv_msmq_dict["message_body"]
     if(recv_dict["recv_message_body"][0] == "<"):
         root_recv = etree.fromstring(recv_dict["recv_message_body"])
+        print(root_recv[1][1].tag)
         if(len(root_recv) > 1):
             if(len(root_recv[1][-1]) >= 1):
                 if(root_recv[1][-1][0].text not in need_change_to_input_list):
