@@ -238,7 +238,7 @@ def emptycarrmove(strFunction):
     return render_template('emptycarrmove.html', stk_dict=stk_dict)
 
 @app.route('/changecmd/<strFunction>', methods=['GET', 'POST'])
-def eqmove(strFunction):
+def changecmd(strFunction):
     strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
     strFROMDEVICE_list = ["LSD002", "LSD003", "LSD004", "LSD005", "LSD022", "LSD023",
                           "LSD024", "LSD025", "LSD029", "LSD030", "LSD033",
