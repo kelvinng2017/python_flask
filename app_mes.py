@@ -402,7 +402,7 @@ def send_function():
         print(EMPTYCARRMOVE_xml_data)
         status_of_send = send_msmaq(send_method,EMPTYCARRMOVE_xml_data)
         send_dict["status_of_send"] = status_of_send
-        send_dict["send_message_label"] = "EQMOVE"
+        send_dict["send_message_label"] = "EMPTYCARRMOVE"
         send_dict["send_message_body"] = EMPTYCARRMOVE_xml_data
         if(send_dict["send_message_body"][0] == "<"):
             # print(send_dict["send_message_body"])
