@@ -597,9 +597,9 @@ def send_function():
         #send_dict["status_of_send"] = status_of_send
         send_dict["send_message_label"] = "INVDATA"
         send_dict["send_message_body"] = INVDATA_xml_data
-        if(send_dict["msmq_message"][0] == "<"):
+        if(send_dict["send_message_body"][0] == "<"):
             # print(send_dict["msmq_message"])
-            root_send = etree.fromstring(send_dict["msmq_message"])
+            root_send = etree.fromstring(send_dict["send_message_body"])
             if(len(root_send) > 1):
                 if(len(root_send[1]) > 1):
                     if(len(root_send[1][-1]) >= 1):
