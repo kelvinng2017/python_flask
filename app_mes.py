@@ -296,30 +296,30 @@ def send_function():
                 if(len(root_send[1][-1]) >= 1):
                     if(root_send[1][-1][0].text in check_need_to_send_function_list):
                         if(str(root_send[1][-1][0].text) == "STKMOVE"):
-                            send_dict["sned_CLIENT_HOSTNAME"] = root_send[0][0].text
-                            send_dict["sned_FUNCTION"] = root_send[0][1].text
-                            send_dict["sned_SERVERNAME"] = root_send[0][2].text
-                            send_dict["sned_IP"] = root_send[0][3].text
-                            send_dict["sned_DLL_NAME"] = root_send[0][4].text
-                            send_dict["sned_FUNCTION_VERSION"] = root_send[0][5].text
-                            send_dict["sned_CLASSNAME"] = root_send[0][6].text
-                            send_dict["sned_PROCESS_ID"] = root_send[0][7].text
-                            send_dict["sned_QUEUE_NAME"] = root_send[0][8].text
-                            send_dict["sned_LANG"] = root_send[0][9].text
-                            send_dict["sned_TIMESTAMP"] = root_send[0][10].text
-                            send_dict["sned_strCOMMANDID"] = root_send[1][0].text
-                            send_dict["sned_strUSERID"] = root_send[1][1].text
-                            send_dict["sned_strCARRIERID"] = root_send[1][2].text
-                            send_dict["sned_strCARRIERIDTYPE"] = root_send[1][3].text
-                            send_dict["sned_strFROMDEVICE"] = root_send[1][4].text
-                            send_dict["sned_strFROMPORT"] = root_send[1][5].text
-                            send_dict["sned_strTODEVICE"] = root_send[1][6].text
-                            send_dict["sned_strTOPORT"] = root_send[1][7].text
-                            send_dict["sned_strEMPTYCARRIER"] = root_send[1][8].text
-                            send_dict["sned_strPRIORITY"] = root_send[1][9].text
-                            send_dict["sned_strMETHODNAME"] = root_send[1][-1][0].text
-                            send_dict["sned_strFORNAME"] = root_send[1][-1][1].text
-                            send_dict["sned_strCMD"] = root_send[1][-1][2].text
+                            send_dict["send_CLIENT_HOSTNAME"] = root_send[0][0].text
+                            send_dict["send_FUNCTION"] = root_send[0][1].text
+                            send_dict["send_SERVERNAME"] = root_send[0][2].text
+                            send_dict["send_IP"] = root_send[0][3].text
+                            send_dict["send_DLL_NAME"] = root_send[0][4].text
+                            send_dict["send_FUNCTION_VERSION"] = root_send[0][5].text
+                            send_dict["send_CLASSNAME"] = root_send[0][6].text
+                            send_dict["send_PROCESS_ID"] = root_send[0][7].text
+                            send_dict["send_QUEUE_NAME"] = root_send[0][8].text
+                            send_dict["send_LANG"] = root_send[0][9].text
+                            send_dict["send_TIMESTAMP"] = root_send[0][10].text
+                            send_dict["send_strCOMMANDID"] = root_send[1][0].text
+                            send_dict["send_strUSERID"] = root_send[1][1].text
+                            send_dict["send_strCARRIERID"] = root_send[1][2].text
+                            send_dict["send_strCARRIERIDTYPE"] = root_send[1][3].text
+                            send_dict["send_strFROMDEVICE"] = root_send[1][4].text
+                            send_dict["send_strFROMPORT"] = root_send[1][5].text
+                            send_dict["send_strTODEVICE"] = root_send[1][6].text
+                            send_dict["send_strTOPORT"] = root_send[1][7].text
+                            send_dict["send_strEMPTYCARRIER"] = root_send[1][8].text
+                            send_dict["send_strPRIORITY"] = root_send[1][9].text
+                            send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
+                            send_dict["send_strFORNAME"] = root_send[1][-1][1].text
+                            send_dict["send_strCMD"] = root_send[1][-1][2].text
                             return jsonify(send_dict)
     elif(send_method == "EQMOVE"):
         print("eqmove function is send")
