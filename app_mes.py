@@ -113,6 +113,9 @@ def index():
     if request.method == 'POST' and request.values['go_to'] == 'INVDATA':
         str1 = 'INVDATA'
         return redirect(url_for('invdata', strFunction=request.form.get('go_to')))
+    if request.method == 'POST' and request.values['go_to'] == 'MOVESTATUSREQUEST':
+        str1 = 'MOVESTATUSREQUEST'
+        return redirect(url_for('movestatusrequest', strFunction=request.form.get('go_to')))
     
     return render_template('index.html', function_list=function_list)
 
@@ -290,6 +293,18 @@ def invdata(strFunction):
         "strUSERID": user_id,
     }
     return render_template('invdata.html', stk_dict=stk_dict)
+
+@app.route('/movestatusrequest/<strFunction>', methods=['GET', 'POST'])
+def movestatusrequest(strFunction):
+    strCARRIERRID_list = ["ER-A01_stock1", "ER-B01_stock1"]
+    stk_dict = {
+        "strFunction": strFunction,
+        "strCOMAND": commandid,
+        "strFORNAME": "ACS",
+        "strUSERID": user_id,
+        "strCARRIERRID": strCARRIERRID_list
+    }
+    return render_template('movestatusrequest.html', stk_dict=stk_dict)
 
 
 @app.route('/send_function', methods=["GET", "POST"])
@@ -619,6 +634,51 @@ def send_function():
                                 send_dict["send_strCOMMANDID"] = root_send[1][0].text
                                 send_dict["send_strUSERID"] = root_send[1][1].text
                                 send_dict["send_strSTKID"] = root_send[1][2].text
+                                send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
+                                send_dict["send_strFORNAME"] = root_send[1][-1][1].text
+                                send_dict["send_strCMD"] = root_send[1][-1][2].text
+                                print(send_dict)
+                                return jsonify(send_dict)
+    elif(send_method=="MOVESTATUSREQUEST"):
+        print("movestatusrequest function is send")
+        MOVESTATUSREQUEST_xml_data = MOVESTATUSREQUEST.format(
+            IP=SendQueueIP,
+            QUEUE_NAME=SendQueueName,
+            CLIENT_HOSTNAME=HostName,
+            FUNCTION_VERSION=Version,
+            PROCESS_ID=PID,
+            TIMESTAMP=Time,
+            COMMANDID=((request.form.get('strCOMMANDID')).encode('utf-8')),
+            USERID=((request.form.get('strUSERID')).encode('utf-8')),
+            CARRIERID=((request.form.get('strCARRIERRID')).encode('utf-8')),
+        )
+        print(MOVESTATUSREQUEST_xml_data)
+        #status_of_send = send_msmaq(send_method,MOVESTATUSREQUEST_xml_data)
+        #send_dict["status_of_send"] = status_of_send
+        send_dict["send_message_label"] = "MOVESTATUSREQUEST"
+        send_dict["send_message_body"] = MOVESTATUSREQUEST_xml_data
+        if(send_dict["send_message_body"][0] == "<"):
+            # print(send_dict["send_message_body"])
+            root_send = etree.fromstring(send_dict["send_message_body"])
+            if(len(root_send) > 1):
+                if(len(root_send[1]) > 1):
+                    if(len(root_send[1][-1]) >= 1):
+                        if(root_send[1][-1][0].text in check_need_to_send_function_list):
+                            if(str(root_send[1][-1][0].text) == "MOVESTATUSREQUEST"):
+                                send_dict["send_CLIENT_HOSTNAME"] = root_send[0][0].text
+                                send_dict["send_FUNCTION"] = root_send[0][1].text
+                                send_dict["send_SERVERNAME"] = root_send[0][2].text
+                                send_dict["send_IP"] = root_send[0][3].text
+                                send_dict["send_DLL_NAME"] = root_send[0][4].text
+                                send_dict["send_FUNCTION_VERSION"] = root_send[0][5].text
+                                send_dict["send_CLASSNAME"] = root_send[0][6].text
+                                send_dict["send_PROCESS_ID"] = root_send[0][7].text
+                                send_dict["send_QUEUE_NAME"] = root_send[0][8].text
+                                send_dict["send_LANG"] = root_send[0][9].text
+                                send_dict["send_TIMESTAMP"] = root_send[0][10].text
+                                send_dict["send_strCOMMANDID"] = root_send[1][0].text
+                                send_dict["send_strUSERID"] = root_send[1][1].text
+                                send_dict["send_strCARRIERID"] = root_send[1][2].text
                                 send_dict["send_strMETHODNAME"] = root_send[1][-1][0].text
                                 send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                 send_dict["send_strCMD"] = root_send[1][-1][2].text
