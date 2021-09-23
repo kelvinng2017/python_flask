@@ -1169,32 +1169,32 @@ def receive_function_and_process_function():
                                             send_dict["send_strFORNAME"] = root_send[1][-1][1].text
                                             send_dict["send_strCMD"] = root_send[1][-1][2].text
                                             return jsonify(send_dict, recv_dict)
-                if(str(root_recv[1][1].tag) == "strALARMID"):
-                    print(root_recv[1][1].tag)
-                    recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
-                    recv_dict["recv_FUNCTION"] = root_recv[0][1].text
-                    recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
-                    recv_dict["recv_IP"] = root_recv[0][3].text
-                    recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
-                    recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
-                    recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
-                    recv_dict["recv_PROCESS_ID"] = root_recv[0][7].text
-                    recv_dict["recv_QUEUE_NAME"] = root_recv[0][8].text
-                    recv_dict["recv_LANG"] = root_recv[0][9].text
-                    recv_dict["recv_TIMESTAMP"] = root_recv[0][10].text
-                    recv_dict["recv_strEQCHAR"] = root_recv[1][0].text
-                    recv_dict["recv_strALARMID"] = root_recv[1][1].text
-                    recv_dict["recv_strEQPID"] = root_recv[1][2].text
-                    recv_dict["recv_strALARMLEVEL"] = root_recv[1][3].text
-                    recv_dict["recv_strALARMTYPE"] = root_recv[1][4].text
-                    recv_dict["recv_strALARMCODE"] = root_recv[1][5].text
-                    recv_dict["recv_strALARMMSG"] = root_recv[1][6].text
-                    recv_dict["recv_strALARMSYS"] = root_recv[1][7].text
-                    recv_dict["recv_strALARMSYS"] = root_recv[1][7].text
-                    recv_dict["recv_strALARMTIME"] = root_recv[1][8].text
-                    recv_dict["recv_strDEPT"] = root_recv[1][9].text
-                    recv_dict["recv_strSTAGE"] = root_recv[1][10].text
-                    return jsonify(send_dict, recv_dict)
+            if(str(root_recv[1][1].tag) == "strALARMID"):
+                print(root_recv[1][1].tag)
+                recv_dict["recv_CLIENT_HOSTNAME"] = root_recv[0][0].text
+                recv_dict["recv_FUNCTION"] = root_recv[0][1].text
+                recv_dict["recv_SERVERNAME"] = root_recv[0][2].text
+                recv_dict["recv_IP"] = root_recv[0][3].text
+                recv_dict["recv_DLL_NAME"] = root_recv[0][4].text
+                recv_dict["recv_FUNCTION_VERSION"] = root_recv[0][5].text
+                recv_dict["recv_CLASSNAME"] = root_recv[0][6].text
+                recv_dict["recv_PROCESS_ID"] = root_recv[0][7].text
+                recv_dict["recv_QUEUE_NAME"] = root_recv[0][8].text
+                recv_dict["recv_LANG"] = root_recv[0][9].text
+                recv_dict["recv_TIMESTAMP"] = root_recv[0][10].text
+                recv_dict["recv_strEQCHAR"] = root_recv[1][0].text
+                recv_dict["recv_strALARMID"] = root_recv[1][1].text
+                recv_dict["recv_strEQPID"] = root_recv[1][2].text
+                recv_dict["recv_strALARMLEVEL"] = root_recv[1][3].text
+                recv_dict["recv_strALARMTYPE"] = root_recv[1][4].text
+                recv_dict["recv_strALARMCODE"] = root_recv[1][5].text
+                recv_dict["recv_strALARMMSG"] = root_recv[1][6].text
+                recv_dict["recv_strALARMSYS"] = root_recv[1][7].text
+                recv_dict["recv_strALARMSYS"] = root_recv[1][7].text
+                recv_dict["recv_strALARMTIME"] = root_recv[1][8].text
+                recv_dict["recv_strDEPT"] = root_recv[1][9].text
+                recv_dict["recv_strSTAGE"] = root_recv[1][10].text
+                return jsonify(send_dict, recv_dict)
     else:
         return jsonify(recv_dict)
 
