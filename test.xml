@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="yes"?>
+<CMD dt="struct" Sys="MCS_UTIL" CMD="ALARMREPORT">
+	<HEADER IP="192.168.0.85" PATH="MESQUEUE" dt="struct">
+		<CLIENT_HOSTNAME dt="String">DESKTOP-Q9FSIOF</CLIENT_HOSTNAME>
+		<FUNCTION dt="String">ALARMREPORT</FUNCTION>
+		<SERVER_NAME dt="String">DESKTOP-Q9FSIOF</SERVER_NAME>
+		<IP dt="String">192.168.0.85</IP>
+		<DLL_NAME dt="String">ACS</DLL_NAME>
+		<FUNCTION_VERSION dt="String">1.6</FUNCTION_VERSION>
+		<CLASSNAME dt="String">Class Name</CLASSNAME>
+		<PROCESS_ID dt="String">00000000</PROCESS_ID>
+		<QUEUE_NAME dt="String">MESQUEUE</QUEUE_NAME>
+		<LANG dt="String">zh-TW</LANG>
+		<TIMESTAMP dt="String">2021/09/23 09:22:01</TIMESTAMP>
+	</HEADER>
+	<DATA dt="struct">
+		<strEQCHAR dt="String"></strEQCHAR>
+		<strALARMID dt="String">202109230922010024</strALARMID>
+		<strEQPID dt="String">MR002</strEQPID>
+		<strALARMLEVEL dt="String">L</strALARMLEVEL>
+		<strALARMTYPE dt="String">S</strALARMTYPE>
+		<strALARMCODE dt="String">10011</strALARMCODE>
+		<strALARMMSG dt="String">Fault rack full or allocate fail</strALARMMSG>
+		<strALARMSYS dt="String">ACS</strALARMSYS>
+		<strALARMTIME dt="String">2021/09/23 09:22:01</strALARMTIME>
+		<strDEPT dt="String">MF18</strDEPT>
+		<strSTAGE dt="String">LE</strSTAGE>
+	</DATA>
+</CMD>
