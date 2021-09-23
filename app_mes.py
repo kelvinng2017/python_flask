@@ -110,6 +110,9 @@ def index():
     if request.method == 'POST' and request.values['go_to'] == 'MOVEREQUEST':
         str1 = 'MOVEREQUEST'
         return redirect(url_for('moverequest', strFunction=request.form.get('go_to')))
+    if request.method == 'POST' and request.values['go_to'] == 'INVDATA':
+        str1 = 'INVDATA'
+        return redirect(url_for('invdata', strFunction=request.form.get('go_to')))
     
     return render_template('index.html', function_list=function_list)
 
@@ -277,6 +280,16 @@ def moverequest(strFunction):
     
 
     return render_template('moverequest.html', stk_dict=stk_dict)
+
+@app.route('/invdata/<strFunction>', methods=['GET', 'POST'])
+def invdata(strFunction):
+    stk_dict = {
+        "strFunction": strFunction,
+        "strCOMAND": commandid,
+        "strFORNAME": "ACS",
+        "strUSERID": user_id,
+    }
+    return render_template('invdata.html', stk_dict=stk_dict)
 
 
 @app.route('/send_function', methods=["GET", "POST"])
@@ -561,6 +574,51 @@ def send_function():
                                 send_dict["strTODEVICE"] = root_send[1][6].text
                                 send_dict["strTOPORT"] = root_send[1][7].text
                                 send_dict["strPRIORITY"] = root_send[1][8].text
+                                send_dict["strMETHODNAME"] = root_send[1][-1][0].text
+                                send_dict["strFORNAME"] = root_send[1][-1][1].text
+                                send_dict["strCMD"] = root_send[1][-1][2].text
+                                print(send_dict)
+                                return jsonify(send_dict)
+    elif(send_method=="INVDATA"):
+        print('INVDATA function is send')
+        INVDATA_xml_data = INVDATA.format(
+            IP=SendQueueIP,
+            QUEUE_NAME=SendQueueName,
+            CLIENT_HOSTNAME=HostName,
+            FUNCTION_VERSION=Version,
+            PROCESS_ID=PID,
+            TIMESTAMP=Time,
+            COMMANDID=((request.form.get('strCOMMANDID')).encode('utf-8')),
+            USERID=((request.form.get('strUSERID')).encode('utf-8')),
+            STKID=((request.form.get('strSTKID')).encode('utf-8')),
+        )
+        print(INVDATA_xml_data)
+        #status_of_send = send_msmaq(send_method,INVDATA_xml_data)
+        #send_dict["status_of_send"] = status_of_send
+        send_dict["send_message_label"] = "INVDATA"
+        send_dict["send_message_body"] = INVDATA_xml_data
+        if(send_dict["msmq_message"][0] == "<"):
+            # print(send_dict["msmq_message"])
+            root_send = etree.fromstring(send_dict["msmq_message"])
+            if(len(root_send) > 1):
+                if(len(root_send[1]) > 1):
+                    if(len(root_send[1][-1]) >= 1):
+                        if(root_send[1][-1][0].text in check_need_to_send_function_list):
+                            if(str(root_send[1][-1][0].text) == "INVDATA"):
+                                send_dict["CLIENT_HOSTNAME"] = root_send[0][0].text
+                                send_dict["FUNCTION"] = root_send[0][1].text
+                                send_dict["SERVERNAME"] = root_send[0][2].text
+                                send_dict["IP"] = root_send[0][3].text
+                                send_dict["DLL_NAME"] = root_send[0][4].text
+                                send_dict["FUNCTION_VERSION"] = root_send[0][5].text
+                                send_dict["CLASSNAME"] = root_send[0][6].text
+                                send_dict["PROCESS_ID"] = root_send[0][7].text
+                                send_dict["QUEUE_NAME"] = root_send[0][8].text
+                                send_dict["LANG"] = root_send[0][9].text
+                                send_dict["TIMESTAMP"] = root_send[0][10].text
+                                send_dict["strCOMMANDID"] = root_send[1][0].text
+                                send_dict["strUSERID"] = root_send[1][1].text
+                                send_dict["strSTKID"] = root_send[1][2].text
                                 send_dict["strMETHODNAME"] = root_send[1][-1][0].text
                                 send_dict["strFORNAME"] = root_send[1][-1][1].text
                                 send_dict["strCMD"] = root_send[1][-1][2].text
