@@ -457,7 +457,7 @@ def send_function():
         send_dict["send_message_body"] = CHANGECMD_xml_data
         if(send_dict["send_message_body"][0] == "<"):
             # print(send_dict["msmq_message"])
-            root_send = etree.fromstring(send_dict["msmq_message"])
+            root_send = etree.fromstring(send_dict["send_message_body"])
             if(len(root_send) > 1):
                 if(len(root_send[1]) > 1):
                     if(len(root_send[1][-1]) >= 1):
