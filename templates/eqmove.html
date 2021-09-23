@@ -28,7 +28,7 @@
     <label for="strFROMDEVICE">strFROMDEVICE:</label>
     <select type="submit" name="strFROMDEVICE" id="strFROMDEVICE_selected">
         <option value="{{stk_dict['strFROMDEVICE'][0]}}" selected>{{stk_dict["strFROMDEVICE"][0]}}</option>
-        {% for strTODEVICE in stk_dict["strFROMDEVICE"][1:] %}
+        {% for strFROMDEVICE in stk_dict["strFROMDEVICE"][1:] %}
         <option value="{{strFROMDEVICE}}" id="hope_id">{{strFROMDEVICE}}</option>
         {% endfor %}
     </select><br><br>
