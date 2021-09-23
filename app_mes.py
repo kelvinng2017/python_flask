@@ -394,7 +394,7 @@ def send_function():
             TIMESTAMP=Time,
             COMMANDID=((request.form.get('strCOMMANDID')).encode('utf-8')),
             USERID=((request.form.get('strUSERID')).encode('utf-8')),
-            CARRIERID=((request.form.get('strCARRIERRID')).encode('utf-8')),
+            CARRIERID=((request.form.get('strCARRIERTYPE')).encode('utf-8')),
             TODEVICE=((request.form.get('strTODEVICE')).encode('utf-8')),
             TOPORT=((request.form.get('strTOPORT')).encode('utf-8')),
             PRIORITY=((request.form.get('strPRIORITY')).encode('utf-8')),
