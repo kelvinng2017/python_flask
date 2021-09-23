@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for, make_response, Response, jsonify
 import json
 import random as rand
@@ -11,29 +13,27 @@ from function import *
 from lxml import etree
 app = Flask(__name__)
 app.debug = True
-timeNow = datetime.datetime.now()
-Time = timeNow.strftime("%Y/%m/%d %H:%M:%S")
+timeNow = datetime.datetime.now()#讀取系統現在的時間戳
+Time = timeNow.strftime("%Y/%m/%d %H:%M:%S")#將時間戳轉爲YYYY/MM/DD HH:mm:SS格式
 commandid = timeNow.strftime("%Y%m%d%H%M%S")+"" + \
-    '{:0>4}'.format(rand.randint(1, 9999))
-f = open('config.json', 'r')
-data_json = json.load(f)
-queue_info = win32com.client.Dispatch("MSMQ.MSMQQueueInfo")
-user_id = ""+'{:0>4}'.format(rand.randint(1, 9999))
-f = open('config.json', 'r')
+    '{:0>4}'.format(rand.randint(1, 9999))#將時間戳加1到9999隨機數組成commandid隨機數的格式的是四個0，例如0001、0011、0111、1111
+queue_info = win32com.client.Dispatch("MSMQ.MSMQQueueInfo") #用win32com套件和msmq傳連
+user_id = ""+'{:0>4}'.format(rand.randint(1, 9999))#使用1到9999隨機數做爲user_id
+f = open('config.json', 'r')#讀取config json 文件
 data = json.load(f)
-SendQueueName = data.get('SendQueueName', 'MESQueue')
-RecvQueueName = data.get('RecvQueueName', 'ACSBridgeQueue')
-ErrQueueName = data.get('ErrQueueName', 'MESQueue')
-SendQueueIP = data.get('SendQueueIP', "tcp:192.168.0.90")
-RecvQueueIP = data.get('RecvQueueIP', "tcp:192.168.0.85")
-ErrQueueIP = data.get('ErrQueueIP', "tcp:192.168.0.91")
-SendQueue = "direct=" + SendQueueIP + "\\PRIVATE$\\" + SendQueueName
-RecvQueue = "direct=" + RecvQueueIP + "\\PRIVATE$\\" + RecvQueueName
-ErrQueue = "direct=" + ErrQueueIP + "\\PRIVATE$\\" + ErrQueueName
-HostName = os.getenv('COMPUTERNAME')
-Version = '1.6'
-PID = '00000000'
-f.close()
+SendQueueName = data.get('SendQueueName', 'ACSBridgeQueue') #ACS的Queue的名字，沒有就用挂號第二個參數代替
+RecvQueueName = data.get('RecvQueueName', 'MESQueue') #MES的Queue的名字，沒有就用挂號第二個參數代替
+ErrQueueName = data.get('ErrQueueName', 'MESQueue')#MES的Queue的名字，沒有就用挂號第二個參數代替
+SendQueueIP = data.get('SendQueueIP', "tcp:192.168.0.85")#ACS的Queue的IP，沒有就用挂號第二個參數代替
+RecvQueueIP = data.get('RecvQueueIP', "tcp:192.168.0.93")#MES的Queue的IP，沒有就用挂號第二個參數代替
+ErrQueueIP = data.get('ErrQueueIP', "tcp:192.168.0.93")#MES的Queue的IP，沒有就用挂號第二個參數代替
+SendQueue = "direct=" + SendQueueIP + "\\PRIVATE$\\" + SendQueueName #ACS的Queue的路徑，沒有就用挂號第二個參數代替
+RecvQueue = "direct=" + RecvQueueIP + "\\PRIVATE$\\" + RecvQueueName #MES的Queue的路徑，沒有就用挂號第二個參數代替
+ErrQueue = "direct=" + ErrQueueIP + "\\PRIVATE$\\" + ErrQueueName #MES的Queue的路徑，沒有就用挂號第二個參數代替
+HostName = os.getenv('COMPUTERNAME') #MES主機的名字
+Version = '1.6' #版本號碼
+PID = '00000000' #隨便設定的PROCESS_ID
+f.close()#關閉json讀取
 
 
 def Response_headers(content):
@@ -42,46 +42,45 @@ def Response_headers(content):
     return resp
 
 
-def send_msmaq(label, message):
-    queue_info.FormatName = SendQueue
+def send_msmaq(label, message):#發送msmq的函數第一個參數是要傳送的label，第二個參數是要傳送的message body
+    queue_info.FormatName = SendQueue #設定要傳去mes的msmq路徑
     queue_send = None
     try:
-        queue_send = queue_info.Open(2, 0)
+        queue_send = queue_info.Open(2, 0) #發送queue參數是(2,0)
 
         msg = win32com.client.Dispatch("MSMQ.MSMQMessage")
-        msg.Label = label
-        msg.Body = message
+        msg.Label = label #將label的值賦予msg.Label
+        msg.Body = message #將message的值賦予msg.Body
 
-        msg.Send(queue_send)
-        return "msmq has  send"
+        msg.Send(queue_send) #使用Send函數將label和body傳到acs 的 msmq
+        return "msmq has  send" #成功傳送會回傳msmq has send
     except Exception as e:
-        return "connect wrong"
+        return "connect wrong" #如果acs的msmq連線有問題改爲回傳connect wrong
     finally:
-        queue_send.Close()
-        print(SendQueue)
+        queue_send.Close() #關閉msmq的連線
 
 
-def recv_msmq():
-    queue_info.FormatName = RecvQueue
+def recv_msmq():#接收acs傳到mes 的 msmq的資料
+    queue_info.FormatName = RecvQueue # 設定mes的msqm資料
     queue_receive = None
     try:
-        queue_receive = queue_info.Open(1, 0)
+        queue_receive = queue_info.Open(1, 0) #接收資料的參數是(1,0)
         print("i am here recv2")
-        timeout_sec = 1.0
+        timeout_sec = 1.0 #這個是設定要用多少秒去等待acs轉資料到mes的msmq如果超過這個時間mes的msmq還是空就回傳else的資料
         return_message = {}
-        if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):
+        if queue_receive.Peek(pythoncom.Empty, pythoncom.Empty, timeout_sec * 1000):#所設定的等待時間内恰好用資料就進入這個if
             # log.logger.debug("server has send message to client")
-            msg = queue_receive.Receive()
-            return_message["message_label"] = (msg.Label).encode("utf-8")
-            return_message["message_body"] = (msg.Body).encode("utf-8")
-            queue_receive.Close()
-            return return_message
-        else:
-            Time2 = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-            return_message["message_label"] = "msmq no label"
-            return_message["message_body"] = "msmq no message"
-            queue_receive.Close()
-            return return_message
+            msg = queue_receive.Receive() #使用這個函數去消費掉mes裡面第一個的msmq
+            return_message["message_label"] = (msg.Label).encode("utf-8")#將msmq分解成label,並儲存到對應的字典
+            return_message["message_body"] = (msg.Body).encode("utf-8")#將msmq分解成body，並儲存到對應的字典
+            queue_receive.Close()#關閉讀取mes的msmq
+            return return_message # 回傳對於字典
+        else:#如果超過特定時間mes的msmq還是空就回傳else裡面的東西
+            Time2 = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")#可以不用理會
+            return_message["message_label"] = "msmq no label"#儅mes的 msmq為空的時候設定空label給對應的字典
+            return_message["message_body"] = "msmq no message"#儅mes的 msmq為空的時候設定空body給對應的字典
+            queue_receive.Close()#關閉讀取mes的msmq
+            return return_message#回傳對應的字典
     except Exception as e:
         print("connect error")
         return_message["message_label"] = "connect wrong"
