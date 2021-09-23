@@ -255,7 +255,7 @@ def emptycarrmove(strFunction):
     }
     
 
-    return render_template('eqmove.html', stk_dict=stk_dict)
+    return render_template('emptycarrmove.html', stk_dict=stk_dict)
 
 
 @app.route('/send_function', methods=["GET", "POST"])
