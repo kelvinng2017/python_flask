@@ -1,39 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'header.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Home page</title>
-</head>
+{% block head %}
+  <title>Dashboard - Gyro Test Tools</title>
+  <link rel="stylesheet" type="text/css" href="../static/css/dashborad.css">
+{% endblock %}
 
-
-
-
-
-<body>
-
-    <form method="post">
-
-        <label for="function-name">select function:</label>
-
-
-
-
-        <button type="submit" name="go_to" value="STKMOVE">STKMOVE</button>
-        <button type="submit" name="go_to" value="EQMOVE">EQMOVE</button>
-        <button type="submit" name="go_to" value="EMPTYCARRMOVE">EMPTYCARRMOVE</button>
-        <button type="submit" name="go_to" value="CHANGECMD">CHANGECMD</button>
-        <button type="submit" name="go_to" value="MOVEREQUEST">MOVEREQUEST</button>
-        <button type="submit" name="go_to" value="INVDATA">INVDATA</button>
-        <button type="submit" name="go_to" value="MOVESTATUSREQUEST">MOVESTATUSREQUEST</button>
-
-    </form>
-
-
-</body>
-
-</html>
-
-</body>
-
-</html>
+{% block body %}
+    <div class="row mb-3 d-flex justify-content-between">
+        <div class="col-10">
+            <h1 class="h3">Transfer Test</h1>
+        </div>
+        <div class="col-2 text-end">
+            <button class="btn btn-primary" onclick="location.reload()">Refresh</button>
+        </div>
+    </div>
+    <div class="row">
+        {% include 'transfer_button.html' %}
+    </div>
+{% endblock %}

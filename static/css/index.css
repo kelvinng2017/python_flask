@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #323b44;
+  overflow:hidden;
+  color:#ddd;
+}
+
+a {
+  text-decoration: none;
+}
+
+body::-webkit-scrollbar {
+  display: none
+}
+
+#bodyShell{
+  width:100%;
+  display:flex;
+  height:100vh;
+}
+
+#left{
+  background-color: #eee;
+  width:50px;
+  flex:none;
+}
+
+#home{
+  text-align: center;
+  height:70px;
+}
+
+#home img{
+  width: 40px;
+  height:40px;
+}
+
+#menu {
+  height: 100%;
+  width: 50px;
+}
+
+.selection {
+  height: 50px;
+}
+
+.selection div {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 25px;
+  user-select: none;
+  color:#555;
+}
+
+.selection.active,
+.selection:hover {
+  box-shadow: 0 0px 10px 0.5px #FFFFFF inset;
+  text-shadow: 0 0 10px #FFFFFF;
+  cursor: pointer;
+}
+
+#right{
+  background-color: #323b44;
+  flex:1;
+}
+
+#top{
+  background-color: #343c49;
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+/*
+#top>div{
+  height:100%;
+}*/
+
+#topLeft{
+  display:flex;
+  justify-content:flex-start;
+}
+
+#topRight{
+  display:flex;
+  justify-content:flex-end;
+}
+
+#top>div>div{
+  margin:5px;
+}
+
+.icon{
+  width:50px;
+  height:50px;
+  font-size: 20px;
+  color:#fff;
+}
+.icon>div {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  user-select: none;
+}
+.icon.active, .icon:hover {
+  cursor: pointer;
+}
+
+
+.topIcon{
+  font-size: 20px;
+  color:#fff;
+  padding:5px;
+}
+
+.topIcon.active, .topIcon:hover {
+  cursor: pointer;
+}
+
+#stockerState{
+  display:flex;
+  font-size: 20px;
+  font-weight:bold;
+}
+#stockerState>div{
+  margin:3px;
+}
+#stateSC{
+  color:inherit;
+}
+
+
+#bottom{
+  background-color: #343c49;
+  text-align:center;
+  padding: 5px;
+  color:#aaa;
+  position:fixed;
+  bottom:0px;
+  width:100%;
+}
+
+
+
+

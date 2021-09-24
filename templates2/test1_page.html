@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML SELECTION</title>
+</head>
+<script src="{{url_for('static', filename='jquery-3.6.0.js')}}"></script>
+
+
+
+<body>
+
+
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script language="javascript" type="text/javascript">
+        var json1 = { a: 'SB', c: '東東', o: 123 }
+        var json2 = { a: 'app', c: 'bca', o: 'cttt' }
+        var json = [json1, json2];
+        for (var i = 0, l = json.length; i < l; i++) {
+            for (var key in json[i]) {
+                console.log(key + ':' + json[i][key]);
+            }
+        }
+
+
+
+
+
+
+
+
+    </script>
+
+</body>

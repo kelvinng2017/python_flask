@@ -1,29 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'header.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>INVDATA</title>
-</head>
-<script src="{{url_for('static', filename='jquery-3.6.0.js')}}"></script>
+{% block head %}
+<title>Transfer Test - Gyro Test Tools</title>
+<link rel="stylesheet" type="text/css" href="../static/css/dashborad.css">
+<script src="{{ url_for('static', filename='js/datatables.js') }}" type="text/javascript"></script>
+{% endblock %}
 
-<body>
-    <h1>function name:{{stk_dict["strFunction"]}}</h1>
-    <label for="strCOMMANDID">strCOMMANDID:</label>
-    <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
-    <label for="strUSERID">strUSERID:</label>
-    <input type="text" id="strUSERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
-    <label for="strSTKID">strSTKID:</label>
-    <input type="text" id="strSTKID" name="strSTKID" value="ER-A01"><br><br>
-    <label for="strMETHODNAME">strMETHODNAME:</label>
-    <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{stk_dict["strFunction"]}}><br><br>
-    <label for="strFORMNAME">strFORMNAME:</label>
-    <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
-    <label for="strCMD">strCMD:</label>
-    <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
-    <button id="send_to_ACS_Getway" type="button">send_to_ACS_Getway</button>
+{% block body %}
+<div class="row mb-3 d-flex justify-content-between">
+    <div class="col-10">
+        <h1 class="h3">Transfer Test</h1>
+    </div>
+    <div class="col-2 text-end">
+        <button class="btn btn-primary" onclick="location.reload()">Refresh</button>
+    </div>
+</div>
+<div class="row">
+    {% include 'transfer_button.html' %}
+    <div class="col-10">
+        <h1>function name:{{stk_dict["strFunction"]}}</h1>
+        <label for="strCOMMANDID">strCOMMANDID:</label>
+        <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
+        <label for="strUSERID">strUSERID:</label>
+        <input type="text" id="strUSERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
+        <label for="strSTKID">strSTKID:</label>
+        <input type="text" id="strSTKID" name="strSTKID" value="ER-A01"><br><br>
+        <label for="strMETHODNAME">strMETHODNAME:</label>
+        <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{stk_dict["strFunction"]}}><br><br>
+        <label for="strFORMNAME">strFORMNAME:</label>
+        <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
+        <label for="strCMD">strCMD:</label>
+        <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
+        <button id="send_to_ACS_Getway" type="button">send_to_ACS_Getway</button>
+        <!-- Logs -->
 
-    <script type=text/javascript>
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h2 class="h3">Logs</h2>
+                        </div>
+                        <div class="card-body pt-0">
+                            <table id="datatables-reponsive" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="col-1">No.</th>
+                                        <th>Function</th>
+                                        <th>Message</th>
+                                        <th>CARRIERID</th>
+                                        <th>COMMANDID</th>
+                                        <th>FORNAME</th>
+                                        <th>TIMESTAMP</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>STKMOVE</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>2021/09/23 11:17:02</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#centeredModalPrimary">
+                                                Details
+                                            </button>
+                                            <div class="modal fade" id="centeredModalPrimary" tabindex="-1"
+                                                role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title fs-3">Details</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body m-3">
+                                                            <p class="mb-0 fs-6" id="datalogs">
+                                                                STKMOVE:310 send_message_label:ARRIVE_R <br>
+                                                                STKMOVE:310 send_strCMD:ARRIVE_R<br>
+                                                                STKMOVE:310 send_strCOMMANDID:202109231117020002<br>
+                                                                STKMOVE:310 send_strERRORMESSAGE:null<br>
+                                                                STKMOVE:310 send_strFORNAME:ACS<br>
+                                                                STKMOVE:310 send_strMETHODNAME:ARRIVE_R<br>
+                                                                STKMOVE:310 send_strRESULT:OK<br>
+                                                                STKMOVE:310 recv_CLASSNAME:Class Name<br>
+                                                                STKMOVE:310 recv_CLIENT_HOSTNAME:DESKTOP-Q9FSIOF<br>
+                                                                STKMOVE:310 recv_DLL_NAME:ACS<br>
+                                                                STKMOVE:310 recv_FUNCTION:ARRIVE<br>
+                                                                STKMOVE:310 recv_FUNCTION_VERSION:1.6<br>
+                                                                STKMOVE:310 recv_IP:192.168.0.85<br>
+                                                                STKMOVE:310 recv_LANG:zh-TW<br>
+                                                                STKMOVE:310 recv_PROCESS_ID:00000000<br>
+                                                                STKMOVE:310 recv_QUEUE_NAME:MESQUEUE<br>
+                                                                STKMOVE:310 recv_SERVERNAME:DESKTOP-Q9FSIOF<br>
+                                                                STKMOVE:310 recv_TIMESTAMP:2021/09/23 11:17:02
+                                                            </p>
+                                                            <hr>
+                                                            <p class="mb-0 fs-6" id="redatalogs">
+                                                                TEST
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type=text/javascript>
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         $('#send_to_ACS_Getway').click(
             function () {
@@ -177,9 +274,4 @@
 
         });
     </script>
-
-
-
-</body>
-
-</html>
+        {% endblock %}

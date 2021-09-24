@@ -1,113 +1,198 @@
-<!DOCTYPE html>
-<html>
+{% extends 'header.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>HTML SELECTION</title>
-</head>
-<script src="{{url_for('static', filename='jquery-3.6.0.js')}}"></script>
+{% block head %}
+    <title>Dashboard - Gyro Test Tools</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/dashborad.css">
+{% endblock %}
 
-
-
-<body>
-    <!--
-        <h1>function name:{{stk_dict["strFunction"]}}</h1>
-    <form name="form1" method="post" onsubmit="return myCheck()" id="stkmove_form">
-        <label for="strCOMMANDID">strCOMMANDID:</label>
-        <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
-        <label for="strUSERID">strUSERID:</label>
-        <input type="text" id="USERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
-        <label for="strCARRIERID">strCARRIERID:</label>
-        <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected">
-            <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
-            {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
-            <option value="{{strCARRIERRID}}" id="hope_id">{{strCARRIERRID}}</option>
-            {% endfor %}
-        </select><br><br>
-
-
-      
-        <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
-        <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" value="MAGAZINE"><br><br>
-        <label for="strFROMDEVICE">strFROMDEVICE:</label>
-        <input type="text" id="strFROMDEVICE" name="strFROMDEVICE"><br><br>
-        <label for="strFROMPORT">strFROMPORT:</label>
-        <input type="text" id="strFROMPORT" name="strFROMPORT"><br><br>
-        <label for="strTODEVICE">strTODEVICE:</label>
-        <select type="submit" name="strTODEVICE" id="strTODEVICE_selected">
-            <option value="{{stk_dict['strTODEVICE'][0]}}" selected>{{stk_dict["strTODEVICE"][0]}}</option>
-            {% for strTODEVICE in stk_dict["strTODEVICE"][1:] %}
-            <option value="{{strTODEVICE}}" id="hope_id">{{strTODEVICE}}</option>
-            {% endfor %}
-        </select><br><br>
-        <label for="strT0PORT">strTOPORT:</label>
-        <input type="text" id="strTOPORT" name="strTOPORT" value="1234"><br><br>
-        <label for="strEMPTYCARRIER">strEMPTYCARRIER:</label>
-        <input type="text" id="strEMPTYCARRIER" name="strEMPTYCARRIER" value="ON"><br><br>
-        <label for="strPRIORITY">strPRIORITY:</label>
-        <input type="text" id="strPRIORITY" name="strPRIORITY" value="1"><br><br>
-        <label for="strMETHODNAME">strMETHODNAME:</label>
-        <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{stk_dict["strFunction"]}}><br><br>
-        <label for="strFORMNAME">strFORMNAME:</label>
-        <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
-        <label for="strCMD">strCMD:</label>
-        <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
-
-        <input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">  
-    </from>  
-    -->
-    <h1>function name:{{stk_dict["strFunction"]}}</h1>
-    <label for="strCOMMANDID">strCOMMANDID:</label>
-    <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
-    <label for="strUSERID">strUSERID:</label>
-    <input type="text" id="strUSERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
-    <label for="strCARRIERID">strCARRIERID:</label>
-    <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected">
-        <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
-        {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
-        <option value="{{strCARRIERRID}}" id="hope_id">{{strCARRIERRID}}</option>
-        {% endfor %}
-    </select><br><br>
+{% block body %}
+    <div class="row mb-3 d-flex justify-content-between">
+        <div class="col-10">
+            <h1 class="h3 m1-3">Transfer Test</h1>
+        </div>
+        <div class="col-2 text-end">
+            <button class="btn btn-primary" onclick="location.reload()">Refresh</button>
+        </div>
+    </div>
+    <div class="row">
+        {% include 'transfer_button.html' %}
+        <div class="col-10">
+            <!--
+            <h1>function name:{{stk_dict["strFunction"]}}</h1>
+        <form name="form1" method="post" onsubmit="return myCheck()" id="stkmove_form">
+            <label for="strCOMMANDID">strCOMMANDID:</label>
+            <input type="text" id="strCOMMANDID" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}><br><br>
+            <label for="strUSERID">strUSERID:</label>
+            <input type="text" id="USERID" name="strUSERID" value={{stk_dict["strUSERID"]}}><br><br>
+            <label for="strCARRIERID">strCARRIERID:</label>
+            <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected">
+                <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
+                {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
+                <option value="{{strCARRIERRID}}" id="hope_id">{{strCARRIERRID}}</option>
+                {% endfor %}
+            </select><br><br>
 
 
+        
+            <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
+            <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" value="MAGAZINE"><br><br>
+            <label for="strFROMDEVICE">strFROMDEVICE:</label>
+            <input type="text" id="strFROMDEVICE" name="strFROMDEVICE"><br><br>
+            <label for="strFROMPORT">strFROMPORT:</label>
+            <input type="text" id="strFROMPORT" name="strFROMPORT"><br><br>
+            <label for="strTODEVICE">strTODEVICE:</label>
+            <select type="submit" name="strTODEVICE" id="strTODEVICE_selected">
+                <option value="{{stk_dict['strTODEVICE'][0]}}" selected>{{stk_dict["strTODEVICE"][0]}}</option>
+                {% for strTODEVICE in stk_dict["strTODEVICE"][1:] %}
+                <option value="{{strTODEVICE}}" id="hope_id">{{strTODEVICE}}</option>
+                {% endfor %}
+            </select><br><br>
+            <label for="strT0PORT">strTOPORT:</label>
+            <input type="text" id="strTOPORT" name="strTOPORT" value="1234"><br><br>
+            <label for="strEMPTYCARRIER">strEMPTYCARRIER:</label>
+            <input type="text" id="strEMPTYCARRIER" name="strEMPTYCARRIER" value="ON"><br><br>
+            <label for="strPRIORITY">strPRIORITY:</label>
+            <input type="text" id="strPRIORITY" name="strPRIORITY" value="1"><br><br>
+            <label for="strMETHODNAME">strMETHODNAME:</label>
+            <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{stk_dict["strFunction"]}}><br><br>
+            <label for="strFORMNAME">strFORMNAME:</label>
+            <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
+            <label for="strCMD">strCMD:</label>
+            <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
 
-    <label for="strCARRIERTYPE">strCARRIERTYPE:</label>
-    <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" value="MAGAZINE"><br><br>
-    <label for="strFROMDEVICE">strFROMDEVICE:</label>
-    <input type="text" id="strFROMDEVICE" name="strFROMDEVICE"><br><br>
-    <label for="strFROMPORT">strFROMPORT:</label>
-    <input type="text" id="strFROMPORT" name="strFROMPORT"><br><br>
-    <label for="strTODEVICE">strTODEVICE:</label>
-    <select type="submit" name="strTODEVICE" id="strTODEVICE_selected">
-        <option value="{{stk_dict['strTODEVICE'][0]}}" selected>{{stk_dict["strTODEVICE"][0]}}</option>
-        {% for strTODEVICE in stk_dict["strTODEVICE"][1:] %}
-        <option value="{{strTODEVICE}}" id="hope_id">{{strTODEVICE}}</option>
-        {% endfor %}
-    </select><br><br>
-    <label for="strT0PORT">strTOPORT:</label>
-    <input type="text" id="strTOPORT" name="strTOPORT" value="1234"><br><br>
-    <label for="strEMPTYCARRIER">strEMPTYCARRIER:</label>
-    <input type="text" id="strEMPTYCARRIER" name="strEMPTYCARRIER" value="ON"><br><br>
-    <label for="strPRIORITY">strPRIORITY:</label>
-    <input type="text" id="strPRIORITY" name="strPRIORITY" value="1"><br><br>
-    <label for="strMETHODNAME">strMETHODNAME:</label>
-    <input type="text" id="strMETHODNAME" name="strMETHODNAME" value={{stk_dict["strFunction"]}}><br><br>
-    <label for="strFORMNAME">strFORMNAME:</label>
-    <input type="text" id="strFORMNAME" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}><br><br>
-    <label for="strCMD">strCMD:</label>
-    <input type="text" id="strCMD" name="strCMD" value={{stk_dict["strFunction"]}}><br><br>
-    <button id="send_to_ACS_Getway" type="button">send_to_ACS_Getway</button>
-    <!--<button id="receive_from_MES" type="button">receive_from_MES</button>-->
+            <input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">  
+        </from>  
+        -->
+        <div class="collapse" id="collapseStkmove">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="h3">Function Name: {{stk_dict["strFunction"]}}</h1>
+                </div>
+                <div class="card-body py-0">
+                    <div class="row">
+                        <div class="mb-3 col-3">
+                            <div class="mb-2">
+                                <label for="strCOMMANDID" class="form-label">strCOMMANDID:</label>
+                                <input type="text" id="strCOMMANDID" class="form-control" name="strCOMMANDID" value={{stk_dict["strCOMAND"]}}>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strFROMDEVICE">strFROMDEVICE:</label>
+                                <input type="text" id="strFROMDEVICE" class="form-control" name="strFROMDEVICE">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strEMPTYCARRIER">strEMPTYCARRIER:</label>
+                                <input type="text" id="strEMPTYCARRIER" class="form-control" name="strEMPTYCARRIER" value="ON">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strCMD">strCMD:</label>
+                                <input type="text" id="strCMD" class="form-control" name="strCMD" value={{stk_dict["strFunction"]}}>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-3">
+                            <div class="mb-2">
+                                <label for="strUSERID" class="form-label">strUSERID:</label>
+                                <input type="text" id="strUSERID" class="form-control" name="strUSERID" value={{stk_dict["strUSERID"]}}>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strFROMPORT">strFROMPORT:</label>
+                                <input type="text" id="strFROMPORT" class="form-control" name="strFROMPORT">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strPRIORITY">strPRIORITY:</label>
+                                <input type="text" id="strPRIORITY" class="form-control" name="strPRIORITY" value="1">
+                            </div>
+                        </div>
+                        <div class="mb-3 col-3">
+                            <div class="mb-2">
+                                <label for="strCARRIERID" class="form-label">strCARRIERID:</label>
+                                <select type="submit" name="strCARRIERRID" id="strCARRIERRID_selected" class="form-select">
+                                    <option value="{{stk_dict['strCARRIERRID'][0]}}" selected>{{stk_dict["strCARRIERRID"][0]}}</option>
+                                    {% for strCARRIERRID in stk_dict["strCARRIERRID"][1:] %}
+                                    <option value="{{strCARRIERRID}}" id="hope_id">{{strCARRIERRID}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strTODEVICE">strTODEVICE:</label>
+                                <select type="submit" class="form-select" name="strTODEVICE" id="strTODEVICE_selected">
+                                    <option value="{{stk_dict['strTODEVICE'][0]}}" selected>{{stk_dict["strTODEVICE"][0]}}</option>
+                                    {% for strTODEVICE in stk_dict["strTODEVICE"][1:] %}
+                                    <option value="{{strTODEVICE}}" id="hope_id">{{strTODEVICE}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strMETHODNAME">strMETHODNAME:</label>
+                                <input type="text" id="strMETHODNAME" class="form-control" name="strMETHODNAME" value={{stk_dict["strFunction"]}}>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-3">
+                            <div class="mb-2">
+                                <label class="form-label" for="strCARRIERTYPE">strCARRIERTYPE:</label>
+                                <input type="text" id="strCARRIERTYPE" name="strCARRIERTYPE" class="form-control" value="MAGAZINE">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strT0PORT">strTOPORT:</label>
+                                <input type="text" id="strTOPORT" class="form-control" name="strTOPORT" value="1234">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="strFORMNAME">strFORMNAME:</label>
+                                <input type="text" id="strFORMNAME" class="form-control" name="strFORMNAME" value={{stk_dict["strFORNAME"]}}>
+                            </div>
+                            <div class="mb-2">
+                                <label for="" form-label>　</label>
+                                <button id="send_to_ACS_Getway" type="button" class="btn btn-primary w-100">send_to_ACS_Getway</button>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+                
+            
+            <!--<button id="receive_from_MES" type="button">receive_from_MES</button>-->
 
-    <!--<input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">-->
+            <!--<input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">-->
+            </div>
+        </div>
+        <div class="collapse" id="collapseEqmove">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="h3">Function Name: EQMOVE</h1>
+                </div>
+                <div class="card-body py-0">
+                    <div class="row">
 
+                    </div>                
+                </div>
+                
+            
+            <!--<button id="receive_from_MES" type="button">receive_from_MES</button>-->
+
+            <!--<input type="submit" value="send_to_ACS_Getway" name="send_to_ACS_Getway">-->
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="h3">Logs</h1>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div id="datalogs"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type=text/javascript>
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
 
     <script language="javascript" type="text/javascript">
-
         $('#receive_from_MES').click(
             function () {
                 console.log("receive message");
@@ -248,6 +333,11 @@
                     });
                     //console.log("結束時間" + time);
                 }
+                
+
+                document.getElementById("datalogs").innerHTML = form_data
+
+
                 setInterval(show, 3000);// 注意函式名沒有引號和括弧！
                 // 使用setInterval(“show()”,3000);會報“缺少物件”
 
@@ -360,7 +450,4 @@
 
 
     </script>
-
-</body>
-
-</html>
+{% endblock %}

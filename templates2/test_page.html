@@ -1,0 +1,449 @@
+{% extends 'shell.html' %}
+
+{% block head %}
+<title>Slot | Tool | Gyro Systems Inc.</title>
+{% endblock %}
+{% block body1 %}
+<div class="content-page">
+	<div class="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 mt-3">
+					<h2 class="text-center">Transfer from erack to EQ</h2>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-12">
+					<h2>INPUT</h2>
+				</div>
+				<div class="col-12">
+					<form name="form1" method="post" onsubmit="return myCheck()">
+						<div class="row">
+							<div class="col">
+								<label for="strCARRIERID">strCARRIERID:</label>
+								<input class="form-control" type="text" id="strCARRIERID" name="strCARRIERID"><br><br>
+							</div>
+							<div class="col">
+								<label for="strFROMDEVICE">strFROMDEVICE:</label>
+								<input class="form-control" type="text" id="strFROMDEVICE" name="strFROMDEVICE"><br>
+							</div>
+							<div class="col">
+								<label for="strFROMPORT">strFROMPORT:</label>
+								<input class="form-control" type="text" id="strFROMPORT" name="strFROMPORT"><br><br>
+							</div>
+							<div class="col">
+								<label for="strTOPORT">strTOPORT:</label>
+								<input class="form-control" type="text" id="strTOPORT" name="strTOPORT"><br><br>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-secondary float-right" value="SEND STKMOVE TO ACS"
+							name="SEND STKMOVE TO ACS">SEND STKMOVE TO ACS</button>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 mt-3">
+					<h2>RESULT</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<div class="row border py-3">
+						<div class="col-3">
+							<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+								aria-orientation="vertical">
+								<a class="nav-link border-bottom active" id="stkmove-tab" data-toggle="pill"
+									href="#stkmove-content" role="tab" aria-controls="stkmove-content"
+									aria-selected="true">STKMOVE</a>
+								<a class="nav-link border-bottom" id="outstk-r-tab" data-toggle="pill"
+									href="#outstk-r-content" role="tab" aria-controls="outstk-r-content"
+									aria-selected="false">OUTSTK_R</a>
+								<a class="nav-link border-bottom" id="leave-r-tab" data-toggle="pill"
+									href="#leave-r-content" role="tab" aria-controls="leave-r-content"
+									aria-selected="false">LEAVE_R</a>
+								<a class="nav-link border-bottom" id="arrive-r-tab" data-toggle="pill"
+									href="#arrive-r-content" role="tab" aria-controls="arrive-r-content"
+									aria-selected="false">ARRIVE_R</a>
+								<a class="nav-link border-bottom" id="validinput-r-tab" data-toggle="pill"
+									href="#validinput-r-content" role="tab" aria-controls="validinput-r-content"
+									aria-selected="false">VALIDINPUT_R</a>
+								<a class="nav-link border-bottom" id="ineqp-r-tab" data-toggle="pill"
+									href="#ineqp-r-content" role="tab" aria-controls="ineqp-r-content"
+									aria-selected="false">INEQP_R</a>
+							</div>
+						</div>
+						<div class="col-9">
+							<div class="tab-content" id="v-pills-tabContent">
+								<div class="tab-pane fade show active p-3 rounded bg-opacity bg-green"
+									id="stkmove-content" role="tabpanel" aria-labelledby="stkmove-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-blue" id="outstk-r-content"
+									role="tabpanel" aria-labelledby="outstk-r-content-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-yellow" id="leave-r-content"
+									role="tabpanel" aria-labelledby="leave-r-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-yellow" id="arrive-r-content"
+									role="tabpanel" aria-labelledby="arrive-r-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-purple" id="validinput-r-content"
+									role="tabpanel" aria-labelledby="validinput-r-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-purple" id="ineqp-r-content"
+									role="tabpanel" aria-labelledby="ineqp-r-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="row border py-3">
+						<div class="col-9">
+							<div class="tab-content" id="v-pills-tabContent">
+								<div class="tab-pane fade show active p-3 rounded bg-opacity bg-green"
+									id="stkmove-r-content" role="tabpanel" aria-labelledby="stkmove-r-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-blue" id="outstk-content"
+									role="tabpanel" aria-labelledby="outstk-content-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-yellow" id="leave-content"
+									role="tabpanel" aria-labelledby="leave-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-yellow" id="arrive-content"
+									role="tabpanel" aria-labelledby="arrive-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-purple" id="validinput-content"
+									role="tabpanel" aria-labelledby="validinput-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+								<div class="tab-pane fade p-3 rounded bg-opacity bg-purple" id="ineqp-content"
+									role="tabpanel" aria-labelledby="ineqp-tab">
+									<p>
+										2020-09-07 10:05:19,598 - synapse.storage.txn - 402 - DEBUG - GET-0- [TXN START]
+										{get_rooms_for_user_with_stream_ordering-13}
+										2020-09-07 10:05:19,600 - synapse.storage.txn - 491 - DEBUG - GET-0- [TXN END]
+										{get_rooms_for_user_with_stream_ordering-13} 0.001584 sec
+										Fatal Python error: Cannot recover from stack overflow.
+
+										Thread 0x00007f9d257fa700 (most recent call first):
+										File "/usr/local/lib/python3.7/threading.py", line 296 in wait
+										File "/usr/local/lib/python3.7/queue.py", line 170 in get
+										File "/usr/local/lib/python3.7/site-packages/sentry_sdk/worker.py", line 132 in
+										_target
+										File "/usr/local/lib/python3.7/threading.py", line 870 in run
+										File
+										"/usr/local/lib/python3.7/site-packages/sentry_sdk/integrations/threading.py",
+										line
+										67 in run
+										File "/usr/local/lib/python3.7/threading.py", line 926 in _bootstrap_inner
+										File "/usr/local/lib/python3.7/threading.py", line 890 in _bootstrap
+
+
+
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+								aria-orientation="vertical">
+								<a class="nav-link border-bottom active" id="stkmove-r-tab" data-toggle="pill"
+									href="#stkmove-r-content" role="tab" aria-controls="stkmove-r-content"
+									aria-selected="true">STKMOVE_R</a>
+								<a class="nav-link border-bottom" id="outstk-tab" data-toggle="pill"
+									href="#outstk-content" role="tab" aria-controls="outstk-content"
+									aria-selected="false">OUTSTK</a>
+								<a class="nav-link border-bottom" id="leave-tab" data-toggle="pill"
+									href="#leave-content" role="tab" aria-controls="leave-content"
+									aria-selected="false">LEAVE</a>
+								<a class="nav-link border-bottom" id="arrive-tab" data-toggle="pill"
+									href="#arrive-content" role="tab" aria-controls="arrive-content"
+									aria-selected="false">ARRIVE</a>
+								<a class="nav-link border-bottom" id="validinput-tab" data-toggle="pill"
+									href="#validinput-content" role="tab" aria-controls="validinput-content"
+									aria-selected="false">VALIDINPUT</a>
+								<a class="nav-link border-bottom" id="ineqp-tab" data-toggle="pill"
+									href="#ineqp-content" role="tab" aria-controls="ineqp-content"
+									aria-selected="false">INEQP</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer">
+		27 November 2020 © Gyro Systems Inc.
+	</footer>
+</div>
+
+{% endblock %}
+
+{% block script1 %}
+<!--<script src="/js/ap/tool/simulation.js"></script>-->
+<script type="text/javascript">
+	function myCheck() {
+		for (var i = 0; i < document.form1.elements.length - 1; i++) {
+			if (document.form1.elements[i].value == "") {
+				alert("cannot empty");
+				document.form1.elements[i].focus();
+				return false;
+			}
+		}
+		return true;
+	}
+</script>
+{% endblock %}
